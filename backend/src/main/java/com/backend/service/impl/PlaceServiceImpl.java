@@ -1,0 +1,45 @@
+package com.backend.service.impl;
+
+import com.backend.entity.Place;
+import com.backend.repository.PlaceRepository;
+import com.backend.repository.SeanceRepository;
+import com.backend.service.PlaceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PlaceServiceImpl implements PlaceService {
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
+    @Autowired
+    private SeanceRepository seanceRepository;
+
+    @Override
+    public Place getPlaceById(Long id) {
+        return placeRepository.findByIdPlace(id);
+    }
+
+    @Override
+    public List<Place> getAllPlaces() {
+        return placeRepository.findAll();
+    }
+
+    @Override
+    public Place savePlace(Place place) {
+        return placeRepository.save(place);
+    }
+
+    @Override
+    public List<Place> getAllBySeance(Long id) {
+        return placeRepository.findAllBySeance(seanceRepository.findByIdSeance(id));
+    }
+
+    @Override
+    public void deletePlaceById(Long id) {
+        placeRepository.deleteById(id);
+    }
+}

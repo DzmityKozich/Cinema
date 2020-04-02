@@ -1,0 +1,49 @@
+package com.backend.controller;
+
+import com.backend.entity.Seance;
+import com.backend.service.SeanceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+@RestController
+@RequestMapping("/seances")
+public class SeanceController {
+
+    @Autowired
+    private SeanceService seanceService;
+
+    @GetMapping("")
+    private List<Seance> getAllSeances(){
+        return seanceService.getAllSeances();
+    }
+
+    @GetMapping("/{id}")
+    private Seance getSeanceBuId(@PathVariable Long id){
+        return seanceService.getSeanceById(id);
+    }
+
+    @GetMapping("/date/{date}/time/{time}")
+    private List<Seance> getSeancesByTimeAndDate(@PathVariable String time, @PathVariable String date){
+        return seanceService.getAllSeancesByDateAndTime(LocalDate.parse(date), LocalTime.parse(time));
+    }
+
+    @GetMapping("/movies/{id}")
+    private List<Seance> getSeancesByMovie(@PathVariable Long id){
+        return seanceService.getSeancesByMovie(id);
+    }
+
+    @PostMapping("")
+    private Seance saveSeance(@RequestBody Seance seance){
+        return seanceService.saveSeance(seance);
+    }
+
+    @DeleteMapping("/{id}")
+    private void deleteSeanceById(@PathVariable Long id){
+        seanceService.deleteSeanceById(id);
+    }
+
+}

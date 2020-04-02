@@ -1,0 +1,9 @@
+mat-toolbar{
+  color: aqua;
+  font-family: 'Sriracha', cursive;
+  font-size: 30px;
+  box-shadow: 0 0 10px #000;
+}
+i{
+  margin-right: 4px;
+}
