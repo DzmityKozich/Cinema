@@ -1,0 +1,35 @@
+header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 690px;
+  background: url(C:/Projects/courses/cinema_img_5.jpg) no-repeat;
+}
+
+/* title */
+.title{
+  font-size: 150px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Sriracha', cursive;
+  text-shadow: 9px 12px 13px black;
+}
+
+.title__up{
+  font-size: 75px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Sriracha', cursive;
+  text-shadow: 9px 12px 13px black;
+}
+
+.title__down{
+  font-size: 75px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Sriracha', cursive;
+  text-shadow: 9px 12px 13px black;
+}
