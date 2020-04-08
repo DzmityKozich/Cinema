@@ -10,13 +10,7 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
-
   ngOnInit() {
-  }
-
-  close() {
-    this.sidenav.close();
   }
 
 }

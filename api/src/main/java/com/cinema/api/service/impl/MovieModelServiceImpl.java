@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class MovieModelServiceImpl implements MovieModelService {
 
@@ -13,6 +17,13 @@ public class MovieModelServiceImpl implements MovieModelService {
     private String backend;
 
     private final String path = "/movies/";
+
+    @Override
+    public List<MovieModel> getAllMovieModels() {
+        RestTemplate restTemplate = new RestTemplate();
+        MovieModel[] movieModels = restTemplate.getForObject(backend + path, MovieModel[].class);
+        return movieModels == null ? Collections.emptyList() : Arrays.asList(movieModels);
+    }
 
     @Override
     public MovieModel getMovieModelById(Long id) {

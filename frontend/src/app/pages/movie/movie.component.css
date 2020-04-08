@@ -1,0 +1,36 @@
+/* Movie */
+.movie{
+  display: grid;
+  grid-template-columns: 25% 75%;
+  gap: 1%;
+  align-items: stretch;
+  margin-top: 124px;
+}
+
+.movie__name{
+  text-align: center;
+  color: #ffffff;
+  font-size: 60px;
+  font-weight: 500;
+  /* background-color: red; */
+}
+
+.movie__img{
+  justify-self: center;
+  box-shadow: 6px 4px 18px 0px #000000;
+  /* background-color: green; */
+}
+
+.movie__genre{
+  justify-self: center;
+  font-size: 25px;
+  color: #ffffff;
+  cursor: pointer;
+  /* background-color: blue; */
+}
+
+.movie__des{
+  font-size: 25px;
+  color: #ffffff;
+  /* background-color: yellow; */
+}

@@ -4,6 +4,7 @@ import com.backend.entity.Movie;
 import com.backend.repository.MovieRepository;
 import com.backend.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
+        return movieRepository.findAll(Sort.by("idMovie").descending());
     }
 
     @Override

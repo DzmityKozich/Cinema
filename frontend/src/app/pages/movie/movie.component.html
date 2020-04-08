@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="movie">
+    <div class="movie__img"><img src="http://placehold.it/200x300" class="movie__img"></div>
+    <div class="movie__name">
+      {{ movieModel.name }}
+      <div><button mat-button>Buy ticket!</button></div>
+    </div>
+    <div class="movie__genre">{{ movieModel.genre }}</div>
+    <div class="movie__des">{{ movieModel.description }}</div>
+  </div>
+</div>
+<app-footer></app-footer>

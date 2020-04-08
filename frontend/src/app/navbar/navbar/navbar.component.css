@@ -2,6 +2,9 @@ mat-toolbar{
   padding: 0 3%;
   box-shadow: 0 0 15px #000;
   position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 
 i{
@@ -9,6 +12,8 @@ i{
 }
 
 span{
+  outline: none;
+  text-decoration: none;
   cursor: pointer;
   margin-left: 1.5%;
 }

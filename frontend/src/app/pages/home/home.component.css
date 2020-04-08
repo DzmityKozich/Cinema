@@ -1,0 +1,64 @@
+p{
+  outline: none;
+}
+
+/* Rubric */
+.rubric{
+  color: #ffffff;
+  font-size: 60px;
+  margin-top: 60px;
+  text-align: center;
+  font-family: 'Kalam', cursive;
+  font-weight: 700;
+}
+
+.rubric:after{
+  content: "";
+  display: block;
+  height: 3px;
+  width: 60px;
+  background-color: #9e174d;
+  margin: auto;
+}
+
+/* Movie */
+.movie{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.movie__img{
+  /* box-shadow: 7px 10px 10px 7px #000000; */
+  background: 200px 300px #9e174d;
+}
+
+.movie__name{
+  font-size: 30px;
+  font-weight: 500;
+  /* margin: 15px auto; */
+  cursor: pointer;
+  text-align: center;
+}
+
+.movie__item{
+  width: 30%;
+}
+
+.movie__genre{
+  font-size: 25px;
+  font-weight: 250;
+  /* margin: 15px auto; */
+  cursor: pointer;
+}
+
+.movie__img:hover{
+  box-shadow: 12px 12px 12px 0px #9e174d;
+  transform: translate(-10px, -10px);
+  transition: transform 0.2s linear;
+  cursor: pointer;
+}
+
+

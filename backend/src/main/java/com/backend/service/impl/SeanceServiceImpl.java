@@ -7,6 +7,7 @@ import com.backend.repository.PlaceRepository;
 import com.backend.repository.SeanceRepository;
 import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -10,6 +11,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     CommonModule,
     MatToolbarModule,
     MatSidenavModule,
+    RouterModule
   ],
   exports: [NavbarComponent]
 })
