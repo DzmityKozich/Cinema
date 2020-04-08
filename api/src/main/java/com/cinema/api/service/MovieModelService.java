@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MovieModelService {
     MovieModel getMovieModelById(Long id);
-    List<MovieModel> getAllMovieModels();
+    List<MovieModel> getAllMovieModels(int pageNumber, int pageSize);
 }

@@ -12,8 +12,8 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllMovieModels(): Observable<MovieModel[]> {
-    return this.http.get<MovieModel[]>(this.path);
+  public getAllMovieModels(pageNumber: number, pageSize: number): Observable<MovieModel[]> {
+    return this.http.get<MovieModel[]>(this.path + '/?pageNumber=' + pageNumber + '&pageSize=' + pageSize);
   }
 
   public getMovieModelById(id: number): Observable<MovieModel> {

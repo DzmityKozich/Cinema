@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getAllMovieModels(): void {
-    this.subscriptions.push(this.movieService.getAllMovieModels()
+    this.subscriptions.push(this.movieService.getAllMovieModels(0, 3)
       .subscribe(arg => this.movies = arg)
     );
   }
