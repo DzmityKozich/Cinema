@@ -17,7 +17,7 @@ public class MovieController {
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     private List<Movie> getAllMovies(@RequestParam int pageNumber, @RequestParam int pageSize){
-        Page<Movie> page = movieService.getAllMovies(pageNumber, pageSize);
+        Page<Movie> page = movieService.getAllMoviesByPage(pageNumber, pageSize);
         if(pageNumber > page.getTotalPages()){
             return null;
         }

@@ -17,11 +17,11 @@ export class HomeComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
-    this.getAllMovieModels();
+    this.getMovieModels();
   }
 
-  private getAllMovieModels(): void {
-    this.subscriptions.push(this.movieService.getAllMovieModels(0, 3)
+  private getMovieModels(): void {
+    this.subscriptions.push(this.movieService.getAllMovieModelsByPage(0, 3)
       .subscribe(arg => this.movies = arg)
     );
   }

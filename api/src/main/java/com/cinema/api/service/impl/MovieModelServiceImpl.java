@@ -21,7 +21,7 @@ public class MovieModelServiceImpl implements MovieModelService {
     @Override
     public List<MovieModel> getAllMovieModels(int pageNumber, int pageSize) {
         RestTemplate restTemplate = new RestTemplate();
-        MovieModel[] movieModels = restTemplate.getForObject(backend + path + "/?pageNumber=" + pageNumber + "&pageSize=" + pageSize, MovieModel[].class);
+        MovieModel[] movieModels = restTemplate.getForObject(backend + path + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize, MovieModel[].class);
         return movieModels == null ? Collections.emptyList() : Arrays.asList(movieModels);
     }
 

@@ -10,9 +10,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MovieComponent } from './movie/movie.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {MatButtonModule} from '@angular/material/button';
+import { AllMoviesComponent } from './all-movies/all-movies.component';
 
 @NgModule({
-  declarations: [HomeComponent, MovieComponent, NotFoundComponent],
+  declarations: [HomeComponent, MovieComponent, NotFoundComponent, AllMoviesComponent],
   imports: [
     CommonModule,
     NavbarModule,

@@ -8,6 +8,6 @@ import java.util.List;
 public interface MovieService {
     Movie getById(Long id);
     Movie saveMovie(Movie movie);
-    Page<Movie> getAllMovies(int pageNumber, int pageSize);
+    Page<Movie> getAllMoviesByPage(int pageNumber, int pageSize);
     void deleteMovieById(Long id);
 }

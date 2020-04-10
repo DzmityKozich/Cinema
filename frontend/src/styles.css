@@ -9,15 +9,16 @@
   padding: 0;
 }
 
-html,
+/* html,
 body {
   height: 100%;
-}
+}*/
 
 body {
+  height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color:  #2e2e2e; /*#1b1f23*/
+  background-color:  #2e2e2e;
 }
 
 .container{

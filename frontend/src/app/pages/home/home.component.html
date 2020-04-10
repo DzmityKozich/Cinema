@@ -2,11 +2,11 @@
 <app-header></app-header>
 
 <div class="container">
-  <p class="rubric">New!</p>
+  <p class="rubric" [routerLink]="'/movies'">Movies</p>
   <div class="movie">
     <div *ngFor="let m of movies" class="movie__item">
-      <img src="http://placehold.it/200x300" class="movie__img" [routerLink]="['movies', m.idMovie]">
-      <p class="movie__name" [routerLink]="['movies', m.idMovie]">{{ m.name }}</p>
+      <img src="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', m.idMovie]">
+      <p class="movie__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</p>
       <p class="movie__genre">{{ m.genre }}</p>
     </div>
   </div>

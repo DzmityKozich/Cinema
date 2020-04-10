@@ -29,7 +29,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movie> getAllMovies(int pageNumber, int pageSize) {
+    public Page<Movie> getAllMoviesByPage(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("idMovie").descending());
         return movieRepository.findAll(pageable);
     }

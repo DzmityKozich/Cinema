@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <p class="rubric">Movies</p>
+  <div class="all-movies">
+    <div *ngFor="let m of movies">
+      <img src="http://placehold.it/200x300" class="all-movies__img" [routerLink]="['/movies', m.idMovie]">
+      <div class="all-movies__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</div>
+      <div class="all-movies__genre">{{ m.genre }}</div>
+    </div>
+  </div>
+  <span (click)="previousPage()">Previous</span>
+  <span>{{ pageNumber + 1 }}</span>
+  <span (click)="nextPage()">Next</span>
+</div>
+
+<app-footer></app-footer>
