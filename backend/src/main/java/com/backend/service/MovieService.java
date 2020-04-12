@@ -1,6 +1,7 @@
 package com.backend.service;
 
 import com.backend.entity.Movie;
+import com.backend.pagination.PaginatorPage;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -8,6 +9,6 @@ import java.util.List;
 public interface MovieService {
     Movie getById(Long id);
     Movie saveMovie(Movie movie);
-    Page<Movie> getAllMoviesByPage(int pageNumber, int pageSize);
+    PaginatorPage<Movie> getAllMoviesByPage(int pageNumber, int pageSize);
     void deleteMovieById(Long id);
 }

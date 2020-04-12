@@ -1,8 +1,10 @@
 package com.backend.controller;
 
 import com.backend.entity.Cinema;
+import com.backend.pagination.PaginatorPage;
 import com.backend.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +16,9 @@ public class CinemaController {
     @Autowired
     private CinemaService cinemaService;
 
-    @GetMapping("")
-    private List<Cinema> getAllCinemas(){
-        return cinemaService.getAllCinemas();
+    @GetMapping(params = {"pageNumber", "pageSize"})
+    private PaginatorPage<Cinema> getAllCinemas(@RequestParam int pageNumber, @RequestParam int pageSize){
+        return cinemaService.getAllCinemasByPage(pageNumber, pageSize);
     }
 
     @GetMapping("/{id}")

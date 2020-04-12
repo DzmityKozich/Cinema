@@ -26,30 +26,25 @@ p{
   color: #9e174d;
 }
 
-/* Movie */
-.movie{
+.rubric__ittem{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: 50px;
   text-align: center;
   color: #ffffff;
 }
 
-.movie__img{
-  /* box-shadow: 7px 10px 10px 7px #000000; */
-  background: 200px 300px #9e174d;
+/* Movie, Cinema */
+.movie__item, .cinema__item{
+  width: 30%;
 }
 
-.movie__name{
+.movie__name, .cinema__name{
   font-size: 30px;
   font-weight: 500;
   /* margin: 15px auto; */
   cursor: pointer;
   text-align: center;
-}
-
-.movie__item{
-  width: 30%;
 }
 
 .movie__genre{
@@ -64,6 +59,16 @@ p{
   transform: translate(-10px, -10px);
   transition: transform 0.2s linear;
   cursor: pointer;
+}
+
+.cinema__img{
+  cursor: pointer;
+}
+
+.cinema__img:hover{
+  box-shadow: 12px 12px 12px 0px #9e174d;
+  transform: translate(-10px, -10px);
+  transition: transform 0.2s linear;
 }
 
 

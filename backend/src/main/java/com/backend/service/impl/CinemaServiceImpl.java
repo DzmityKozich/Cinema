@@ -1,12 +1,15 @@
 package com.backend.service.impl;
 
 import com.backend.entity.Cinema;
+import com.backend.pagination.PaginatorPage;
 import com.backend.repository.CinemaRepository;
 import com.backend.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {
@@ -20,8 +23,10 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public List<Cinema> getAllCinemas() {
-        return cinemaRepository.findAll();
+    public PaginatorPage<Cinema> getAllCinemasByPage(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("idCinema").descending());
+        Page<Cinema> page = cinemaRepository.findAll(pageable);
+        return new PaginatorPage<>(page.getContent(), page.getNumber(), page.getSize(), page.isFirst(), page.isLast(), page.getTotalPages(), page.getTotalElements());
     }
 
     @Override

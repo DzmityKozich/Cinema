@@ -1,14 +1,11 @@
 package com.cinema.api.service.impl;
 
 import com.cinema.api.model.CinemaModel;
+import com.cinema.api.pagination.PaginatorPageModel;
 import com.cinema.api.service.CinemaModelService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class CinemaModelServiceImpl implements CinemaModelService {
@@ -25,10 +22,9 @@ public class CinemaModelServiceImpl implements CinemaModelService {
     }
 
     @Override
-    public List<CinemaModel> getAllCinemaModels() {
+    public PaginatorPageModel getAllCinemaModels(int pageNumber, int pageSize) {
         RestTemplate restTemplate = new RestTemplate();
-        CinemaModel[] cinemaModels = restTemplate.getForObject(backend + path, CinemaModel[].class);
-        return cinemaModels == null ? Collections.emptyList() : Arrays.asList(cinemaModels);
+        return restTemplate.getForObject(backend + path + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize, PaginatorPageModel.class);
     }
 
     @Override

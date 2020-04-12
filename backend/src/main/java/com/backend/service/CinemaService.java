@@ -1,12 +1,14 @@
 package com.backend.service;
 
 import com.backend.entity.Cinema;
+import com.backend.pagination.PaginatorPage;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface CinemaService {
     Cinema getById(Long id);
-    List<Cinema> getAllCinemas();
+    PaginatorPage<Cinema> getAllCinemasByPage(int pageNumber, int pageSize);
     Cinema saveCinema(Cinema cinema);
     void deleteCinemaById(Long id);
 }

@@ -4,7 +4,7 @@
   grid-template-columns: 25% 75%;
   gap: 1%;
   align-items: stretch;
-  margin-top: 124px;
+  /* margin-top: 124px; */
 }
 
 .movie__name{
@@ -18,7 +18,6 @@
 .movie__img{
   justify-self: center;
   box-shadow: 6px 4px 18px 0px #000000;
-  /* background-color: green; */
 }
 
 .movie__genre{

@@ -1,7 +1,9 @@
+import { PaginationPage } from './../../classes/pagination-page';
 import { MovieService } from './../../services/movie.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MovieModel } from 'src/app/classes/movie-model';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-all-movies',
@@ -10,30 +12,27 @@ import { MovieModel } from 'src/app/classes/movie-model';
 })
 export class AllMoviesComponent implements OnInit, OnDestroy {
 
+  public paginationPage: PaginationPage<MovieModel> = new PaginationPage<MovieModel>();
   public movies: MovieModel[] = [];
   private subscription: Subscription[] = [];
-  public pageNumber = 0;
+  pageSizeOptions: number[] = [9, 6, 3];
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
-    this.getAllMoviesModelByPage();
+    this.getAllMoviesModelByPage(0, 9);
   }
 
-  private getAllMoviesModelByPage(): void {
-    this.subscription.push(this.movieService.getAllMovieModelsByPage(this.pageNumber, 9)
-      .subscribe(arg => this.movies = arg)
+  changePage(event: PageEvent) {
+    this.subscription.push(this.movieService.getAllMovieModelsByPage(event.pageIndex, event.pageSize)
+      .subscribe(arg => this.paginationPage = arg)
     );
   }
 
-  public nextPage(): void {
-    this.pageNumber += 1;
-    this.getAllMoviesModelByPage();
-  }
-
-  public previousPage(): void {
-    this.pageNumber -= 1;
-    this.getAllMoviesModelByPage();
+  private getAllMoviesModelByPage(pageNumber: number, pageSize: number): void {
+    this.subscription.push(this.movieService.getAllMovieModelsByPage(pageNumber, pageSize)
+      .subscribe(arg => this.paginationPage = arg)
+    );
   }
 
   ngOnDestroy() {

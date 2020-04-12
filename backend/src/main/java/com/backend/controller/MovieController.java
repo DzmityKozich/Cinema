@@ -1,6 +1,7 @@
 package com.backend.controller;
 
 import com.backend.entity.Movie;
+import com.backend.pagination.PaginatorPage;
 import com.backend.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,13 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping(params = {"pageNumber", "pageSize"})
-    private List<Movie> getAllMovies(@RequestParam int pageNumber, @RequestParam int pageSize){
-        Page<Movie> page = movieService.getAllMoviesByPage(pageNumber, pageSize);
-        if(pageNumber > page.getTotalPages()){
-            return null;
-        }
-        return page.getContent();
+    private PaginatorPage<Movie> getAllMovies(@RequestParam int pageNumber, @RequestParam int pageSize){
+        return movieService.getAllMoviesByPage(pageNumber, pageSize);
+//        Page<Movie> page = movieService.getAllMoviesByPage(pageNumber, pageSize);
+//        if(pageNumber > page.getTotalPages()){
+//            return null;
+//        }
+//        return page.getContent();
     }
 
     @GetMapping("/{id}")

@@ -3,11 +3,18 @@
 
 <div class="container">
   <p class="rubric" [routerLink]="'/movies'">Movies</p>
-  <div class="movie">
-    <div *ngFor="let m of movies" class="movie__item">
+  <div class="rubric__ittem">
+    <div *ngFor="let m of moviePaginationPage.listElements" class="movie__item">
       <img src="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', m.idMovie]">
       <p class="movie__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</p>
       <p class="movie__genre">{{ m.genre }}</p>
+    </div>
+  </div>
+  <p class="rubric">Cinemas</p>
+  <div class="rubric__ittem">
+    <div *ngFor="let c of cinemaPaginationPage.listElements" class="cinema__item">
+      <img src="http://placehold.it/300x200" class="cinema__img" [routerLink]="['/cinemas', c.idCinema]">
+      <p class="cinema__name" [routerLink]="['/cinemas', c.idCinema]">{{ c.name }}</p>
     </div>
   </div>
 </div>

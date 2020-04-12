@@ -1,3 +1,4 @@
+import { PaginationPage } from './../classes/pagination-page';
 import { MovieModel } from '../classes/movie-model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -8,15 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class MovieService {
 
-  private path = '/api/movies/';
+  private path = '/api/movies';
 
   constructor(private http: HttpClient) { }
 
-  public getAllMovieModelsByPage(pageNumber: number, pageSize: number): Observable<MovieModel[]> {
-    return this.http.get<MovieModel[]>(this.path + '/?pageNumber=' + pageNumber + '&pageSize=' + pageSize);
+  public getAllMovieModelsByPage(pageNumber: number, pageSize: number): Observable<PaginationPage<MovieModel>> {
+    return this.http.get<PaginationPage<MovieModel>>(this.path + '?pageNumber=' + pageNumber + '&pageSize=' + pageSize);
   }
 
   public getMovieModelById(id: number): Observable<MovieModel> {
-    return this.http.get<MovieModel>(this.path + id);
+    return this.http.get<MovieModel>(this.path + '/' + id);
   }
 }

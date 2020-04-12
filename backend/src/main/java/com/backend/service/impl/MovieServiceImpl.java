@@ -1,6 +1,7 @@
 package com.backend.service.impl;
 
 import com.backend.entity.Movie;
+import com.backend.pagination.PaginatorPage;
 import com.backend.repository.MovieRepository;
 import com.backend.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movie> getAllMoviesByPage(int pageNumber, int pageSize) {
+    public PaginatorPage<Movie> getAllMoviesByPage(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("idMovie").descending());
-        return movieRepository.findAll(pageable);
+        Page<Movie> page = movieRepository.findAll(pageable);
+        return new PaginatorPage<>(page.getContent(), page.getNumber(), page.getSize(), page.isFirst(), page.isLast(), page.getTotalPages(), page.getTotalElements());
     }
 
     @Override
