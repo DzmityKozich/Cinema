@@ -2,6 +2,10 @@ p{
   outline: none;
 }
 
+span{
+  outline: none;
+}
+
 /* Rubric */
 .rubric{
   color: #ffffff;

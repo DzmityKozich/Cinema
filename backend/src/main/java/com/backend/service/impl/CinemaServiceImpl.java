@@ -3,7 +3,9 @@ package com.backend.service.impl;
 import com.backend.entity.Cinema;
 import com.backend.pagination.PaginatorPage;
 import com.backend.repository.CinemaRepository;
+import com.backend.repository.SeanceRepository;
 import com.backend.service.CinemaService;
+import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,11 +13,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CinemaServiceImpl implements CinemaService {
 
     @Autowired
     private CinemaRepository cinemaRepository;
+
+    @Autowired
+    private SeanceService seanceService;
 
     @Override
     public Cinema getById(Long id) {

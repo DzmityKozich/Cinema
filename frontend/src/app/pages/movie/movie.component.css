@@ -1,3 +1,8 @@
+mat-card{
+  margin-top: 50px;
+  border-top: 2px #9e174d solid;
+}
+
 /* Movie */
 .movie{
   display: grid;
@@ -32,4 +37,15 @@
   font-size: 25px;
   color: #ffffff;
   /* background-color: yellow; */
+}
+
+/* Seance */
+.seance{
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.seance-time{
+  width: 30%;
 }

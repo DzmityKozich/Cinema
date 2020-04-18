@@ -1,7 +1,5 @@
 import { RouterModule } from '@angular/router';
 import { ModulesModule } from './../modules/modules.module';
-import { HeaderModule } from './../header/header.module';
-import { NavbarModule } from './../navbar/navbar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
@@ -14,19 +12,19 @@ import { AllMoviesComponent } from './all-movies/all-movies.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AllCinemasComponent } from './all-cinemas/all-cinemas.component';
 import { CinemaComponent } from './cinema/cinema.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [HomeComponent, MovieComponent, NotFoundComponent, AllMoviesComponent, AllCinemasComponent, CinemaComponent],
   imports: [
     CommonModule,
-    NavbarModule,
-    HeaderModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     ModulesModule,
     RouterModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule
   ],
   exports: [HomeComponent]
 })

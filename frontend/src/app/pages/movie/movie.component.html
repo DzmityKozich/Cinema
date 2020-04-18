@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <div class="container">
   <div class="movie">
     <div class="movie__img"><img src="http://placehold.it/200x300" class="movie__img"></div>
@@ -9,5 +10,27 @@
     <div class="movie__genre">{{ movieModel.genre }}</div>
     <div class="movie__des">{{ movieModel.description }}</div>
   </div>
+  <div *ngFor="let c of cinemas">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Cinema: {{ c.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          <h6>Address: {{ c.address }}</h6>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="seance">
+        <div *ngFor="let s of seances" class="seance-time">
+          <p>{{ s.time }}</p>
+          <button mat-button>Buy ticket!</button>
+        </div>
+        <mat-card-actions>
+
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+
 <app-footer></app-footer>

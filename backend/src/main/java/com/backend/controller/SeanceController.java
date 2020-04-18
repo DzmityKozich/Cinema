@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.entity.Cinema;
 import com.backend.entity.Seance;
 import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class SeanceController {
     private List<Seance> getSeancesByMovie(@PathVariable Long id){
         return seanceService.getSeancesByMovie(id);
     }
+
+//    @GetMapping("/m/{id}")
+//    private List<Cinema> getAllCinemasByMovie(@PathVariable Long id){
+//        return seanceService.getAllCinemasByMovie(id);
+//    }
 
     @PostMapping("")
     private Seance saveSeance(@RequestBody Seance seance){

@@ -16,7 +16,6 @@ public class Seance {
     private Long idSeance;
 
     @Column(name = "seance_date")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDate date;
 
     @Column(name = "seance_time")
