@@ -11,14 +11,24 @@ public class MovieModel {
     private String name;
     private String genre;
     private String description;
+    private String poster;
 
     public MovieModel(){ }
 
-    public MovieModel(Long idMovie, String name, String genre, String description) {
+    public MovieModel(Long idMovie, String name, String genre, String description, String poster) {
         this.idMovie = idMovie;
         this.name = name;
         this.genre = genre;
         this.description = description;
+        this.poster = poster;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public Long getIdMovie() {

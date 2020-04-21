@@ -5,6 +5,7 @@ import com.cinema.api.pagination.PaginatorPageModel;
 import com.cinema.api.service.MovieModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public class MovieModelController {
     @GetMapping("/{id}")
     private MovieModel getMovieModelById(@PathVariable Long id){
         return movieModelService.getMovieModelById(id);
+    }
+
+    @PostMapping("")
+    private MovieModel saveMovieModel(@RequestBody MovieModel movie){
+        return movieModelService.saveMovieModel(movie);
     }
 }

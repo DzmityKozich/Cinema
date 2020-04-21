@@ -22,6 +22,9 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   public id: number;
   public isSeance: boolean;
+  private receivedData: any;
+  private base64Data: any;
+  public convertedImg: any;
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -36,7 +39,13 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   private getMovieModelById(): void {
     this.subscription.push(this.movieService.getMovieModelById(this.id)
-      .subscribe(arg => this.movieModel = arg)
+      .subscribe(arg => {
+        console.log(arg);
+        this.movieModel = arg;
+        this.receivedData = this.movieModel.poster;
+        this.base64Data = this.receivedData.pic;
+        this.convertedImg = /*'data:image/jpeg;base64,' + */this.base64Data;
+      })
     );
   }
 
@@ -45,7 +54,6 @@ export class MovieComponent implements OnInit, OnDestroy {
       .subscribe(
         arg => {
           this.seances = arg;
-          console.log(this.seances);
         },
         err => console.log(err),
         () => this.getAllCinemasByMovie()

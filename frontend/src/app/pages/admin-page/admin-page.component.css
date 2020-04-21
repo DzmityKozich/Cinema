@@ -1,0 +1,32 @@
+div{
+  color: #ffffff;
+}
+
+mat-form-field{
+  width: 100%;
+  font-size: 18px;
+}
+
+mat-panel-title{
+  font-size: 20px;
+}
+
+textarea{
+  resize: none;
+  overflow-y: hidden;
+}
+
+input{
+  background-color: transparent;
+}
+
+/* Poster */
+.poster-label{
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.poster-input{
+  margin-top: 5px;
+  margin-bottom: 15px;
+}

@@ -19,12 +19,17 @@ public class MovieModelServiceImpl implements MovieModelService {
     public PaginatorPageModel getAllMovieModels(int pageNumber, int pageSize) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backend + path + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize, PaginatorPageModel.class);
-//        return movieModels == null ? Collections.emptyList() : Arrays.asList(movieModels);
     }
 
     @Override
     public MovieModel getMovieModelById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backend + path + id, MovieModel.class);
+    }
+
+    @Override
+    public MovieModel saveMovieModel(MovieModel movie) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + "/movies/", movie, MovieModel.class).getBody();
     }
 }

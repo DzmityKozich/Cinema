@@ -20,4 +20,8 @@ export class MovieService {
   public getMovieModelById(id: number): Observable<MovieModel> {
     return this.http.get<MovieModel>(this.path + '/' + id);
   }
+
+  public saveMovieModel(movie: MovieModel): Observable<MovieModel> {
+    return this.http.post<MovieModel>(this.path, movie);
+  }
 }

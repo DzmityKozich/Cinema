@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add Movie
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" name="name" formControlName="name">
+        <mat-error *ngIf="form.controls['name'].invalid && !form.controls['name'].hasError('required')">
+          Place enter valid title
+        </mat-error>
+        <mat-error *ngIf="form.controls['name'].hasError('required')">
+          Enter a title!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre">
+          <mat-option *ngFor="let genre of genres" [value]="genre">
+            {{ genre }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['genre'].hasError('required')">
+          Select genre!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Descroption</mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="7" formControlName="description"></textarea>
+        <mat-error *ngIf="form.controls['description'].hasError('required')">
+          Enter description!
+        </mat-error>
+      </mat-form-field>
+      <div class="poster-label">Poster</div>
+      <div class="poster-input">
+        <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileChange($event)" formControlName="poster">
+      </div>
+      <mat-action-row>
+        <app-button btnType="submit" btnName="Save!"></app-button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+
+  <!-- <div>Name</div>
+  <input type="text" [(ngModel)]="movieModel.name">
+  <div>Genre</div>
+  <input type="text" [(ngModel)]="movieModel.genre">
+  <div>Description</div>
+  <input type="text" [(ngModel)]="movieModel.description">
+  <div>Poster</div>
+  <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileChange($event)">
+  <button (click)="saveMovieModel()">SAVE</button> -->
+</div>
+
+<app-footer></app-footer>

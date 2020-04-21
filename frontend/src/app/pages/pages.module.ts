@@ -1,3 +1,4 @@
+import { ShareModule } from './../share/share.module';
 import { RouterModule } from '@angular/router';
 import { ModulesModule } from './../modules/modules.module';
 import { NgModule } from '@angular/core';
@@ -13,18 +14,42 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AllCinemasComponent } from './all-cinemas/all-cinemas.component';
 import { CinemaComponent } from './cinema/cinema.component';
 import { MatCardModule } from '@angular/material/card';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
-  declarations: [HomeComponent, MovieComponent, NotFoundComponent, AllMoviesComponent, AllCinemasComponent, CinemaComponent],
+  declarations: [
+    HomeComponent,
+    MovieComponent,
+    NotFoundComponent,
+    AllMoviesComponent,
+    AllCinemasComponent,
+    CinemaComponent,
+    AdminPageComponent,
+  ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     ModulesModule,
+    ShareModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+
     MatButtonModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    TextFieldModule
   ],
   exports: [HomeComponent]
 })

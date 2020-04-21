@@ -1,3 +1,4 @@
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AllCinemasComponent } from './pages/all-cinemas/all-cinemas.component';
 import { AllMoviesComponent } from './pages/all-movies/all-movies.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieComponent },
   { path: 'cinemas', component: AllCinemasComponent },
   { path: 'cinemas/:id', component: CinemaComponent },
+  { path: 'admin', component: AdminPageComponent },
 
   { path: '**', component: NotFoundComponent }
 ];

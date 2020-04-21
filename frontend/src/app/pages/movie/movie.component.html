@@ -2,7 +2,10 @@
 
 <div class="container">
   <div class="movie">
-    <div class="movie__img"><img src="http://placehold.it/200x300" class="movie__img"></div>
+    <div class="movie__img">
+      <img [src]="movieModel.poster" alt="http://placehold.it/200x300" class="movie__img">
+    </div>
+    <!-- http://placehold.it/200x300 -->
     <div class="movie__name">
       {{ movieModel.name }}
       <div><button mat-button>Buy ticket!</button></div>

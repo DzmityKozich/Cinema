@@ -3,4 +3,5 @@ export class MovieModel {
   name: string;
   genre: string;
   description: string;
+  poster: any = null;
 }

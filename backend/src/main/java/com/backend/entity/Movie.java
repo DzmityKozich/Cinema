@@ -22,10 +22,29 @@ public class Movie {
     @Column(name = "movie_description")
     private String description;
 
+    @Column(name = "movie_poster")
+    private String poster;
+
     @OneToMany(mappedBy = "movie")
     private List<Seance> seances;
 
     public Movie() {
+    }
+
+    public Movie(Long idMovie, String name, String genre, String description, String poster) {
+        this.idMovie = idMovie;
+        this.name = name;
+        this.genre = genre;
+        this.description = description;
+        this.poster = poster;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public Long getIdMovie() {
