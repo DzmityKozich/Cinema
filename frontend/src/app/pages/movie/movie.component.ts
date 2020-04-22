@@ -1,3 +1,4 @@
+import { PalceComponent } from './../../modules/palce/palce.component';
 import { CinemaModel } from './../../classes/cinema-model';
 import { SeanceModel } from './../../classes/seance-model';
 import { SeanceService } from './../../services/seance.service';
@@ -7,6 +8,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MovieModel } from 'src/app/classes/movie-model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-movie',
@@ -28,7 +30,8 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
-              private seanceService: SeanceService
+              private seanceService: SeanceService,
+              private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -40,7 +43,6 @@ export class MovieComponent implements OnInit, OnDestroy {
   private getMovieModelById(): void {
     this.subscription.push(this.movieService.getMovieModelById(this.id)
       .subscribe(arg => {
-        console.log(arg);
         this.movieModel = arg;
         this.receivedData = this.movieModel.poster;
         this.base64Data = this.receivedData.pic;
@@ -55,7 +57,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         arg => {
           this.seances = arg;
         },
-        err => console.log(err),
+        err => { },
         () => this.getAllCinemasByMovie()
       )
     );
@@ -75,6 +77,14 @@ export class MovieComponent implements OnInit, OnDestroy {
       switchMap(params => params.getAll('id'))
     )
       .subscribe(data => this.id = +data);
+  }
+
+  public openPlaceDialog(seanceModel: SeanceModel): void {
+    this.matDialog.open(PalceComponent, {
+      width: '500px',
+      height: '500px',
+      data: {seance: seanceModel},
+    });
   }
 
   ngOnDestroy() {

@@ -3,6 +3,7 @@ import { MovieService } from './../../services/movie.service';
 import { Component, OnInit } from '@angular/core';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-page',
@@ -20,7 +21,8 @@ export class AdminPageComponent implements OnInit {
     'Action'
   ];
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService,
+              private snackBar: MatSnackBar) { }
 
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -38,11 +40,13 @@ export class AdminPageComponent implements OnInit {
 
   public saveMovieModel(): void {
     this.subscription.push(this.movieService.saveMovieModel(this.movieModel).subscribe(
-      () => this.refrech()
+      () => this.refrech(),
+      err => console.log(err),
+      () => this.openSnackBar('Movie add', 'Ok', 1.5)
     ));
   }
 
-  public onSubmit() {
+  public addMovie() {
     if (this.form.valid) {
       this.movieModel = this.form.value;
       this.movieModel.poster = this.dataUrl;
@@ -64,6 +68,10 @@ export class AdminPageComponent implements OnInit {
     this.form.controls.genre.setValue(null);
     this.form.controls.description.setValue(null);
     this.form.controls.poster.setValue(null);
+  }
+
+  private openSnackBar(message: string, action: string, time: number): void {
+    this.snackBar.open(message, action, {duration: time});
   }
 
 }

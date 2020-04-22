@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { ShareModule } from './../share/share.module';
 import { RouterModule } from '@angular/router';
 import { ModulesModule } from './../modules/modules.module';
@@ -21,6 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PalceComponent } from '../modules/palce/palce.component';
 
 @NgModule({
   declarations: [
@@ -49,8 +52,13 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,
-    TextFieldModule
+    TextFieldModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
-  exports: [HomeComponent]
+  exports: [HomeComponent],
+  entryComponents: [
+    PalceComponent,
+  ]
 })
 export class PagesModule { }

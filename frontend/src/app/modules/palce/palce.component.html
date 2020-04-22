@@ -1,0 +1,18 @@
+<div mat-dialog-title>
+  <h3>{{ data.seance.movie.name }}</h3>
+  <h5>{{ data.seance.time }}</h5>
+</div>
+<div mat-dialog-content>
+  <div class="screen">Screen</div>
+  <div *ngFor="let row of rows">
+    <span *ngFor="let place of placeModels">
+      <span *ngIf="place.row == row" class="place" (click)="logPlace(place)">
+        <p>{{ place.site }}</p>
+      </span>
+    </span>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <app-button btnName="Close" (click)="closeDialog()"></app-button>
+  <app-button btnName="Buy ticket"></app-button>
+</div>

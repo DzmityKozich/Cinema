@@ -8,7 +8,6 @@
     <!-- http://placehold.it/200x300 -->
     <div class="movie__name">
       {{ movieModel.name }}
-      <div><button mat-button>Buy ticket!</button></div>
     </div>
     <div class="movie__genre">{{ movieModel.genre }}</div>
     <div class="movie__des">{{ movieModel.description }}</div>
@@ -26,11 +25,8 @@
       <mat-card-content class="seance">
         <div *ngFor="let s of seances" class="seance-time">
           <p>{{ s.time }}</p>
-          <button mat-button>Buy ticket!</button>
+          <app-button btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
         </div>
-        <mat-card-actions>
-
-        </mat-card-actions>
       </mat-card-content>
     </mat-card>
   </div>

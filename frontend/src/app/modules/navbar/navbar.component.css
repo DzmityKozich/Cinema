@@ -11,9 +11,14 @@ i{
   margin-right: 4px;
 }
 
-span{
+a{
   outline: none;
   text-decoration: none;
+  color: #ffffff;
+}
+
+span{
+
   cursor: pointer;
   margin-left: 1.5%;
 }

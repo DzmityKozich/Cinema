@@ -7,7 +7,7 @@
         Add Movie
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="addMovie()" novalidate>
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput type="text" name="name" formControlName="name">
@@ -46,16 +46,6 @@
       </mat-action-row>
     </form>
   </mat-expansion-panel>
-
-  <!-- <div>Name</div>
-  <input type="text" [(ngModel)]="movieModel.name">
-  <div>Genre</div>
-  <input type="text" [(ngModel)]="movieModel.genre">
-  <div>Description</div>
-  <input type="text" [(ngModel)]="movieModel.description">
-  <div>Poster</div>
-  <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileChange($event)">
-  <button (click)="saveMovieModel()">SAVE</button> -->
 </div>
 
 <app-footer></app-footer>

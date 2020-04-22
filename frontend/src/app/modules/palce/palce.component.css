@@ -1,0 +1,38 @@
+/* Scrin */
+.screen{
+  text-align: center;
+}
+
+.screen::after{
+  display: block;
+  content: '';
+  width: 70%;
+  height: 7px;
+  background-color: #000000;
+  border: 1px #000000 solid;
+  border-radius: 10px;
+  margin: auto;
+}
+
+/* Place */
+.place{
+  margin: 4px;
+  display: inline-block;
+  content: '';
+  width: 60px;
+  height: 60px;
+  border: 2px #9e174d solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.place:hover{
+  background-color: #2e2e2e88;
+}
+
+.place p{
+  text-align: center;
+  font-size: 25px;
+  font-weight: 500;
+  padding-top: 12%;
+}

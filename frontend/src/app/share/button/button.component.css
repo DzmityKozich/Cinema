@@ -1,3 +1,8 @@
+button{
+  margin: 5px;
+}
+
+/* Styles */
 .btn-pink{
   border: 2px #9e174d solid;
   border-radius: 10px;
