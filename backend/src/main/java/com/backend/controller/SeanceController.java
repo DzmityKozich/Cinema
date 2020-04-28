@@ -37,10 +37,10 @@ public class SeanceController {
         return seanceService.getSeancesByMovie(id);
     }
 
-//    @GetMapping("/m/{id}")
-//    private List<Cinema> getAllCinemasByMovie(@PathVariable Long id){
-//        return seanceService.getAllCinemasByMovie(id);
-//    }
+    @GetMapping("/date/{date}/movies/{movieId}")
+    private List<Seance> getAllSeancesByDateAndMovie(@PathVariable String date, @PathVariable Long movieId){
+        return seanceService.getAllSeancesByDateAndMovie(LocalDate.parse(date), movieId);
+    }
 
     @PostMapping("")
     private Seance saveSeance(@RequestBody Seance seance){

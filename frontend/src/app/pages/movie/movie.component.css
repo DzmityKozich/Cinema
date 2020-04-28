@@ -1,10 +1,14 @@
-mat-card{
+mat-card {
   margin-top: 50px;
   border-top: 2px #9e174d solid;
 }
 
+h1{
+  color: #ffffff;
+}
+
 /* Movie */
-.movie{
+.movie {
   display: grid;
   grid-template-columns: 25% 75%;
   gap: 1%;
@@ -12,7 +16,7 @@ mat-card{
   /* margin-top: 124px; */
 }
 
-.movie__name{
+.movie__name {
   text-align: center;
   color: #ffffff;
   font-size: 60px;
@@ -20,12 +24,12 @@ mat-card{
   /* background-color: red; */
 }
 
-.movie__img{
+.movie__img {
   justify-self: center;
   box-shadow: 6px 4px 18px 0px #000000;
 }
 
-.movie__genre{
+.movie__genre {
   justify-self: center;
   font-size: 25px;
   color: #ffffff;
@@ -33,19 +37,44 @@ mat-card{
   /* background-color: blue; */
 }
 
-.movie__des{
+.movie__des {
   font-size: 25px;
   color: #ffffff;
   /* background-color: yellow; */
 }
 
-/* Seance */
-.seance{
+/* Seances */
+.seances {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   text-align: center;
+  min-width: 30%;
 }
 
-.seance-time{
-  width: 30%;
+.seance--info {
+  margin-left: 10%;
+}
+
+/* Datepicker */
+::ng-deep .theme-default .bs-datepicker-body {
+  background-color: #2e2e2e;
+  border: none;
+}
+
+::ng-deep .theme-default .bs-datepicker-container {
+  background-color: #2e2e2e;
+  box-shadow: 0px 0px 18px 5px #000000;
+}
+
+.form-group{
+  margin-top: 1rem;
+  padding: 0;
+}
+
+.form-group input{
+  background-color: #2e2e2e;
+  border: 2px #9e174d solid;
+  outline: none;
+  color: #ffffff;
+  border-radius: 10px;
 }

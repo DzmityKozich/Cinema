@@ -7,4 +7,6 @@ import java.util.List;
 public interface PlaceModelService {
 
     List<PlaceModel> getAllPlacesBySeance(Long id);
+    PlaceModel savePlaceModel(PlaceModel place);
+    void takePlace(PlaceModel[] places);
 }

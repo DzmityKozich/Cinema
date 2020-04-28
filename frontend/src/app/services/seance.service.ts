@@ -17,7 +17,7 @@ export class SeanceService {
     return this.http.get<SeanceModel[]>(this.path + '/movies/' + id);
   }
 
-  public getAllCinemaModelBuMovie(id: number): Observable<CinemaModel[]> {
-    return this.http.get<CinemaModel[]>(this.path + '/m/' + id);
+  public getAllSeanceModelsByDateAndMovie(date: string, movieId: number): Observable<SeanceModel[]> {
+    return this.http.get<SeanceModel[]>(this.path + '/date/' + date + '/movies/' + movieId);
   }
 }

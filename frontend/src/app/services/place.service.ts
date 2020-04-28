@@ -15,4 +15,12 @@ export class PlaceService {
   public getAllPlaceModelsBySeance(id: number): Observable<PlaceModel[]> {
     return this.http.get<PlaceModel[]>(this.path + '/seances/' + id);
   }
+
+  public savePlaceModel(place: PlaceModel): Observable<PlaceModel> {
+    return this.http.post<PlaceModel>(this.path, place);
+  }
+
+  public takePlace(places: PlaceModel[]): Observable<PlaceModel[]> {
+    return this.http.post<PlaceModel[]>(this.path + '/reservation', places);
+  }
 }

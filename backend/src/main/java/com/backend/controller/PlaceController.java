@@ -5,6 +5,7 @@ import com.backend.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,11 @@ public class PlaceController {
     @PostMapping("")
     private Place savePlace(@RequestBody Place place){
         return placeService.savePlace(place);
+    }
+
+    @PostMapping("/reservation")
+    private void takePlace(@RequestBody Place[] places){
+        placeService.takePlace(Arrays.asList(places));
     }
 
     @DeleteMapping("/{id}")

@@ -42,7 +42,7 @@ export class AdminPageComponent implements OnInit {
     this.subscription.push(this.movieService.saveMovieModel(this.movieModel).subscribe(
       () => this.refrech(),
       err => console.log(err),
-      () => this.openSnackBar('Movie add', 'Ok', 1.5)
+      () => this.openSnackBar('Movie add', 'Ok', 1500)
     ));
   }
 

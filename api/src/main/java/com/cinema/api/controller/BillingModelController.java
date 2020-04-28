@@ -12,7 +12,7 @@ public class BillingModelController {
     @Autowired
     private BillingModelService billingModelService;
 
-    @GetMapping("id")
+    @GetMapping("/{id}")
     private BillingModel getBillingModelById(@PathVariable Long id){
         return billingModelService.getBillingModelById(id);
     }

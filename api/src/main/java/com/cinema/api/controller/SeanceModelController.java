@@ -1,6 +1,5 @@
 package com.cinema.api.controller;
 
-import com.cinema.api.model.CinemaModel;
 import com.cinema.api.model.SeanceModel;
 import com.cinema.api.service.SeanceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class SeanceModelController {
         return seanceModelService.getSeanceModelsByMovie(id);
     }
 
-//    @GetMapping("/m/{id}")
-//    private List<CinemaModel> getAllCinemaModelsByMovie(@PathVariable Long id){
-//        return seanceModelService.getAllCinemaModelsByMovie(id);
-//    }
+    @GetMapping("/date/{date}/movies/{movieId}")
+    private List<SeanceModel> getAllSeanceModelsByDateAndMovie(@PathVariable String date, @PathVariable Long movieId){
+        return  seanceModelService.getAllSeanceModelsByDateAndMovie(date, movieId);
+    }
 }

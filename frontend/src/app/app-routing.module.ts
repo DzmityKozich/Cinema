@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MovieComponent } from './pages/movie/movie.component';
 import { CinemaComponent } from './pages/cinema/cinema.component';
+import { UserAccountComponent } from './pages/user-account/user-account.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'cinemas', component: AllCinemasComponent },
   { path: 'cinemas/:id', component: CinemaComponent },
   { path: 'admin', component: AdminPageComponent },
+  { path: 'user', component: UserAccountComponent},
 
   { path: '**', component: NotFoundComponent }
 ];

@@ -5,14 +5,18 @@
 <div mat-dialog-content>
   <div class="screen">Screen</div>
   <div *ngFor="let row of rows">
-    <span *ngFor="let place of placeModels">
-      <span *ngIf="place.row == row" class="place" (click)="logPlace(place)">
-        <p>{{ place.site }}</p>
+    <span class="row__number">{{ row }}</span>
+    <span class="places">
+      <span *ngFor="let place of placeModels">
+        <span *ngIf="place.row == row" [id]="place.idPlace"
+          [ngClass]="place.state == 'Vacancy' ? 'place--vacancy' : 'place--taken'" (click)="selectPlace(place)">
+          <p>{{ place.site }}</p>
+        </span>
       </span>
     </span>
   </div>
 </div>
 <div mat-dialog-actions>
   <app-button btnName="Close" (click)="closeDialog()"></app-button>
-  <app-button btnName="Buy ticket"></app-button>
+  <app-button btnName="Buy ticket" (click)="buyTicket()"></app-button>
 </div>

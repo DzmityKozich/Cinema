@@ -24,4 +24,16 @@ public class PlaceModelServiceImpl implements PlaceModelService {
         PlaceModel[] placeModels = restTemplate.getForObject(backend + path + "/seances/" + id, PlaceModel[].class);
         return placeModels == null? Collections.emptyList() : Arrays.asList(placeModels);
     }
+
+    @Override
+    public PlaceModel savePlaceModel(PlaceModel place) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path, place, PlaceModel.class).getBody();
+    }
+
+    @Override
+    public void takePlace(PlaceModel[] places) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForEntity(backend + path  + "/reservation", places, PlaceModel.class).getBody();
+    }
 }

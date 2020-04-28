@@ -1,6 +1,7 @@
 package com.backend.service.impl;
 
 import com.backend.entity.Cinema;
+import com.backend.entity.Movie;
 import com.backend.entity.Place;
 import com.backend.entity.Seance;
 import com.backend.repository.MovieRepository;
@@ -69,15 +70,19 @@ public class SeanceServiceImpl implements SeanceService {
         return seances;
     }
 
-//    @Override
-//    public List<Cinema> getAllCinemasByMovie(Long id){
-//        List<Cinema> cinemas = new ArrayList<>();
-//        for (Seance s : getSeancesByMovie(id)
-//             ) {
-//            cinemas.add(s.getHall().getCinema());
-//        }
-//        return cinemas;
-//    }
+    @Override
+    public List<Seance> getAllSeancesByDateAndMovie(LocalDate date, Long movieId) {
+        List<Seance> seances = new ArrayList<>();
+        for (Seance s :
+                seanceRepository.findAllByDateAndMovie(date, movieRepository.findByIdMovie(movieId))) {
+            if (date.compareTo(LocalDate.now()) == 0) {
+                if (s.getTime().isAfter(LocalTime.now())) {
+                    seances.add(s);
+                }
+            } else seances.add(s);
+        }
+        return seances;
+    }
 
     @Override
     public void deleteSeanceById(Long id) {

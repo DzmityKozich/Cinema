@@ -1,6 +1,8 @@
 package com.backend.service.impl;
 
+import com.backend.entity.Billing;
 import com.backend.entity.Place;
+import com.backend.repository.BillingRepository;
 import com.backend.repository.PlaceRepository;
 import com.backend.repository.SeanceRepository;
 import com.backend.service.PlaceService;
@@ -14,6 +16,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private BillingRepository billingRepository;
 
     @Autowired
     private SeanceRepository seanceRepository;
@@ -36,6 +41,19 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public List<Place> getAllBySeance(Long id) {
         return placeRepository.findAllBySeance(seanceRepository.findByIdSeance(id));
+    }
+
+    @Override
+    public void takePlace(List<Place> places) {
+        Billing billing = places.get(0).getBilling();
+        double sum = 0.0;
+        for (Place place: places) {
+            place.setState("Taken");
+            sum += place.getSeance().getPrice();
+        }
+        billing.setBalance(billing.getBalance() - sum);
+        billingRepository.save(billing);
+        placeRepository.saveAll(places);
     }
 
     @Override

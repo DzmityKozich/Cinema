@@ -8,5 +8,5 @@ import java.util.List;
 public interface SeanceModelService {
 
     List<SeanceModel> getSeanceModelsByMovie(Long id);
-//    List<CinemaModel> getAllCinemaModelsByMovie(Long id);
+    List<SeanceModel> getAllSeanceModelsByDateAndMovie(String date, Long movieId);
 }

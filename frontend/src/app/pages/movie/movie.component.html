@@ -12,23 +12,38 @@
     <div class="movie__genre">{{ movieModel.genre }}</div>
     <div class="movie__des">{{ movieModel.description }}</div>
   </div>
-  <div *ngFor="let c of cinemas">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Cinema: {{ c.name }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          <h6>Address: {{ c.address }}</h6>
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="seance">
-        <div *ngFor="let s of seances" class="seance-time">
-          <p>{{ s.time }}</p>
-          <app-button btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <div *ngIf="seances.length !== 0">
+    <div *ngFor="let c of cinemas">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Cinema: {{ c.name }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            <h6>Address: {{ c.address }}</h6>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="seances">
+            <div *ngFor="let s of seances">
+              <div *ngIf="s.hall.cinema.name == c.name">
+                <div class="seance--info">
+                  <p>{{ s.time }}</p>
+                  <p>{{ s.price | number }}$</p>
+                  <app-button btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <h1 *ngIf="seances.length == 0">Sorry, no seances for this date</h1>
+
+  <div class="col-xs-12 col-12 col-sm-5 col-md-6 col-lg-4 form-group">
+    <input placeholder="Pick date" type="text" class="form-control" bsDatepicker #dp="bsDatepicker"
+    placement="top" [bsConfig]="bsConfig" (bsValueChange)="pickDate($event)">
   </div>
 </div>
 

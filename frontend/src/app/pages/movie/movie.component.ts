@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { MatDialog } from '@angular/material/dialog';
+import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { format } from 'ts-date/esm/locale/en';
 
 @Component({
   selector: 'app-movie',
@@ -22,6 +24,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   public cinemas: CinemaModel[] = [];
   private subscription: Subscription[] = [];
 
+  bsConfig: Partial<BsDatepickerConfig>;
   public id: number;
   public isSeance: boolean;
   private receivedData: any;
@@ -31,13 +34,15 @@ export class MovieComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
               private seanceService: SeanceService,
-              private matDialog: MatDialog
+              private matDialog: MatDialog,
+              private localeService: BsLocaleService
   ) { }
 
   ngOnInit() {
+    this.datepickerConfig();
     this.getIdFromPath();
     this.getMovieModelById();
-    this.getSeanceModelsByMovie();
+    this.getAllSeanceModelsByDateAndMovie('2020-05-14', this.id);
   }
 
   private getMovieModelById(): void {
@@ -57,19 +62,42 @@ export class MovieComponent implements OnInit, OnDestroy {
         arg => {
           this.seances = arg;
         },
-        err => { },
+        () => { },
         () => this.getAllCinemasByMovie()
       )
     );
   }
 
+  private getAllSeanceModelsByDateAndMovie(date: string, movieId: number): void {
+    this.subscription.push(this.seanceService.getAllSeanceModelsByDateAndMovie(date, movieId)
+      .subscribe(
+        arg => {
+          this.seances = arg;
+          this.getAllCinemasByMovie();
+        },
+        (err) => { },
+        () => { }
+        )
+    );
+  }
+
+  public pickDate(event: Date): void {
+    const d = format(event, 'YYYY-MM-DD');
+    this.clearCinemas();
+    this.getAllSeanceModelsByDateAndMovie(d, this.id);
+  }
+
   private getAllCinemasByMovie(): void {
     this.seances.forEach(seance => {
-      if (this.cinemas.some(c => c.idCinema !== seance.hall.cinema.idCinema) ||
+      if (this.cinemas.every(cinema => cinema.idCinema !== seance.hall.cinema.idCinema) ||
         this.cinemas.length === 0) {
         this.cinemas.push(seance.hall.cinema);
       }
     });
+  }
+
+  private clearCinemas(): void {
+    this.cinemas = [];
   }
 
   private getIdFromPath(): void {
@@ -77,6 +105,16 @@ export class MovieComponent implements OnInit, OnDestroy {
       switchMap(params => params.getAll('id'))
     )
       .subscribe(data => this.id = +data);
+  }
+
+  public datepickerConfig(): void {
+    this.localeService.use('engb');
+    this.bsConfig = Object.assign({},
+      { containerClass: 'theme-default',
+      showWeekNumbers: false,
+      isAnimated: true,
+      dateInputFormat: 'YYYY-MM-DD'
+     });
   }
 
   public openPlaceDialog(seanceModel: SeanceModel): void {

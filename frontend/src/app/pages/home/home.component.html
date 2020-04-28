@@ -5,7 +5,7 @@
   <p class="rubric" [routerLink]="'/movies'">Movies</p>
   <div class="rubric__ittem">
     <div *ngFor="let m of moviePaginationPage.listElements" class="movie__item">
-      <img src="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', m.idMovie]">
+      <img [src]="m.poster" alt="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', m.idMovie]">
       <p class="movie__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</p>
       <p class="movie__genre">{{ m.genre }}</p>
     </div>

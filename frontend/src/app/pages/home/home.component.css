@@ -6,6 +6,10 @@ span{
   outline: none;
 }
 
+img{
+  outline: none;
+}
+
 /* Rubric */
 .rubric{
   color: #ffffff;

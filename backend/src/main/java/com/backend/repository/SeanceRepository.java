@@ -14,5 +14,6 @@ import java.util.List;
 public interface SeanceRepository extends JpaRepository<Seance, Long> {
     Seance findByIdSeance(Long id);
     List<Seance> findAllByMovie(Movie movie);
+    List<Seance> findAllByDateAndMovie(LocalDate date, Movie movie);
     List<Seance> findAllByDateAndTime(LocalDate date, LocalTime time);
 }

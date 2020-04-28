@@ -24,6 +24,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PalceComponent } from '../modules/palce/palce.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { enGbLocale } from 'ngx-bootstrap/locale';
+
+defineLocale('engb', enGbLocale);
 
 @NgModule({
   declarations: [
@@ -34,6 +39,7 @@ import { PalceComponent } from '../modules/palce/palce.component';
     AllCinemasComponent,
     CinemaComponent,
     AdminPageComponent,
+    UserAccountComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +60,7 @@ import { PalceComponent } from '../modules/palce/palce.component';
     MatSelectModule,
     TextFieldModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [HomeComponent],
   entryComponents: [
