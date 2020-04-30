@@ -32,6 +32,13 @@ public class Place {
     public Place() {
     }
 
+    public Place(int row, int site, String state, Seance seance) {
+        this.row = row;
+        this.site = site;
+        this.state = state;
+        this.seance = seance;
+    }
+
     public Long getIdPlace() {
         return idPlace;
     }

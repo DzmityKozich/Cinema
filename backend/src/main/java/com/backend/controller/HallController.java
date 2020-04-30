@@ -14,6 +14,11 @@ public class HallController {
     @Autowired
     private HallService hallService;
 
+    @GetMapping("")
+    private  List<Hall> getAllHalls(){
+        return hallService.getAllHalls();
+    }
+
     @GetMapping("/{id}")
     private Hall getHallById(@PathVariable Long id){
         return hallService.getHallById(id);

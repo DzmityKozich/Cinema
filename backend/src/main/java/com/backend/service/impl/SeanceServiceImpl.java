@@ -44,13 +44,18 @@ public class SeanceServiceImpl implements SeanceService {
 
     @Override
     public Seance saveSeance(Seance seance) {
-//        List<Place> places = new ArrayList<>();
-//        for (int i = 1; i <= seance.getHall().getRows(); i++){
-//            for (int j = 1; j <= seance.getHall().getPlacesInRow(); j++){
-//                places.add(new Place())
-//            }
-//        }
-        return seanceRepository.save(seance);
+        Seance s = seanceRepository.save(seance);
+        int siteNumber = 1;
+        List<Place> places = new ArrayList<>();
+        for (int i = 1; i <= seance.getHall().getRows(); i++){
+            for (int j = 1; j <= seance.getHall().getPlacesInRow(); j++){
+                places.add(new Place(i, siteNumber, "Vacancy", seance));
+                siteNumber++;
+            }
+        }
+        System.out.print(places);
+        placeRepository.saveAll(places);
+        return s;
     }
 
     @Override

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span><a class="logo" [routerLink]="''"><i class="fas fa-film"></i>Cinema</a></span>
   <span class="space"></span>
-  <span><a>Sign up</a></span>
+  <span><a (click)="openSignUpDialog()">Sign up</a></span>
   <span><a>Sign in</a></span>
   <span><a [routerLink]="'/admin'">Admin</a></span>
   <span><a [routerLink]="'/movies'">Movies</a></span>

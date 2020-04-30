@@ -25,6 +25,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PalceComponent } from '../modules/palce/palce.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { enGbLocale } from 'ngx-bootstrap/locale';
 
@@ -45,6 +46,7 @@ defineLocale('engb', enGbLocale);
     CommonModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ModulesModule,
     ShareModule,
     RouterModule,

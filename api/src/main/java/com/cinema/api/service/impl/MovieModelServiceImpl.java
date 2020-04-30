@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class MovieModelServiceImpl implements MovieModelService {
 
@@ -16,7 +20,14 @@ public class MovieModelServiceImpl implements MovieModelService {
     private final String path = "/movies/";
 
     @Override
-    public PaginatorPageModel getAllMovieModels(int pageNumber, int pageSize) {
+    public List<MovieModel> getAllMovieModels() {
+        RestTemplate restTemplate = new RestTemplate();
+        MovieModel[] movieModels = restTemplate.getForObject(backend + path, MovieModel[].class);
+        return movieModels == null ? Collections.emptyList() : Arrays.asList(movieModels);
+    }
+
+    @Override
+    public PaginatorPageModel getAllMovieModelsByPage(int pageNumber, int pageSize) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backend + path + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize, PaginatorPageModel.class);
     }

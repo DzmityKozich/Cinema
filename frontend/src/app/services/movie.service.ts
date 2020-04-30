@@ -13,6 +13,10 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
+  public getAllMovieModels(): Observable<MovieModel[]> {
+    return this.http.get<MovieModel[]>(this.path);
+  }
+
   public getAllMovieModelsByPage(pageNumber: number, pageSize: number): Observable<PaginationPage<MovieModel>> {
     return this.http.get<PaginationPage<MovieModel>>(this.path + '?pageNumber=' + pageNumber + '&pageSize=' + pageSize);
   }

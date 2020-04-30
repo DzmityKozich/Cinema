@@ -10,7 +10,6 @@ import { switchMap } from 'rxjs/operators';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { MatDialog } from '@angular/material/dialog';
 import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { format } from 'ts-date/esm/locale/en';
 
 @Component({
   selector: 'app-movie',
@@ -81,10 +80,9 @@ export class MovieComponent implements OnInit, OnDestroy {
     );
   }
 
-  public pickDate(event: Date): void {
-    const d = format(event, 'YYYY-MM-DD');
+  public pickDate(event): void {
     this.clearCinemas();
-    this.getAllSeanceModelsByDateAndMovie(d, this.id);
+    this.getAllSeanceModelsByDateAndMovie(event, this.id);
   }
 
   private getAllCinemasByMovie(): void {

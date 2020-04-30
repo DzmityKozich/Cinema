@@ -19,6 +19,11 @@ public class HallServiceImpl implements HallService {
     private CinemaRepository cinemaRepository;
 
     @Override
+    public List<Hall> getAllHalls() {
+        return hallRepository.findAll();
+    }
+
+    @Override
     public Hall getHallById(Long id) {
         return hallRepository.findByIdHall(id);
     }

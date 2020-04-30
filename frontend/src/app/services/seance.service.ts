@@ -20,4 +20,8 @@ export class SeanceService {
   public getAllSeanceModelsByDateAndMovie(date: string, movieId: number): Observable<SeanceModel[]> {
     return this.http.get<SeanceModel[]>(this.path + '/date/' + date + '/movies/' + movieId);
   }
+
+  public saveSeanceModel(seance: SeanceModel): Observable<SeanceModel> {
+    return this.http.post<SeanceModel>(this.path, seance);
+  }
 }

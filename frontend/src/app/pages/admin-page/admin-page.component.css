@@ -2,6 +2,10 @@ div{
   color: #ffffff;
 }
 
+mat-expansion-panel{
+  margin-bottom: 2rem;
+}
+
 mat-form-field{
   width: 100%;
   font-size: 18px;
@@ -16,17 +20,28 @@ textarea{
   overflow-y: hidden;
 }
 
-input{
-  background-color: transparent;
-}
-
-/* Poster */
-.poster-label{
+label{
   font-size: 18px;
   color: rgba(255, 255, 255, 0.7);
 }
 
+input{
+  background-color: transparent;
+}
+
+/* Alert */
+.alert-warning{
+  color: #f44336;
+  font-size: 15px;
+  background-color: transparent;
+}
+
+
+/* Poster */
 .poster-input{
   margin-top: 5px;
   margin-bottom: 15px;
 }
+
+/* Timepicker */
+

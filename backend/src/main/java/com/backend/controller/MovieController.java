@@ -16,14 +16,14 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @GetMapping("")
+    private List<Movie> getAllMovies(){
+        return movieService.getAllMovies();
+    }
+
     @GetMapping(params = {"pageNumber", "pageSize"})
     private PaginatorPage<Movie> getAllMovies(@RequestParam int pageNumber, @RequestParam int pageSize){
         return movieService.getAllMoviesByPage(pageNumber, pageSize);
-//        Page<Movie> page = movieService.getAllMoviesByPage(pageNumber, pageSize);
-//        if(pageNumber > page.getTotalPages()){
-//            return null;
-//        }
-//        return page.getContent();
     }
 
     @GetMapping("/{id}")

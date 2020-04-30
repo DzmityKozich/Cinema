@@ -1,0 +1,22 @@
+::ng-deep .theme-default .bs-datepicker-body {
+  background-color: #2e2e2e;
+  border: none;
+}
+
+::ng-deep .theme-default .bs-datepicker-container {
+  background-color: #2e2e2e;
+  box-shadow: 0px 0px 18px 5px #000000;
+}
+
+.form-group{
+  margin-top: 1rem;
+  padding: 0;
+}
+
+.form-group input{
+  background-color: #2e2e2e;
+  border: 2px #9e174d solid;
+  outline: none;
+  color: #ffffff;
+  border-radius: 10px;
+}

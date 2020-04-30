@@ -7,6 +7,7 @@ import { PlaceModel } from './../../classes/place-model';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-palce',
@@ -54,6 +55,9 @@ export class PalceComponent implements OnInit, OnDestroy {
     );
   }
 
+  // сделать так, чтобы при выборе место одним человеком его не мог выбрать другой
+  // ввести новый статус
+  // сделать setUnterval
   public selectPlace(place: PlaceModel) {
     const isPlaceSelected: boolean = this.selectedPlaceModels.indexOf(place) === -1;
     const isLength: boolean =  this.selectedPlaceModels.length === 0;
@@ -79,6 +83,7 @@ export class PalceComponent implements OnInit, OnDestroy {
     if (this.billingModel.balance >= this.sum) {
       this.selectedPlaceModels.forEach(place => place.billing = this.billingModel);
       this.takePlaces(this.selectedPlaceModels);
+      this.closeDialog();
     } else {
       this.openSnackBar('You do not have enough money', 'Ok', 2500);
     }

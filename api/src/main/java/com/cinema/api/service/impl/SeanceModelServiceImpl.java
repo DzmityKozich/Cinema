@@ -31,4 +31,10 @@ public class SeanceModelServiceImpl implements SeanceModelService {
         SeanceModel[] seanceModels = restTemplate.getForObject(backend + path + "/date/" + date + "/movies/" + movieId, SeanceModel[].class);
         return seanceModels == null ? Collections.emptyList() : Arrays.asList(seanceModels);
     }
+
+    @Override
+    public SeanceModel saveSeanceModel(SeanceModel seance) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path, seance, SeanceModel.class).getBody();
+    }
 }

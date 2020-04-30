@@ -3,10 +3,7 @@ package com.cinema.api.controller;
 import com.cinema.api.model.SeanceModel;
 import com.cinema.api.service.SeanceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,11 @@ public class SeanceModelController {
 
     @GetMapping("/date/{date}/movies/{movieId}")
     private List<SeanceModel> getAllSeanceModelsByDateAndMovie(@PathVariable String date, @PathVariable Long movieId){
-        return  seanceModelService.getAllSeanceModelsByDateAndMovie(date, movieId);
+        return seanceModelService.getAllSeanceModelsByDateAndMovie(date, movieId);
+    }
+
+    @PostMapping("")
+    private SeanceModel saveSeanceModel(@RequestBody SeanceModel seance){
+        return seanceModelService.saveSeanceModel(seance);
     }
 }

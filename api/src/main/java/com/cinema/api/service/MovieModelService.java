@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MovieModelService {
     MovieModel getMovieModelById(Long id);
-    PaginatorPageModel<MovieModel> getAllMovieModels(int pageNumber, int pageSize);
+    List<MovieModel> getAllMovieModels();
+    PaginatorPageModel<MovieModel> getAllMovieModelsByPage(int pageNumber, int pageSize);
     MovieModel saveMovieModel(MovieModel movie);
 }

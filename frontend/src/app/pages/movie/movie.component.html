@@ -41,10 +41,7 @@
   </div>
   <h1 *ngIf="seances.length == 0">Sorry, no seances for this date</h1>
 
-  <div class="col-xs-12 col-12 col-sm-5 col-md-6 col-lg-4 form-group">
-    <input placeholder="Pick date" type="text" class="form-control" bsDatepicker #dp="bsDatepicker"
-    placement="top" [bsConfig]="bsConfig" (bsValueChange)="pickDate($event)">
-  </div>
+  <app-datepicker dpPlaceholder="Pick date" dpPlacement="top" (dpBsValueChange)="pickDate($event)"></app-datepicker>
 </div>
 
 <app-footer></app-footer>
