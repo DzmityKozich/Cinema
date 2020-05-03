@@ -68,7 +68,6 @@ export class SignUpComponent implements OnInit {
         },
         err => { },
         () => {
-          console.log(this.userModel);
           this.loginModel = this.formLogin.value;
           this.loginModel.loginUser = this.userModel;
           this.saveLoginModel();

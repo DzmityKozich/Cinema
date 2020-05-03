@@ -26,6 +26,10 @@ public class Billing {
     public Billing() {
     }
 
+    public Billing(User billingUser) {
+        this.billingUser = billingUser;
+    }
+
     public Long getIdBilling() {
         return idBilling;
     }
