@@ -16,6 +16,10 @@ import { HallModel } from 'src/app/classes/hall-model';
 })
 export class AdminPageComponent implements OnInit, OnDestroy {
 
+/**
+ * сделать ошибки при незаполенных полях для картинки, даты, времени и тп
+ */
+
   public movieModel: MovieModel = new MovieModel();
   public movies: MovieModel[] = [];
   public seanceModel: SeanceModel = new SeanceModel();
@@ -43,7 +47,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   });
 
   formSeance: FormGroup = new FormGroup({
-    // нет прошедшему времени!!!
     date: new FormControl('', [Validators.required]),
     time: new FormControl(new Date(), [Validators.required]),
     price: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,10}(\.\d{1,2})?')]),

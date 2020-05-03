@@ -5,6 +5,7 @@ import com.cinema.api.model.UserModel;
 
 public interface LoginModelService {
 
+    LoginModel getLoginModelById(Long id);
     LoginModel saveLoginModel(LoginModel login);
     UserModel getUserModelByLoginModel(String email);
 }

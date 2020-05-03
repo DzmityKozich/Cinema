@@ -50,7 +50,10 @@ export class PalceComponent implements OnInit, OnDestroy {
       .subscribe(
         () => this.getAllPlaceModelsBySeance(),
         (err) => { },
-        () => this.openSnackBar('Success', 'Ok', 1500)
+        () => {
+          this.openSnackBar('Success', 'Ok', 1500);
+          this.closeDialog();
+        }
         )
     );
   }
@@ -83,7 +86,6 @@ export class PalceComponent implements OnInit, OnDestroy {
     if (this.billingModel.balance >= this.sum) {
       this.selectedPlaceModels.forEach(place => place.billing = this.billingModel);
       this.takePlaces(this.selectedPlaceModels);
-      this.closeDialog();
     } else {
       this.openSnackBar('You do not have enough money', 'Ok', 2500);
     }

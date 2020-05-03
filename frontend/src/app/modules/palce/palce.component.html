@@ -4,9 +4,9 @@
 </div>
 <div mat-dialog-content>
   <div class="screen">Screen</div>
-  <div *ngFor="let row of rows">
+  <div *ngFor="let row of rows" class="places">
     <span class="row__number">{{ row }}</span>
-    <span class="places">
+    <span>
       <span *ngFor="let place of placeModels">
         <span *ngIf="place.row == row" [id]="place.idPlace"
           [ngClass]="place.state == 'Vacancy' ? 'place--vacancy' : 'place--taken'" (click)="selectPlace(place)">

@@ -13,6 +13,11 @@ public class LoginModelController {
     @Autowired
     private LoginModelService loginModelService;
 
+    @GetMapping("/{id}")
+    private LoginModel getLoginModelById(@PathVariable Long id){
+        return loginModelService.getLoginModelById(id);
+    }
+
     @GetMapping("/email/{email}")
     private UserModel getUserModelByLoginModel(@PathVariable String email){
         return loginModelService.getUserModelByLoginModel(email);

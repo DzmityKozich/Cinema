@@ -16,7 +16,7 @@
 
 /* Place */
 .place--vacancy{
-  /* margin: 5px auto; */
+  margin: auto 5px;
   display: inline-block;
   content: '';
   width: 60px;
@@ -31,6 +31,7 @@
 }
 
 .place--taken{
+  margin: auto 5px;
   display: inline-block;
   content: '';
   width: 60px;
@@ -64,7 +65,7 @@
 }
 
 .places{
-  display: flex;
+  display: grid;
   justify-content: space-evenly;
 }
 

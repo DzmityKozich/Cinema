@@ -13,7 +13,6 @@ h1{
   grid-template-columns: 25% 75%;
   gap: 1%;
   align-items: stretch;
-  /* margin-top: 124px; */
 }
 
 .movie__name {
@@ -21,7 +20,6 @@ h1{
   color: #ffffff;
   font-size: 60px;
   font-weight: 500;
-  /* background-color: red; */
 }
 
 .movie__img {
@@ -34,47 +32,22 @@ h1{
   font-size: 25px;
   color: #ffffff;
   cursor: pointer;
-  /* background-color: blue; */
 }
 
 .movie__des {
   font-size: 25px;
   color: #ffffff;
-  /* background-color: yellow; */
 }
 
 /* Seances */
 .seances {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  justify-content: space-evenly;
   text-align: center;
-  min-width: 30%;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  /* min-width: 30%; */
 }
 
 .seance--info {
   margin-left: 10%;
-}
-
-/* Datepicker */
-::ng-deep .theme-default .bs-datepicker-body {
-  background-color: #2e2e2e;
-  border: none;
-}
-
-::ng-deep .theme-default .bs-datepicker-container {
-  background-color: #2e2e2e;
-  box-shadow: 0px 0px 18px 5px #000000;
-}
-
-.form-group{
-  margin-top: 1rem;
-  padding: 0;
-}
-
-.form-group input{
-  background-color: #2e2e2e;
-  border: 2px #9e174d solid;
-  outline: none;
-  color: #ffffff;
-  border-radius: 10px;
 }

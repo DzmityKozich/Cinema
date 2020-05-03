@@ -26,7 +26,6 @@ export class DatepickerComponent implements OnInit {
 
   public onBsValueChange(event: Date): void {
     const date = format(event, 'YYYY-MM-DD');
-    console.log('DatapicerComponent', date);
     this.dpBsValueChange.emit(date);
   }
 

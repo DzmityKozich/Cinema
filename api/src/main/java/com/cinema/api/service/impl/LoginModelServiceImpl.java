@@ -16,9 +16,15 @@ public class LoginModelServiceImpl implements LoginModelService {
     private final String path = "/logins";
 
     @Override
+    public LoginModel getLoginModelById(Long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backend + path + "/" + id, LoginModel.class);
+    }
+
+    @Override
     public UserModel getUserModelByLoginModel(String email) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backend + path + "/email/" + email, UserModel.class);
+        return restTemplate.getForObject(backend + path + "/emails/" + email, UserModel.class);
     }
 
     @Override

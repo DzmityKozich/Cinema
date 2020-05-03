@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { MatDialog } from '@angular/material/dialog';
-import { BsLocaleService, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-movie',
@@ -23,7 +22,6 @@ export class MovieComponent implements OnInit, OnDestroy {
   public cinemas: CinemaModel[] = [];
   private subscription: Subscription[] = [];
 
-  bsConfig: Partial<BsDatepickerConfig>;
   public id: number;
   public isSeance: boolean;
   private receivedData: any;
@@ -34,11 +32,9 @@ export class MovieComponent implements OnInit, OnDestroy {
               private movieService: MovieService,
               private seanceService: SeanceService,
               private matDialog: MatDialog,
-              private localeService: BsLocaleService
   ) { }
 
   ngOnInit() {
-    this.datepickerConfig();
     this.getIdFromPath();
     this.getMovieModelById();
     this.getAllSeanceModelsByDateAndMovie('2020-05-14', this.id);
@@ -102,23 +98,15 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.route.paramMap.pipe(
       switchMap(params => params.getAll('id'))
     )
-      .subscribe(data => this.id = +data);
-  }
-
-  public datepickerConfig(): void {
-    this.localeService.use('engb');
-    this.bsConfig = Object.assign({},
-      { containerClass: 'theme-default',
-      showWeekNumbers: false,
-      isAnimated: true,
-      dateInputFormat: 'YYYY-MM-DD'
-     });
+      .subscribe(dataPath => this.id = +dataPath);
   }
 
   public openPlaceDialog(seanceModel: SeanceModel): void {
     this.matDialog.open(PalceComponent, {
-      width: '500px',
-      height: '500px',
+      minWidth: '500px',
+      minHeight: '500px',
+      maxWidth: '',
+      maxHeight: '',
       data: {seance: seanceModel},
     });
   }

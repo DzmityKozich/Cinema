@@ -12,6 +12,8 @@ import { PalceComponent } from './palce/palce.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [FooterComponent,
@@ -31,6 +33,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule
   ],
   exports: [
     FooterComponent,
