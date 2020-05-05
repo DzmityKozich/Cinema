@@ -18,9 +18,14 @@ public class LoginModelController {
         return loginModelService.getLoginModelById(id);
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/emails/{email}")
+    private LoginModel getLoginModelByEmail(@PathVariable String email){
+        return loginModelService.getLoginModelByEmail(email);
+    }
+
+    @GetMapping("/users/{email}")
     private UserModel getUserModelByLoginModel(@PathVariable String email){
-        return loginModelService.getUserModelByLoginModel(email);
+        return loginModelService.getUserModelByEmail(email);
     }
 
     @PostMapping("")

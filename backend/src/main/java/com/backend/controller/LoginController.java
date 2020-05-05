@@ -18,14 +18,19 @@ public class LoginController {
         return loginService.getById(id);
     }
 
+    @GetMapping("/emails/{email}")
+    private Login getLoginByEmail(@PathVariable String email){
+        return loginService.getLoginByEmail(email);
+    }
+
     @PostMapping("")
     private Login saveLogin(@RequestBody Login login){
         return loginService.saveLogin(login);
     }
 
-    @GetMapping("/emails/{email}")
+    @GetMapping("/users/{email}")
     private User getUserByEmail(@PathVariable String email){
-        return loginService.getUserByLogin(email);
+        return loginService.getUserByEmail(email);
     }
 
     @DeleteMapping("/{id}")

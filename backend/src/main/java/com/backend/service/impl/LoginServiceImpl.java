@@ -19,12 +19,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public Login getLoginByEmail(String email) {
+        return loginRepository.findByEmail(email);
+    }
+
+    @Override
     public Login saveLogin(Login login) {
         return loginRepository.save(login);
     }
 
     @Override
-    public User getUserByLogin(String email) {
+    public User getUserByEmail(String email) {
         return loginRepository.findByEmail(email).getLoginUser();
     }
 

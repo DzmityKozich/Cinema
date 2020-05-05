@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Sign in</h1>
+<form [formGroup]="formLogin" mat-dialog-content (ngSubmit)="onSubmit()" novalidate>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput name="email" formControlName="email">
+    <mat-error *ngIf="formLogin.controls['email'].hasError('email') && !formLogin.controls['email'].hasError('required')">
+      Please inter valid email!
+    </mat-error>
+    <mat-error *ngIf="formLogin.controls['email'].hasError('required')">
+      Email is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput name="password" [type]="hide? 'password' : 'text' " formControlName="password">
+    <button type="button" mat-icon-button matSuffix (click)="toggle()"><i [ngClass]="hide? 'far fa-eye' : 'far fa-eye-slash'"></i></button>
+    <mat-error *ngIf="formLogin.controls['password'].invalid && !formLogin.controls['password'].hasError('required')">
+      Please enter valid password!
+    </mat-error>
+    <mat-error *ngIf="formLogin.controls['password'].hasError('required')">
+      Please enter password!
+    </mat-error>
+  </mat-form-field>
+  <div mat-doalog-actions>
+    <app-button btnType="submit" btnName="Sign in"></app-button>
+    <app-button btnName="Close" (click)="close()"></app-button>
+  </div>
+</form>

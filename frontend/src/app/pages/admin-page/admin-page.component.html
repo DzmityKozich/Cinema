@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <mat-expansion-panel>
+  <mat-expansion-panel #panelMovie>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Add Movie
@@ -36,6 +36,9 @@
         <mat-error *ngIf="formMovie.controls['description'].hasError('required')">
           Enter description!
         </mat-error>
+        <mat-error *ngIf="formMovie.controls['description'].invalid && !formMovie.controls['description'].hasError('required')">
+          Enter valid description
+        </mat-error>
       </mat-form-field>
       <label>Poster</label>
       <div class="poster-input">
@@ -48,7 +51,7 @@
     </form>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel #panelSeance>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Add Seance
@@ -60,6 +63,7 @@
       </app-datepicker>
       <label>Time</label>
       <timepicker [formControlName]="'time'"></timepicker>
+      <!-- <div *ngIf="formSeance.controls['time'].hasError('required')" class="alert-warning">Upload poster</div> -->
       <mat-form-field>
         <mat-label>Movie</mat-label>
         <mat-select formControlName="movie">
@@ -67,10 +71,19 @@
             {{ movie.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="formSeance.controls['movie'].hasError('required')">
+            Select genre!
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Price</mat-label>
         <input matInput type="text" formControlName="price">
+        <mat-error *ngIf="formSeance.controls['price'].invalid && !formSeance.controls['price'].hasError('required')">
+            Set valid price!
+        </mat-error>
+        <mat-error *ngIf="formSeance.controls['price'].hasError('required')">
+          Set price!
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Cinema hall</mat-label>
@@ -79,6 +92,9 @@
             {{ hall.cinema.name }}: {{ hall.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="formSeance.controls['hall'].hasError('required')">
+          Select cinema hall!
+        </mat-error>
       </mat-form-field>
       <mat-action-row>
         <app-button btnType="submit" btnName="Save!"></app-button>

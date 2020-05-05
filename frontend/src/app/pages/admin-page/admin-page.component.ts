@@ -3,11 +3,12 @@ import { SeanceModel } from './../../classes/seance-model';
 import { HallService } from './../../services/hall.service';
 import { Subscription } from 'rxjs';
 import { MovieService } from './../../services/movie.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HallModel } from 'src/app/classes/hall-model';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-admin-page',
@@ -16,9 +17,15 @@ import { HallModel } from 'src/app/classes/hall-model';
 })
 export class AdminPageComponent implements OnInit, OnDestroy {
 
-/**
- * сделать ошибки при незаполенных полях для картинки, даты, времени и тп
- */
+  /**
+   * сделать ошибки при незаполенных полях для картинки, даты, времени и тп
+   */
+
+  @ViewChild('panelMovie', { static: false })
+  private panelMovie: MatExpansionPanel;
+
+  @ViewChild('panelSeance', { static: false })
+  private panelSeance: MatExpansionPanel;
 
   public movieModel: MovieModel = new MovieModel();
   public movies: MovieModel[] = [];
@@ -49,7 +56,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   formSeance: FormGroup = new FormGroup({
     date: new FormControl('', [Validators.required]),
     time: new FormControl(new Date(), [Validators.required]),
-    price: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,10}(\.\d{1,2})?')]),
+    price: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,10}(\.[0-9]{1,2})?')]),
     movie: new FormControl('', [Validators.required]),
     hall: new FormControl('', [Validators.required])
   });
@@ -64,7 +71,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       this.movieModel = this.formMovie.value;
       this.movieModel.poster = this.dataUrl;
       this.saveMovieModel();
-      this.clearForm();
+      this.clearForm(this.formMovie);
+      this.panelMovie.close();
+    } else {
+      this.openSnackBar('Check your data', 'Ok', 2500);
     }
   }
 
@@ -74,6 +84,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       this.seanceModel = this.formSeance.value;
       console.log(this.seanceModel);
       this.saveSeanceModel();
+      this.clearForm(this.formSeance);
+      this.panelMovie.close();
+    } else {
+      this.openSnackBar('Check your data', 'Ok', 2500);
     }
   }
 
@@ -99,7 +113,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
         () => this.refreshSeanceModel(),
         (err) => { },
         () => this.openSnackBar('Seance add', 'Ok', 1500)
-        )
+      )
     );
   }
 
@@ -115,11 +129,12 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     };
   }
 
-  private clearForm(): void {
-    this.formMovie.controls.name.setValue(null);
-    this.formMovie.controls.genre.setValue(null);
-    this.formMovie.controls.description.setValue(null);
-    this.formMovie.controls.poster.setValue(null);
+  private clearForm(form: FormGroup): void {
+    form.reset();
+    // this.formMovie.controls.name.setValue(null);
+    // this.formMovie.controls.genre.setValue(null);
+    // this.formMovie.controls.description.setValue(null);
+    // this.formMovie.controls.poster.setValue(null);
   }
 
   private getAllMovieModels(): void {

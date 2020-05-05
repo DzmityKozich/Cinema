@@ -14,13 +14,15 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [FooterComponent,
     HeaderComponent,
     NavbarComponent,
     PalceComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { MatButtonModule } from '@angular/material/button';
     NavbarComponent
   ],
   entryComponents: [
-    SignUpComponent
+    SignUpComponent,
+    SignInComponent
   ]
 })
 export class ModulesModule { }
