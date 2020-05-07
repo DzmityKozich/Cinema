@@ -131,10 +131,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   private clearForm(form: FormGroup): void {
     form.reset();
-    // this.formMovie.controls.name.setValue(null);
-    // this.formMovie.controls.genre.setValue(null);
-    // this.formMovie.controls.description.setValue(null);
-    // this.formMovie.controls.poster.setValue(null);
   }
 
   private getAllMovieModels(): void {

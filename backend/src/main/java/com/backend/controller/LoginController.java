@@ -6,6 +6,8 @@ import com.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/logins")
 public class LoginController {
@@ -16,6 +18,11 @@ public class LoginController {
     @GetMapping("/{id}")
     private Login getLoginById(@PathVariable Long id){
         return loginService.getById(id);
+    }
+
+    @GetMapping("")
+    private List<Login> getAllLogins(){
+        return loginService.getAllLogins();
     }
 
     @GetMapping("/emails/{email}")

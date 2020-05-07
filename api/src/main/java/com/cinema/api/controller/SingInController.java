@@ -11,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class SingInController {
 
     @Autowired
@@ -50,11 +51,12 @@ public class SingInController {
                     loginModel.getPassword()
             );
             authenticationManager.authenticate(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String token = jwt.createToken(username, userModel.getRole());
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
-            response.put("user", userModel);
+            response.put("currentUser", userModel);
             return ResponseEntity.ok(response);
 
         } catch (AuthenticationException e) {

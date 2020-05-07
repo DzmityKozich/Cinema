@@ -3,7 +3,9 @@ package com.cinema.api.controller;
 import com.cinema.api.model.LoginModel;
 import com.cinema.api.model.UserModel;
 import com.cinema.api.service.LoginModelService;
+import com.cinema.api.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +14,9 @@ public class LoginModelController {
 
     @Autowired
     private LoginModelService loginModelService;
+
+    @Autowired
+    private ValidatorService validatorService;
 
     @GetMapping("/{id}")
     private LoginModel getLoginModelById(@PathVariable Long id){
@@ -29,7 +34,9 @@ public class LoginModelController {
     }
 
     @PostMapping("")
-    private LoginModel saveLoginModel(@RequestBody LoginModel login){
-        return loginModelService.saveLoginModel(login);
+    private ResponseEntity saveLoginModel(@RequestBody LoginModel login){
+        if (login != null && validatorService.validator(login, loginModelService.getAllLoginModels())) {
+            return  ResponseEntity.ok(loginModelService.saveLoginModel(login));
+        } else return ResponseEntity.badRequest().body("this user is exist");
     }
 }

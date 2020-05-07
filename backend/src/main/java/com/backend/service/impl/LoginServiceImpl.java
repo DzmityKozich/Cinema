@@ -7,6 +7,8 @@ import com.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -16,6 +18,11 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Login getById(Long id) {
         return loginRepository.findByIdLogin(id);
+    }
+
+    @Override
+    public List<Login> getAllLogins() {
+        return loginRepository.findAll();
     }
 
     @Override

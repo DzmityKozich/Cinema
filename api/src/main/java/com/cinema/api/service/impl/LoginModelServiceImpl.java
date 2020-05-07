@@ -13,6 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class LoginModelServiceImpl implements LoginModelService, UserDetailsService {
 
@@ -28,6 +32,13 @@ public class LoginModelServiceImpl implements LoginModelService, UserDetailsServ
     public LoginModel getLoginModelById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backend + path + "/" + id, LoginModel.class);
+    }
+
+    @Override
+    public List<LoginModel> getAllLoginModels() {
+        RestTemplate restTemplate = new RestTemplate();
+        LoginModel[] loginModels = restTemplate.getForObject(backend + path, LoginModel[].class);
+        return loginModels != null ? Collections.emptyList() : Arrays.asList(loginModels);
     }
 
     @Override
