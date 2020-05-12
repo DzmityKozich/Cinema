@@ -23,4 +23,8 @@ export class PlaceService {
   public takePlace(places: PlaceModel[]): Observable<PlaceModel[]> {
     return this.http.post<PlaceModel[]>(this.path + '/reservation', places);
   }
+
+  public clearSelectedPlaceModels(places: PlaceModel[]): Observable<PlaceModel[]> {
+    return this.http.post<PlaceModel[]>(this.path + '/cleaning', places);
+  }
 }

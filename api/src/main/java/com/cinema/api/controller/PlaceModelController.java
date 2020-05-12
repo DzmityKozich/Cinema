@@ -29,4 +29,14 @@ public class PlaceModelController {
     private void takePlace(@RequestBody PlaceModel[] places){
         placeModelService.takePlace(places);
     }
+
+    @PostMapping("/cleaning")
+    private void clearSelectedPlaceModels(@RequestBody PlaceModel[] placeModels){
+        placeModelService.clearSelectedPlaceModels(placeModels);
+    }
+
+    @PostMapping("/selection")
+    private PlaceModel selectPlace(@RequestBody PlaceModel place){
+        return placeModelService.selectPlace(place);
+    }
 }

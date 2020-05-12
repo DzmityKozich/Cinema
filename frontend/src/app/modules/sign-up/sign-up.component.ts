@@ -1,24 +1,25 @@
+import { state } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { UserModel } from './../../classes/user-model';
 import { LoginService } from './../../services/login.service';
 import { UserService } from './../../services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LoginModel } from 'src/app/classes/login-model';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
 
   private userModel: UserModel = new UserModel();
   private loginModel: LoginModel = new LoginModel();
   private subscription: Subscription[] = [];
+  private validate: boolean;
 
   // tslint:disable-next-line: no-inferrable-types
   public hide: boolean = true;
@@ -44,8 +45,13 @@ export class SignUpComponent implements OnInit {
 
   public add() {
     if (this.formLogin.valid && this.formUser.valid) {
-      this.userModel = this.formUser.value;
-      this.saveUserModel();
+      this.validator(this.formLogin.get('email').value);
+      if (this.validate) {
+        this.userModel = this.formUser.value;
+        this.saveUserModel();
+      } else {
+        this.openSnackBar('This user exist', 'Ok', 2500);
+      }
     } else {
       this.openSnackBar('Check your data', 'Ok', 2500);
     }
@@ -66,13 +72,13 @@ export class SignUpComponent implements OnInit {
         arg => {
           this.userModel = arg;
         },
-        err => { },
+        (err) => { },
         () => {
           this.loginModel = this.formLogin.value;
           this.loginModel.loginUser = this.userModel;
           this.saveLoginModel();
         }
-        )
+      )
     );
   }
 
@@ -87,6 +93,9 @@ export class SignUpComponent implements OnInit {
           this.refreshUserModel();
           this.refreshLoginModel();
           this.openSnackBar('Success', 'Ok', 1500);
+        },
+        (err) => {},
+        () => {
           this.closeDialog();
         }
       )
@@ -95,6 +104,12 @@ export class SignUpComponent implements OnInit {
 
   public refreshLoginModel(): void {
     this.loginModel = new LoginModel();
+  }
+
+  private validator(login: string): void {
+    this.subscription.push(this.loginService.validator(login)
+      .subscribe(arg => this.validate = arg)
+    );
   }
 
   public closeDialog(): void {
@@ -109,4 +124,7 @@ export class SignUpComponent implements OnInit {
     this.hide = !this.hide;
   }
 
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
 }

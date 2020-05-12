@@ -32,4 +32,10 @@ public class BillingModelServiceImpl implements BillingModelService {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForEntity(backend + path, billingModel, BillingModel.class).getBody();
     }
+
+    @Override
+    public BillingModel putMoney(Long userId, double money) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path + "/money/" + userId, money, BillingModel.class).getBody();
+    }
 }

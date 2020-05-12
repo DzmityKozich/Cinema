@@ -44,6 +44,15 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
+    public void clearSelectedPlaces(List<Place> places) {
+        places.forEach(place -> {
+            place.setState("Vacancy");
+            place.setBilling(null);
+        });
+        placeRepository.saveAll(places);
+    }
+
+    @Override
     public void takePlace(List<Place> places) {
         Billing billing = places.get(0).getBilling();
         double sum = 0.0;

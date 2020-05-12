@@ -15,4 +15,8 @@ export class LoginService {
   public saveLoginModel(login: LoginModel): Observable<LoginModel> {
     return this.http.post<LoginModel>(this.path, login);
   }
+
+  public validator(login: string): Observable<boolean> {
+    return this.http.get<boolean>(this.path + '/login/' + login);
+  }
 }

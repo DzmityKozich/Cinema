@@ -9,4 +9,6 @@ public interface PlaceModelService {
     List<PlaceModel> getAllPlacesBySeance(Long id);
     PlaceModel savePlaceModel(PlaceModel place);
     void takePlace(PlaceModel[] places);
+    void clearSelectedPlaceModels(PlaceModel[] places);
+    PlaceModel selectPlace(PlaceModel placeModel);
 }

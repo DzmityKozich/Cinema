@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { PutMoneyComponent } from './put-money/put-money.component';
 
 @NgModule({
   declarations: [FooterComponent,
@@ -22,7 +23,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     NavbarComponent,
     PalceComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    PutMoneyComponent
   ],
   imports: [
     CommonModule,

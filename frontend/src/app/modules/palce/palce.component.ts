@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage.service';
 import { BillingService } from './../../services/billing.service';
 import { BillingModel } from './../../classes/billing-model';
 import { UserModel } from './../../classes/user-model';
@@ -7,7 +8,6 @@ import { PlaceModel } from './../../classes/place-model';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-palce',
@@ -20,7 +20,9 @@ export class PalceComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
   private selectedPlaceModels: PlaceModel[] = [];
   private billingModel: BillingModel = new BillingModel();
+  private currentUser: UserModel = new UserModel();
 
+  private timer = setInterval(() => this.getAllPlaceModelsBySeance(), 5000);
   public rows: number[] = [];
   private sum = 0;
   private price: number;
@@ -29,12 +31,14 @@ export class PalceComponent implements OnInit, OnDestroy {
               private billingService: BillingService,
               private snackBar: MatSnackBar,
               public dialog: MatDialogRef<PalceComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private storage: StorageService,
   ) { }
 
   ngOnInit() {
+    this.currentUser = this.storage.getCurrentUser();
+    this.getBillingModelByUser();
     this.getAllPlaceModelsBySeance();
-    this.getBillingModelById();
     this.countRows();
     this.price = this.data.seance.price;
   }
@@ -52,34 +56,66 @@ export class PalceComponent implements OnInit, OnDestroy {
         (err) => { },
         () => {
           this.openSnackBar('Success', 'Ok', 1500);
-          this.closeDialog();
+          this.dialog.close();
         }
-        )
+      )
     );
   }
 
-  // сделать так, чтобы при выборе место одним человеком его не мог выбрать другой
-  // ввести новый статус
-  // сделать setUnterval
-  public selectPlace(place: PlaceModel) {
-    const isPlaceSelected: boolean = this.selectedPlaceModels.indexOf(place) === -1;
-    const isLength: boolean =  this.selectedPlaceModels.length === 0;
-    if (place.state === 'Vacancy') {
-      if (isPlaceSelected || isLength) {
-        document.getElementById(place.idPlace.toString()).classList.add('place--select');
-        this.selectedPlaceModels.push(place);
-        this.sum += this.price;
-        console.log(this.selectedPlaceModels);
-      } else {
-        document.getElementById(place.idPlace.toString()).classList.remove('place--select');
-        this.selectedPlaceModels.splice(this.selectedPlaceModels.indexOf(place), 1);
-        this.sum -= this.price;
+  private savePlace(place: PlaceModel): void {
+    this.subscription.push(this.placeService.savePlaceModel(place)
+      .subscribe(() => {
+        this.getAllPlaceModelsBySeance();
+      })
+    );
+  }
+
+  private clearSelectedPlaceModels(places: PlaceModel[]): void {
+    this.subscription.push(this.placeService.clearSelectedPlaceModels(places)
+      .subscribe(
+        () => { },
+      (err) => { },
+      () => {
+        this.dialog.close();
       }
+      )
+    );
+  }
+
+  private getBillingModelByUser(): void {
+    this.subscription.push(this.billingService.getBillingModelByUser(this.currentUser.idUser)
+      .subscribe(arg => {
+        this.billingModel = arg;
+      })
+    );
+  }
+
+  public selectPlace(place: PlaceModel): void {
+    if (place.state === 'Vacancy') {
+      this.selectOn(place);
+    } else if (this.isSelectedByMe(place)) {
+      this.selectOff(place);
     }
   }
 
-  private clearSelectedPlaceModels(): void {
-    this.selectedPlaceModels = [];
+  private selectOn(place: PlaceModel): void {
+    this.sum += this.price;
+    place.state = 'Selected';
+    place.billing = this.billingModel;
+    this.selectedPlaceModels.push(place);
+    this.savePlace(place);
+  }
+
+  private selectOff(place: PlaceModel): void {
+    this.selectedPlaceModels.splice(this.selectedPlaceModels.indexOf(place), 1);
+    this.sum -= this.price;
+    this.clearSelectedPlace(place);
+  }
+
+  private clearSelectedPlace(place: PlaceModel): void {
+    place.state = 'Vacancy';
+    place.billing = null;
+    this.savePlace(place);
   }
 
   public buyTicket(): void {
@@ -91,14 +127,48 @@ export class PalceComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getBillingModelById(): void {
-    this.subscription.push(this.billingService.getBillingModelById()
-      .subscribe(arg => this.billingModel = arg)
-    );
+  public isSelectedByMe(place: PlaceModel): boolean {
+    if (place.state === 'Selected') {
+      if (place.billing.idBilling === this.billingModel.idBilling) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  public isVacancy(place: PlaceModel): boolean {
+    if (place.state === 'Vacancy') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public isTaken(place: PlaceModel): boolean {
+    if (place.state === 'Taken') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public isPlaceSelectedByOther(place: PlaceModel): boolean {
+   if (place.state === 'Selected') {
+     if (place.billing.idBilling !== this.billingModel.idBilling) {
+       return true;
+     } else {
+       return false;
+     }
+   } else {
+     return false;
+   }
   }
 
   public closeDialog(): void {
-    this.dialog.close();
+    this.clearSelectedPlaceModels(this.selectedPlaceModels);
   }
 
   private countRows(): void {
@@ -113,6 +183,7 @@ export class PalceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
+    clearTimeout(this.timer);
   }
 
 }

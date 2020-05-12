@@ -1,1 +1,16 @@
-<p>user-account works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="account">
+    <app-animation animationImage="fas fa-user"></app-animation>
+    <div class="acount--info">
+      <div class="name">
+        {{ currentUser.firstName }} {{ currentUser.lastName }}
+      </div>
+      <div class="billing">
+        <p>{{ billingModel.balance }}$</p>
+        <app-button btnName="Put money" (click)="openPutMoneyDialog()"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

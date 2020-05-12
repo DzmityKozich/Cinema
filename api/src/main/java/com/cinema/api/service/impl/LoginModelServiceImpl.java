@@ -38,7 +38,7 @@ public class LoginModelServiceImpl implements LoginModelService, UserDetailsServ
     public List<LoginModel> getAllLoginModels() {
         RestTemplate restTemplate = new RestTemplate();
         LoginModel[] loginModels = restTemplate.getForObject(backend + path, LoginModel[].class);
-        return loginModels != null ? Collections.emptyList() : Arrays.asList(loginModels);
+        return loginModels == null ? Collections.emptyList() : Arrays.asList(loginModels);
     }
 
     @Override

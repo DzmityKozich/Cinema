@@ -27,6 +27,11 @@ public class BillingController {
         return billingService.saveBilling(billing);
     }
 
+    @PostMapping("/money/{userId}")
+    private Billing putMoney(@PathVariable Long userId, @RequestBody double money){
+        return billingService.putMoney(userId, money);
+    }
+
     @DeleteMapping("/{id}")
     private void deleteBillingById(@PathVariable Long id){
         billingService.deleteBillingById(id);

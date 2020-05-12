@@ -40,6 +40,11 @@ public class PlaceController {
         placeService.takePlace(Arrays.asList(places));
     }
 
+    @PostMapping("/cleaning")
+    private void clearSelectedPlaces(@RequestBody Place[] places){
+        placeService.clearSelectedPlaces(Arrays.asList(places));
+    }
+
     @DeleteMapping("/{id}")
     private void deletePlaceById(@PathVariable Long id){
         placeService.deletePlaceById(id);

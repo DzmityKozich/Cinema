@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage.service';
 import { SignInComponent } from './../sign-in/sign-in.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,9 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public matDialog: MatDialog) { }
+  constructor(public matDialog: MatDialog,
+              private storage: StorageService
+  ) { }
 
   ngOnInit() {
   }
@@ -27,6 +30,11 @@ export class NavbarComponent implements OnInit {
       width: '500px',
       height: '407px'
     });
+  }
+
+  public logout(): void {
+    this.storage.clearStorage();
+    window.location.reload();
   }
 
 }

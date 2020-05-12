@@ -3,6 +3,7 @@ package com.cinema.api.controller;
 import com.cinema.api.model.BillingModel;
 import com.cinema.api.service.BillingModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,5 +26,12 @@ public class BillingModelController {
     @PostMapping("")
     private BillingModel saveBillingModel(@RequestBody BillingModel billingModel){
         return billingModelService.saveBillingModel(billingModel);
+    }
+
+    @PostMapping("/money/{userId}")
+    private ResponseEntity putMoney(@PathVariable Long userId, @RequestBody double money){
+        if (money > 0) {
+            return ResponseEntity.ok(billingModelService.putMoney(userId, money));
+        } else return ResponseEntity.badRequest().body(">0!");
     }
 }

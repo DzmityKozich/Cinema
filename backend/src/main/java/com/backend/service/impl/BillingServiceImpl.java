@@ -32,6 +32,13 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
+    public Billing putMoney(Long userId, double money) {
+        Billing billing = getByUser(userId);
+        billing.setBalance(billing.getBalance() + money);
+        return billingRepository.save(billing);
+    }
+
+    @Override
     public void deleteBillingById(Long id) {
         billingRepository.deleteById(id);
     }

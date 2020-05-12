@@ -10,6 +10,7 @@ export class ButtonComponent implements OnInit {
   @Input() public btnName;
   @Input() public btnType = 'button';
   @Input() public btnStyle = 'btn-pink';
+  @Input() public btnDisabled: boolean;
 
   constructor() { }
 

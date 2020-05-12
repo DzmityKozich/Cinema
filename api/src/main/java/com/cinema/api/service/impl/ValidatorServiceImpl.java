@@ -10,10 +10,10 @@ import java.util.List;
 public class ValidatorServiceImpl implements ValidatorService {
 
     @Override
-    public boolean validator(LoginModel loginModel, List<LoginModel> loginModelList) {
-        for(LoginModel login : loginModelList){
-            if(loginModel.getEmail().equals(login.getEmail())){
-                return false;
+    public boolean validator(String login, List<LoginModel> loginModelList) {
+        for(LoginModel loginModel : loginModelList){
+            if(login.equals(loginModel.getEmail())){
+                return  false;
             }
         }
         return true;

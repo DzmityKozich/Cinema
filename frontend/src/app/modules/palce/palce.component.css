@@ -43,6 +43,7 @@
 }
 
 .place--select{
+  margin: auto 5px;
   display: inline-block;
   content: '';
   width: 60px;
@@ -55,6 +56,18 @@
 
 .place--select:hover{
   background-color: #ff0066;
+}
+
+.place--other__select{
+  margin: auto 5px;
+  display: inline-block;
+  content: '';
+  width: 60px;
+  height: 60px;
+  background-color: #ffe364e5;
+  border: 2px #9e174d solid;
+  border-radius: 10px;
+  cursor: not-allowed;
 }
 
 .place p{

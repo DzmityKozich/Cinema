@@ -32,6 +32,18 @@ public class PlaceModelServiceImpl implements PlaceModelService {
     }
 
     @Override
+    public void clearSelectedPlaceModels(PlaceModel[] places) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForEntity(backend + path + "/cleaning", places, PlaceModel.class).getBody();
+    }
+
+    @Override
+    public PlaceModel selectPlace(PlaceModel placeModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path + "/selection", placeModel, PlaceModel.class).getBody();
+    }
+
+    @Override
     public void takePlace(PlaceModel[] places) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity(backend + path  + "/reservation", places, PlaceModel.class).getBody();

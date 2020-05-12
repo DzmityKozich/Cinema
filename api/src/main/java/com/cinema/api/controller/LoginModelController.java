@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/logins")
 public class LoginModelController {
@@ -23,6 +25,11 @@ public class LoginModelController {
         return loginModelService.getLoginModelById(id);
     }
 
+    @GetMapping("")
+    private List<LoginModel> getAllLoginModels(){
+        return loginModelService.getAllLoginModels();
+    }
+
     @GetMapping("/emails/{email}")
     private LoginModel getLoginModelByEmail(@PathVariable String email){
         return loginModelService.getLoginModelByEmail(email);
@@ -33,10 +40,13 @@ public class LoginModelController {
         return loginModelService.getUserModelByEmail(email);
     }
 
+    @GetMapping("/login/{login}")
+    private boolean validator(@PathVariable String login){
+        return validatorService.validator(login, loginModelService.getAllLoginModels());
+    }
+
     @PostMapping("")
-    private ResponseEntity saveLoginModel(@RequestBody LoginModel login){
-        if (login != null && validatorService.validator(login, loginModelService.getAllLoginModels())) {
-            return  ResponseEntity.ok(loginModelService.saveLoginModel(login));
-        } else return ResponseEntity.badRequest().body("this user is exist");
+    private LoginModel saveLoginModel(@RequestBody LoginModel login){
+        return loginModelService.saveLoginModel(login);
     }
 }

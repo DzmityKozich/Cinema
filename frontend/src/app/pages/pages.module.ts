@@ -1,3 +1,4 @@
+import { PutMoneyComponent } from './../modules/put-money/put-money.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ShareModule } from './../share/share.module';
 import { RouterModule } from '@angular/router';
@@ -67,6 +68,7 @@ defineLocale('engb', enGbLocale);
   exports: [HomeComponent],
   entryComponents: [
     PalceComponent,
+    PutMoneyComponent
   ]
 })
 export class PagesModule { }

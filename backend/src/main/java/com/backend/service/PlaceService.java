@@ -8,6 +8,7 @@ public interface PlaceService {
     Place getPlaceById(Long id);
     List<Place> getAllPlaces();
     Place savePlace(Place place);
+    void clearSelectedPlaces(List<Place> places);
     List<Place> getAllBySeance(Long id);
     void takePlace(List<Place> places);
     void deletePlaceById(Long id);
