@@ -44,6 +44,11 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
+    public List<Place> getAllPlacesByBilling(Long id) {
+        return placeRepository.findAllByBilling(billingRepository.findByIdBilling(id));
+    }
+
+    @Override
     public void clearSelectedPlaces(List<Place> places) {
         places.forEach(place -> {
             place.setState("Vacancy");

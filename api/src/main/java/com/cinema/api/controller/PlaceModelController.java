@@ -20,6 +20,11 @@ public class PlaceModelController {
         return placeModelService.getAllPlacesBySeance(id);
     }
 
+    @GetMapping("/billings/{id}")
+    private List<PlaceModel> getAllPlaceModelsByBilling(@PathVariable Long id){
+        return placeModelService.getAllPlaceModelsByBilling(id);
+    }
+
     @PostMapping("")
     private PlaceModel savePlaceModel(@RequestBody PlaceModel placeModel){
         return placeModelService.savePlaceModel(placeModel);

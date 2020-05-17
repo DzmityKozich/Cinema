@@ -46,12 +46,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   public add() {
     if (this.formLogin.valid && this.formUser.valid) {
       this.validator(this.formLogin.get('email').value);
-      if (this.validate) {
-        this.userModel = this.formUser.value;
-        this.saveUserModel();
-      } else {
-        this.openSnackBar('This user exist', 'Ok', 2500);
-      }
     } else {
       this.openSnackBar('Check your data', 'Ok', 2500);
     }
@@ -108,7 +102,16 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   private validator(login: string): void {
     this.subscription.push(this.loginService.validator(login)
-      .subscribe(arg => this.validate = arg)
+      .subscribe(
+        arg => {
+          if (arg === true) {
+            this.userModel = this.formUser.value;
+            this.saveUserModel();
+          } else {
+            this.openSnackBar('This user exist', 'Ok', 2500);
+          }
+        }
+      )
     );
   }
 

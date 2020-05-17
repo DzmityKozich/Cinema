@@ -14,20 +14,20 @@ export class RoleService {
    }
 
   public isAuthorized(): boolean {
-    return this.currentUser !== null;
+    return !!this.storage.getToken();
   }
 
   public isUser(): boolean {
     if (!this.isAuthorized()) {
       return false;
     }
-    return this.currentUser.role === 'USER';
+    return this.currentUser.role === 'ROLE_USER';
   }
 
   public isAdmin(): boolean {
     if (!this.isAuthorized()) {
       return false;
     }
-    return this.currentUser.role === 'ADMIN';
+    return this.currentUser.role === 'ROLE_ADMIN';
   }
 }

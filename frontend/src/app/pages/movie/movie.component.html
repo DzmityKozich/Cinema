@@ -23,19 +23,17 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <span class="seances">
-            <span>
-            <span *ngFor="let s of seances">
-              <span *ngIf="s.hall.cinema.name == c.name" class="seance--info">
-                <!-- <div> -->
+          <div class="seances">
+            <div *ngFor="let s of seances">
+              <ng-container *ngIf="s.hall.cinema.name == c.name">
+                <div class="seance--info">
                   <p>{{ s.time }}</p>
                   <p>{{ s.price | number }}$</p>
-                  <app-button btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
-                </span>
-              <!-- </div> -->
-              </span>
-            </span>
-          </span>
+                  <app-button *ngIf="isAuthorized" btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>

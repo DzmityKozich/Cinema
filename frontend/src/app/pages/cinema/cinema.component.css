@@ -1,3 +1,12 @@
+mat-card {
+  margin-top: 50px;
+  border-top: 2px #9e174d solid;
+}
+
+h1{
+  color: #ffffff
+}
+
 /* Cinema */
 .cinema{
   color: #ffffff;
@@ -25,4 +34,15 @@
   font-size: 30px;
   font-weight: 300;
   justify-self: auto;
+}
+
+/* Seances */
+.seances{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* justify-content: space-evenly; */
+}
+
+.seance--info{
+  text-align: center;
 }

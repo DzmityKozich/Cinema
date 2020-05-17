@@ -24,4 +24,8 @@ export class SeanceService {
   public saveSeanceModel(seance: SeanceModel): Observable<SeanceModel> {
     return this.http.post<SeanceModel>(this.path, seance);
   }
+
+  public getAllSeanceModelsByCinemaAndDate(id: number, date: string): Observable<SeanceModel[]> {
+    return this.http.get<SeanceModel[]>(this.path + '/cinemas/' + id + '/date/' + date);
+  }
 }

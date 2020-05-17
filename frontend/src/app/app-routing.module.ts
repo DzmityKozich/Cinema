@@ -1,3 +1,5 @@
+import { AdminGuard } from './guards/admin.guard';
+import { AuthorizedGuard } from './guards/authorized.guard';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AllCinemasComponent } from './pages/all-cinemas/all-cinemas.component';
 import { AllMoviesComponent } from './pages/all-movies/all-movies.component';
@@ -16,8 +18,8 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieComponent },
   { path: 'cinemas', component: AllCinemasComponent },
   { path: 'cinemas/:id', component: CinemaComponent },
-  { path: 'admin', component: AdminPageComponent },
-  { path: 'user', component: UserAccountComponent},
+  { path: 'admin', component: AdminPageComponent, canActivate: [AdminGuard] },
+  { path: 'user', component: UserAccountComponent, canActivate: [AuthorizedGuard]},
 
   { path: '**', component: NotFoundComponent }
 ];
@@ -25,7 +27,12 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    PagesModule],
-  exports: [RouterModule]
+    PagesModule
+  ],
+  exports: [RouterModule],
+  providers: [
+    AuthorizedGuard,
+    AdminGuard
+  ]
 })
 export class AppRoutingModule { }

@@ -21,9 +21,6 @@ public class CinemaServiceImpl implements CinemaService {
     @Autowired
     private CinemaRepository cinemaRepository;
 
-    @Autowired
-    private SeanceService seanceService;
-
     @Override
     public Cinema getById(Long id) {
         return cinemaRepository.findByIdCinema(id);

@@ -8,6 +8,31 @@
       <div class="ciinema__address">{{ cinema.address }}</div>
     </div>
   </div>
-</div>
 
+    <mat-card *ngFor="let movie of movies">
+      <mat-card-header>
+        <mat-card-title>
+          Movie: {{ movie.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          <h6>Genre: {{ movie.genre }}</h6>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="seances">
+          <div *ngFor="let seance of seances">
+            <ng-container *ngIf="seance.movie.idMovie == movie.idMovie">
+              <div class="seance--info">
+                <p>{{ seance.time }}</p>
+                <p>{{ seance.price | number }}$</p>
+                <app-button btnName="Buy ticket"></app-button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  <h1 *ngIf="seances.length == 0">Sorry, no seances for this date</h1>
+  <app-datepicker dpPlaceholder="Pick date" dpPlacement="top" (dpBsValueChange)="pickDate($event)"></app-datepicker>
+</div>
 <app-footer></app-footer>

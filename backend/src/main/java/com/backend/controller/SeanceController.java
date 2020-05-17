@@ -4,6 +4,7 @@ import com.backend.entity.Cinema;
 import com.backend.entity.Seance;
 import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -30,6 +31,11 @@ public class SeanceController {
     @GetMapping("/date/{date}/time/{time}")
     private List<Seance> getSeancesByTimeAndDate(@PathVariable String time, @PathVariable String date){
         return seanceService.getAllSeancesByDateAndTime(LocalDate.parse(date), LocalTime.parse(time));
+    }
+
+    @GetMapping("/cinemas/{id}/date/{date}")
+    private List<Seance> getAllSeancesByCinema(@PathVariable Long id, @PathVariable String date){
+        return seanceService.getAllSeancesByCinemaAndDate(id, LocalDate.parse(date));
     }
 
     @GetMapping("/movies/{id}")

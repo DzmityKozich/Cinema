@@ -43,6 +43,11 @@ public class SeanceServiceImpl implements SeanceService {
     }
 
     @Override
+    public List<Seance> getAllSeancesByCinemaAndDate(Long id, LocalDate date) {
+        return seanceRepository.getAllSeancesByCinemaAndDate(id, date);
+    }
+
+    @Override
     public Seance saveSeance(Seance seance) {
         Seance s = seanceRepository.save(seance);
         int siteNumber = 1;
@@ -53,7 +58,6 @@ public class SeanceServiceImpl implements SeanceService {
                 siteNumber++;
             }
         }
-        System.out.print(places);
         placeRepository.saveAll(places);
         return s;
     }

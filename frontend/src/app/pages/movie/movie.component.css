@@ -43,11 +43,9 @@ h1{
 .seances {
   display: grid;
   justify-content: space-evenly;
-  text-align: center;
-  grid-template-columns: repeat(auto-fit, 1fr);
-  /* min-width: 30%; */
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .seance--info {
-  margin-left: 10%;
+  text-align: center;
 }

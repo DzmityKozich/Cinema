@@ -1,3 +1,9 @@
+mat-card{
+  margin-top: 50px;
+  border-top: 2px #9e174d solid;
+  text-align: center;
+}
+
 /* Account */
 .account{
   display: grid;
@@ -22,4 +28,11 @@
 .billing{
   color: #ffffff;
   font-size: 25px;
+}
+
+/* Tickets */
+.tickets{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
 }

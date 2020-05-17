@@ -1,3 +1,4 @@
+import { RoleService } from './../../services/role.service';
 import { StorageService } from './../../services/storage.service';
 import { SignInComponent } from './../sign-in/sign-in.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,11 +12,19 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 })
 export class NavbarComponent implements OnInit {
 
+  public isAuthorized: boolean;
+  public isUser: boolean;
+  public isAdmin: boolean;
+
   constructor(public matDialog: MatDialog,
-              private storage: StorageService
+              private storage: StorageService,
+              private roleService: RoleService
   ) { }
 
   ngOnInit() {
+    this.isAuthorized = this.roleService.isAuthorized();
+    this.isUser = this.roleService.isUser();
+    this.isAdmin = this.roleService.isAdmin();
   }
 
   public openSignInDialog(): void {

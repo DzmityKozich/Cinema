@@ -1,4 +1,4 @@
-import { Token } from './../classes/token';
+import { Token } from '../classes/token';
 import { Injectable } from '@angular/core';
 import { UserModel } from '../classes/user-model';
 
@@ -7,6 +7,8 @@ import { UserModel } from '../classes/user-model';
 })
 export class StorageService {
 
+  public currentUser: UserModel = new UserModel();
+
   private readonly TOKEN = 'token';
   private readonly CURRENT_USER = 'currentUser';
 
@@ -14,6 +16,7 @@ export class StorageService {
 
   public setToken(token: Token): void {
     localStorage.setItem(this.TOKEN, token.token);
+    this.currentUser = token.currentUser;
     localStorage.setItem(this.CURRENT_USER, JSON.stringify(token.currentUser));
   }
 
@@ -22,11 +25,13 @@ export class StorageService {
   }
 
   public getCurrentUser(): UserModel {
+    // return this.currentUser;
     return JSON.parse(localStorage.getItem(this.CURRENT_USER));
   }
 
   public clearStorage(): void {
     localStorage.removeItem(this.TOKEN);
+    this.currentUser = null;
     localStorage.removeItem(this.CURRENT_USER);
   }
 }

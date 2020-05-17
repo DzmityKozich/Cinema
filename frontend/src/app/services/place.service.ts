@@ -16,6 +16,10 @@ export class PlaceService {
     return this.http.get<PlaceModel[]>(this.path + '/seances/' + id);
   }
 
+  public getAllPlaceModelsByBilling(id: number): Observable<PlaceModel[]> {
+    return this.http.get<PlaceModel[]>(this.path + '/billings/' + id);
+  }
+
   public savePlaceModel(place: PlaceModel): Observable<PlaceModel> {
     return this.http.post<PlaceModel>(this.path, place);
   }

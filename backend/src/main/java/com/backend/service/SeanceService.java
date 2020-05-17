@@ -13,6 +13,7 @@ public interface SeanceService {
     List<Seance> getSeancesByMovie(Long id);
     List<Seance> getAllSeancesByDateAndMovie(LocalDate date, Long movieId);
     List<Seance> getAllSeancesByDateAndTime(LocalDate date, LocalTime time);
+    List<Seance> getAllSeancesByCinemaAndDate(Long id, LocalDate date);
     Seance saveSeance(Seance seance);
     void deleteSeanceById(Long id);
 }

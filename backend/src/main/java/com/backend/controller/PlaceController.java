@@ -30,6 +30,11 @@ public class PlaceController {
         return placeService.getAllBySeance(id);
     }
 
+    @GetMapping("/billings/{id}")
+    private List<Place> getAllPlacesByBilling(@PathVariable Long id){
+        return placeService.getAllPlacesByBilling(id);
+    }
+
     @PostMapping("")
     private Place savePlace(@RequestBody Place place){
         return placeService.savePlace(place);

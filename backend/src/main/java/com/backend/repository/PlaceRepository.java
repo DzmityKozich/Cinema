@@ -1,5 +1,6 @@
 package com.backend.repository;
 
+import com.backend.entity.Billing;
 import com.backend.entity.Place;
 import com.backend.entity.Seance;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
     Place findByIdPlace(Long id);
     List<Place> findAllBySeance(Seance seance);
+    List<Place> findAllByBilling(Billing billing);
 }

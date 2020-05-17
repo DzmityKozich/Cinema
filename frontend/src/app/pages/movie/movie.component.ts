@@ -1,3 +1,4 @@
+import { RoleService } from './../../services/role.service';
 import { PalceComponent } from './../../modules/palce/palce.component';
 import { CinemaModel } from './../../classes/cinema-model';
 import { SeanceModel } from './../../classes/seance-model';
@@ -21,6 +22,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   public seances: SeanceModel[] = [];
   public cinemas: CinemaModel[] = [];
   private subscription: Subscription[] = [];
+  public isAuthorized: boolean;
 
   public id: number;
   public isSeance: boolean;
@@ -32,12 +34,14 @@ export class MovieComponent implements OnInit, OnDestroy {
               private movieService: MovieService,
               private seanceService: SeanceService,
               private matDialog: MatDialog,
+              private roleService: RoleService
   ) { }
 
   ngOnInit() {
     this.getIdFromPath();
     this.getMovieModelById();
     this.getAllSeanceModelsByDateAndMovie('2020-05-14', this.id);
+    this.isAuthorized = this.roleService.isAuthorized();
   }
 
   private getMovieModelById(): void {
@@ -48,18 +52,6 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.base64Data = this.receivedData.pic;
         this.convertedImg = /*'data:image/jpeg;base64,' + */this.base64Data;
       })
-    );
-  }
-
-  private getSeanceModelsByMovie(): void {
-    this.subscription.push(this.seanceService.getSeanceModelsByMovie(this.id)
-      .subscribe(
-        arg => {
-          this.seances = arg;
-        },
-        () => { },
-        () => this.getAllCinemasByMovie()
-      )
     );
   }
 

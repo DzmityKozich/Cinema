@@ -24,6 +24,11 @@ public class SeanceModelController {
         return seanceModelService.getAllSeanceModelsByDateAndMovie(date, movieId);
     }
 
+    @GetMapping("/cinemas/{id}/date/{date}")
+    private List<SeanceModel> getAllSeanceModelsByCinemaAndDate(@PathVariable Long id, @PathVariable String date){
+        return seanceModelService.getAllSeanceModelsByCinemasAndDate(id, date);
+    }
+
     @PostMapping("")
     private SeanceModel saveSeanceModel(@RequestBody SeanceModel seance){
         return seanceModelService.saveSeanceModel(seance);

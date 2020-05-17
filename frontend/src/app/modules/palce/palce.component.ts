@@ -73,7 +73,8 @@ export class PalceComponent implements OnInit, OnDestroy {
   private clearSelectedPlaceModels(places: PlaceModel[]): void {
     this.subscription.push(this.placeService.clearSelectedPlaceModels(places)
       .subscribe(
-        () => { },
+        () => { console.log('clear');
+         },
       (err) => { },
       () => {
         this.dialog.close();

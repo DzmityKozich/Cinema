@@ -26,6 +26,13 @@ public class PlaceModelServiceImpl implements PlaceModelService {
     }
 
     @Override
+    public List<PlaceModel> getAllPlaceModelsByBilling(Long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        PlaceModel[] placeModels = restTemplate.getForObject(backend + path + "/billings/" + id, PlaceModel[].class);
+        return placeModels == null ? Collections.emptyList() : Arrays.asList(placeModels);
+    }
+
+    @Override
     public PlaceModel savePlaceModel(PlaceModel place) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForEntity(backend + path, place, PlaceModel.class).getBody();

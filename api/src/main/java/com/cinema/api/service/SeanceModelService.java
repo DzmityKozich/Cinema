@@ -10,4 +10,5 @@ public interface SeanceModelService {
     List<SeanceModel> getSeanceModelsByMovie(Long id);
     List<SeanceModel> getAllSeanceModelsByDateAndMovie(String date, Long movieId);
     SeanceModel saveSeanceModel(SeanceModel seance);
+    List<SeanceModel> getAllSeanceModelsByCinemasAndDate(Long id, String date);
 }

@@ -85,7 +85,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       console.log(this.seanceModel);
       this.saveSeanceModel();
       this.clearForm(this.formSeance);
-      this.panelMovie.close();
+      this.panelSeance.close();
     } else {
       this.openSnackBar('Check your data', 'Ok', 2500);
     }

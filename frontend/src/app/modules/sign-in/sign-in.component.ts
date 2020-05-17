@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageService } from './../../services/storage.service';
 import { Token } from './../../classes/token';
@@ -24,7 +25,8 @@ export class SignInComponent implements OnInit {
   constructor(public dialog: MatDialogRef<SignInComponent>,
               private signInService: SignInService,
               private storage: StorageService,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
+              private router: Router
   ) { }
 
   public formLogin: FormGroup = new FormGroup({
@@ -40,7 +42,6 @@ export class SignInComponent implements OnInit {
       .subscribe(
         arg => {
           this.token = arg;
-          console.log(arg);
           this.storage.setToken(this.token);
         },
         (err) => {
@@ -50,6 +51,7 @@ export class SignInComponent implements OnInit {
         () => {
           this.openSnackBar('Complited successfully!', 'Ok', 2000);
           this.close();
+          // this.router.navigate(['']);
           window.location.reload();
         }
       )

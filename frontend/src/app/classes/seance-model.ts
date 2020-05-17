@@ -6,6 +6,6 @@ export class SeanceModel {
   date: string;
   time: string;
   price: number;
-  move: MovieModel;
+  movie: MovieModel;
   hall: HallModel;
 }
