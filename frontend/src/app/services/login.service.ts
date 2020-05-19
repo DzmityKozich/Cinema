@@ -10,7 +10,8 @@ export class LoginService {
 
   private readonly path = '/api/logins';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient
+  ) { }
 
   public saveLoginModel(login: LoginModel): Observable<LoginModel> {
     return this.http.post<LoginModel>(this.path, login);

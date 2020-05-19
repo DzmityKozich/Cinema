@@ -4,6 +4,7 @@ import com.cinema.api.model.LoginModel;
 import com.cinema.api.model.UserModel;
 import com.cinema.api.security.jwt.JwtTokenProvider;
 import com.cinema.api.service.LoginModelService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,8 +33,10 @@ public class SingInController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("")
-    private String hiFunction() {
-        return "Hi";
+    private ResponseEntity hiFunction() {
+        Map<String, String> res = new HashMap<>();
+        res.put("hi", "Hi");
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("")
@@ -62,5 +65,17 @@ public class SingInController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    @PostMapping("/relogin")
+    private ResponseEntity reLogin(@RequestBody String token) {
+
+        if (token != null) {
+            Claims claims = jwt.parseToken(token);
+            String username = claims.getSubject();
+            UserModel currentUser = loginModelService.getUserModelByEmail(username);
+            return ResponseEntity.ok(currentUser);
+        } else return ResponseEntity.badRequest().body("Token is null");
+
     }
 }

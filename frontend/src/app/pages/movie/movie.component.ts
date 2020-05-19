@@ -100,6 +100,7 @@ export class MovieComponent implements OnInit, OnDestroy {
       maxWidth: '',
       maxHeight: '',
       data: {seance: seanceModel},
+      disableClose: true
     });
   }
 

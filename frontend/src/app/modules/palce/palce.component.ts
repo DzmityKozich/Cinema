@@ -1,3 +1,4 @@
+import { SignInService } from './../../services/sign-in.service';
 import { StorageService } from './../../services/storage.service';
 import { BillingService } from './../../services/billing.service';
 import { BillingModel } from './../../classes/billing-model';
@@ -33,10 +34,11 @@ export class PalceComponent implements OnInit, OnDestroy {
               public dialog: MatDialogRef<PalceComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private storage: StorageService,
+              private signInService: SignInService
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.storage.getCurrentUser();
+    this.currentUser = this.signInService.getCurrentUser();
     this.getBillingModelByUser();
     this.getAllPlaceModelsBySeance();
     this.countRows();

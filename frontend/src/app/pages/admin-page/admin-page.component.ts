@@ -37,7 +37,14 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   d: Date = new Date();
 
   public genres: string[] = [
-    'Action'
+    'Action',
+    'Comedy',
+    'Crime',
+    'Fantasy',
+    'Adventure',
+    'Thriller',
+    'Detective',
+    'Western'
   ];
 
   constructor(private movieService: MovieService,
@@ -82,7 +89,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     if (this.formSeance.valid) {
       this.formSeance.controls.time.setValue(this.formSeance.get('time').value.toLocaleTimeString());
       this.seanceModel = this.formSeance.value;
-      console.log(this.seanceModel);
       this.saveSeanceModel();
       this.clearForm(this.formSeance);
       this.panelSeance.close();

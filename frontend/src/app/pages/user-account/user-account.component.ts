@@ -1,3 +1,4 @@
+import { SignInService } from './../../services/sign-in.service';
 import { PlaceModel } from './../../classes/place-model';
 import { MatDialog } from '@angular/material/dialog';
 import { BillingModel } from './../../classes/billing-model';
@@ -23,14 +24,14 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
   public amount: number;
 
-  constructor(private storage: StorageService,
-              private billingService: BillingService,
+  constructor(private billingService: BillingService,
               public matDialog: MatDialog,
-              private placeService: PlaceService
+              private placeService: PlaceService,
+              private signInService: SignInService
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.storage.getCurrentUser();
+    this.currentUser = this.signInService.getCurrentUser();
     this.getBillingByUser();
     console.log(this.currentUser);
   }

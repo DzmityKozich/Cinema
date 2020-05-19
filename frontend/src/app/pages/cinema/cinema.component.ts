@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { MovieModel } from './../../classes/movie-model';
 import { SeanceService } from './../../services/seance.service';
 import { SeanceModel } from './../../classes/seance-model';
@@ -7,6 +8,7 @@ import { CinemaService } from './../../services/cinema.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CinemaModel } from 'src/app/classes/cinema-model';
 import { switchMap } from 'rxjs/operators';
+import { PalceComponent } from 'src/app/modules/palce/palce.component';
 
 @Component({
   selector: 'app-cinema',
@@ -24,7 +26,8 @@ export class CinemaComponent implements OnInit, OnDestroy {
 
   constructor(private cinemaService: CinemaService,
               private route: ActivatedRoute,
-              private seanceService: SeanceService
+              private seanceService: SeanceService,
+              private matDialog: MatDialog
 ) { }
 
   ngOnInit() {
@@ -63,6 +66,17 @@ export class CinemaComponent implements OnInit, OnDestroy {
       if (isNotExist || isEmpty) {
         this.movies.push(seance.movie);
       }
+    });
+  }
+
+  public openPlaceDialog(seanceModel: SeanceModel): void {
+    this.matDialog.open(PalceComponent, {
+      minWidth: '500px',
+      minHeight: '500px',
+      maxWidth: '',
+      maxHeight: '',
+      data: {seance: seanceModel},
+      disableClose: true
     });
   }
 

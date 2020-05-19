@@ -25,7 +25,7 @@
               <div class="seance--info">
                 <p>{{ seance.time }}</p>
                 <p>{{ seance.price | number }}$</p>
-                <app-button btnName="Buy ticket"></app-button>
+                <app-button btnName="Buy ticket" (click)="openPlaceDialog(seance)"></app-button>
               </div>
             </ng-container>
           </div>

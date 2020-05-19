@@ -1,3 +1,5 @@
+import { SignInService } from './../../services/sign-in.service';
+import { LoginService } from './../../services/login.service';
 import { PaginationPage } from './../../classes/pagination-page';
 import { CinemaService } from './../../services/cinema.service';
 import { MovieService } from './../../services/movie.service';
@@ -21,12 +23,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private movieService: MovieService,
-              private cinemaService: CinemaService
-              ) { }
+              private cinemaService: CinemaService,
+              private signInService: SignInService
+  ) { }
 
   ngOnInit() {
     this.getMovieModels();
     this.getCinemaModels();
+    console.log(this.signInService.getCurrentUser());
   }
 
   private getMovieModels(): void {

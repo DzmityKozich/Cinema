@@ -1,3 +1,4 @@
+import { SignInService } from './../../services/sign-in.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -23,7 +24,8 @@ export class PutMoneyComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private billingService: BillingService,
               private storage: StorageService,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
+              private signInService: SignInService
   ) { }
 
   public form: FormGroup = new FormGroup({
@@ -31,7 +33,7 @@ export class PutMoneyComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.currentUser = this.storage.getCurrentUser();
+    this.currentUser = this.signInService.getCurrentUser();
   }
 
   public putMoney(): void {
