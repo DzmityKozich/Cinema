@@ -29,6 +29,8 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { enGbLocale } from 'ngx-bootstrap/locale';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 defineLocale('engb', enGbLocale);
 
@@ -64,6 +66,8 @@ defineLocale('engb', enGbLocale);
     TextFieldModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatMenuModule,
+    MatSlideToggleModule
   ],
   exports: [HomeComponent],
   entryComponents: [

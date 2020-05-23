@@ -6,6 +6,7 @@ import com.cinema.api.service.MovieModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class MovieModelController {
     @GetMapping("/{id}")
     private MovieModel getMovieModelById(@PathVariable Long id){
         return movieModelService.getMovieModelById(id);
+    }
+
+    @GetMapping(params = {"genre", "pageNumber", "pageSize"})
+    private PaginatorPageModel<MovieModel> getAllMovieModelsByGenre(@RequestParam String genre, @RequestParam int pageNumber, @RequestParam int pageSize) {
+        return movieModelService.getAllMovieModelsByGenres(genre, pageNumber, pageSize);
     }
 
     @PostMapping("")

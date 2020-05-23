@@ -27,7 +27,12 @@ export class SignInService {
     const token = this.storage.getToken();
     if (token !== null) {
       const promise = this.http.post<any>(this.path + '/relogin', token).toPromise();
-      promise.then(data => this.currentUser = data).catch((err: any) => Promise.resolve());
+      promise.then(data => this.currentUser = data)
+        .catch((err: any) => {
+            this.storage.clearStorage();
+            window.location.reload();
+          }
+        );
       return promise;
     } else {
       return null;

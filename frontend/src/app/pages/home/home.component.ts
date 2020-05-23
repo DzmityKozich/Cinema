@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getMovieModels();
     this.getCinemaModels();
-    console.log(this.signInService.getCurrentUser());
   }
 
   private getMovieModels(): void {

@@ -19,6 +19,9 @@ public class Cinema {
     @Column(name = "cinema_address")
     protected String address;
 
+    @Column(name = "cinema_img")
+    private String img;
+
     @OneToMany(mappedBy = "cinema")
     private List<Hall> halls;
 
@@ -47,6 +50,14 @@ public class Cinema {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override

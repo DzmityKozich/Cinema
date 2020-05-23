@@ -28,4 +28,8 @@ export class MovieService {
   public saveMovieModel(movie: MovieModel): Observable<MovieModel> {
     return this.http.post<MovieModel>(this.path, movie);
   }
+
+  public getAllMovieModelByGenre(genre: string, pageNumber: number, pageSize: number): Observable<PaginationPage<MovieModel>> {
+    return this.http.get<PaginationPage<MovieModel>>(this.path + '?genre=' + genre + '&pageNumber=' + pageNumber + '&pageSize=' + pageSize);
+  }
 }

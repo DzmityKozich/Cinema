@@ -26,6 +26,11 @@ public class MovieController {
         return movieService.getAllMoviesByPage(pageNumber, pageSize);
     }
 
+    @GetMapping(params = {"genre", "pageNumber", "pageSize"})
+    private PaginatorPage<Movie> getAllMoviesByGenre(@RequestParam String genre, @RequestParam int pageNumber, @RequestParam int pageSize) {
+        return movieService.getAllMoviesByGenre(genre, pageNumber, pageSize);
+    }
+
     @GetMapping("/{id}")
     private Movie getMovieById(@PathVariable Long id){
         return movieService.getById(id);

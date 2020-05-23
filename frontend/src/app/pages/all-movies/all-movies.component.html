@@ -2,17 +2,21 @@
 
 <div class="container">
   <p class="rubric">Movies</p>
+  <app-button btnName="Choose genre" [matMenuTriggerFor]="menu"></app-button>
+  <mat-menu #menu="matMenu">
+    <button *ngFor="let genre of genres" mat-menu-item (click)="chooseGenre(genre)">{{ genre }}</button>
+  </mat-menu>
   <div class="all-movies">
     <div *ngFor="let m of paginationPage.listElements">
-      <img [src]="m.poster" alt="http://placehold.it/200x300" class="all-movies__img" [routerLink]="['/movies', m.idMovie]">
+      <img [src]="m.poster" alt="http://placehold.it/200x300" class="all-movies__img"
+        [routerLink]="['/movies', m.idMovie]">
       <div class="all-movies__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</div>
       <div class="all-movies__genre">{{ m.genre }}</div>
     </div>
   </div>
-  <mat-paginator [length]="paginationPage.totalElements"
-              [pageSizeOptions]="pageSizeOptions"
-              (page)="pageEvent = changePage($event)">
-</mat-paginator>
+  <mat-paginator [length]="paginationPage.totalElements" [pageSizeOptions]="pageSizeOptions"
+    (page)="pageEvent = changePage($event)">
+  </mat-paginator>
 </div>
 
 <app-footer></app-footer>

@@ -41,7 +41,7 @@
         </mat-error>
       </mat-form-field>
       <label>Poster</label>
-      <div class="poster-input">
+      <div class="img-input">
         <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileChange($event)" formControlName="poster">
       </div>
       <!-- <div *ngIf="formMovie.controls['poster'].hasError('required')" class="alert-warning">Upload poster</div> -->
@@ -101,6 +101,74 @@
       </mat-action-row>
     </form>
   </mat-expansion-panel>
+
+  <mat-expansion-panel #panelCinema>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create Cinema
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formCinema" (ngSubmit)="addCinema()" novalidate>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error *ngIf="formCinema.controls['name'].hasError('required')">
+          Enter name!
+        </mat-error>
+        <mat-error *ngIf="formCinema.controls['name'].invalid && !formCinema.controls['name'].hasError('required')">
+          Enter valid name!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput type="text" formControlName="address">
+        <mat-error *ngIf="formCinema.controls['address'].hasError('required')">
+          Enater addres!
+        </mat-error>
+        <mat-error *ngIf="formCinema.controls['name'].invalid && !formCinema.controls['address'].hasError('required')">
+          Enater valid address!
+        </mat-error>
+      </mat-form-field>
+    <label>Image</label>
+    <div class="img-input">
+      <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileChange($event)" formControlName="img">
+    </div>
+      <mat-action-row>
+        <app-button btnType="submit" btnName="Save!"></app-button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel #panelMail>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Send Mail
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formMail" (ngSubmit)="createMail()" novalidate>
+      <mat-form-field>
+        <mat-label>Subject</mat-label>
+        <input matInput type="text" formControlName="subject">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Text</mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="7" formControlName="text"></textarea>
+      </mat-form-field>
+      <mat-slide-toggle [color]="'primary'" (change)="toggle()">All</mat-slide-toggle>
+      <mat-form-field>
+        <mat-select formControlName="to">
+          <mat-option *ngFor="let login of logins" [value]="login.email">
+            {{ login.email }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-action-row>
+        <app-button btnType="submit" btnName="Send!"></app-button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+
 </div>
 
 <app-footer></app-footer>

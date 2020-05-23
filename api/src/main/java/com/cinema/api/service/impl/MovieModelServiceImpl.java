@@ -33,6 +33,12 @@ public class MovieModelServiceImpl implements MovieModelService {
     }
 
     @Override
+    public PaginatorPageModel getAllMovieModelsByGenres(String genre, int pageNumber, int pageSize) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backend + path + "?genre=" + genre + "&pageNumber=" + pageNumber + "&pageSize=" + pageSize, PaginatorPageModel.class);
+    }
+
+    @Override
     public MovieModel getMovieModelById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backend + path + id, MovieModel.class);

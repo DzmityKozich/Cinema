@@ -15,6 +15,13 @@ div{
 img{
   outline: none;
 }
+app-button{
+  color: #ffffff
+}
+
+button{
+  outline: none;
+}
 
 /* Rubric */
 .rubric{

@@ -1,8 +1,12 @@
 package com.cinema.api.security.jwt;
 
+import com.cinema.api.service.LoginModelService;
+import com.cinema.api.service.impl.LoginModelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,6 +24,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private LoginModelServiceImpl loginModelServiceImpl;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

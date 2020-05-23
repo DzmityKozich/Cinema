@@ -9,5 +9,6 @@ public interface MovieModelService {
     MovieModel getMovieModelById(Long id);
     List<MovieModel> getAllMovieModels();
     PaginatorPageModel<MovieModel> getAllMovieModelsByPage(int pageNumber, int pageSize);
+    PaginatorPageModel<MovieModel> getAllMovieModelsByGenres(String genre, int pageNumber, int pageSize);
     MovieModel saveMovieModel(MovieModel movie);
 }

@@ -4,17 +4,17 @@
 <div class="container">
   <p class="rubric" [routerLink]="'/movies'">Movies</p>
   <div class="rubric__ittem">
-    <div *ngFor="let m of moviePaginationPage.listElements" class="movie__item">
-      <img [src]="m.poster" alt="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', m.idMovie]">
-      <p class="movie__name" [routerLink]="['/movies', m.idMovie]">{{ m.name }}</p>
-      <p class="movie__genre">{{ m.genre }}</p>
+    <div *ngFor="let movie of moviePaginationPage.listElements" class="movie__item">
+      <img [src]="movie.poster" alt="http://placehold.it/200x300" class="movie__img" [routerLink]="['/movies', movie.idMovie]">
+      <p class="movie__name" [routerLink]="['/movies', movie.idMovie]">{{ movie.name }}</p>
+      <p class="movie__genre">{{ movie.genre }}</p>
     </div>
   </div>
   <p class="rubric" [routerLink]="'/cinemas'">Cinemas</p>
   <div class="rubric__ittem">
-    <div *ngFor="let c of cinemaPaginationPage.listElements" class="cinema__item">
-      <img src="http://placehold.it/300x200" class="cinema__img" [routerLink]="['/cinemas', c.idCinema]">
-      <p class="cinema__name" [routerLink]="['/cinemas', c.idCinema]">{{ c.name }}</p>
+    <div *ngFor="let cinema of cinemaPaginationPage.listElements" class="cinema__item">
+      <img [src]="cinema.img" class="cinema__img" [routerLink]="['/cinemas', cinema.idCinema]">
+      <p class="cinema__name" [routerLink]="['/cinemas', cinema.idCinema]">{{ cinema.name }}</p>
     </div>
   </div>
 </div>

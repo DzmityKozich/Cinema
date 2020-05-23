@@ -20,4 +20,8 @@ export class LoginService {
   public validator(login: string): Observable<boolean> {
     return this.http.get<boolean>(this.path + '/login/' + login);
   }
+
+  public getAllLoginModels(): Observable<LoginModel[]> {
+    return this.http.get<LoginModel[]>(this.path);
+  }
 }

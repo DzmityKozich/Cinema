@@ -23,6 +23,9 @@ export class CinemaComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
 
   private id: number;
+  private base64Data: any;
+  public convertedImg: any;
+  private receivedData: any;
 
   constructor(private cinemaService: CinemaService,
               private route: ActivatedRoute,
@@ -38,7 +41,13 @@ export class CinemaComponent implements OnInit, OnDestroy {
 
   private getCinemaModelById(): void {
     this.subscription.push(this.cinemaService.getCinemaModelById(this.id)
-      .subscribe(arg => this.cinema = arg)
+      .subscribe(arg => {
+          this.cinema = arg;
+          this.receivedData = this.cinema.img;
+          this.base64Data = this.receivedData.pic;
+          this.convertedImg = this.base64Data;
+        }
+      )
     );
   }
 

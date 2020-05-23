@@ -42,6 +42,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public PaginatorPage<Movie> getAllMoviesByGenre(String genre, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("idMovie").descending());
+        Page<Movie> page = movieRepository.findAllByGenre(genre, pageable);
+        return new PaginatorPage<>(page.getContent(), page.getNumber(), page.getSize(), page.isFirst(), page.isLast(), page.getTotalPages(), page.getTotalElements());
+    }
+
+    @Override
     public void deleteMovieById(Long id) {
         movieRepository.deleteById(id);
     }
