@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { BillingModel } from './../../classes/billing-model';
 import { BillingService } from './../../services/billing.service';
 import { Subscription } from 'rxjs';
-import { StorageService } from './../../services/storage.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserModel } from 'src/app/classes/user-model';
 import { PutMoneyComponent } from 'src/app/modules/put-money/put-money.component';
@@ -33,7 +32,6 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.currentUser = this.signInService.getCurrentUser();
     this.getBillingByUser();
-    console.log(this.currentUser);
   }
 
   private getBillingByUser(): void {
@@ -60,7 +58,6 @@ export class UserAccountComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result !== undefined) {
         this.getBillingByUser();
       }

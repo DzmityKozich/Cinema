@@ -16,7 +16,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
-  private token: Token = new Token();
   private subscription: Subscription[] = [];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -24,9 +23,7 @@ export class SignInComponent implements OnInit {
 
   constructor(public dialog: MatDialogRef<SignInComponent>,
               private signInService: SignInService,
-              private storage: StorageService,
               private snackBar: MatSnackBar,
-              private router: Router
   ) { }
 
   public formLogin: FormGroup = new FormGroup({

@@ -1,10 +1,8 @@
 package com.backend.controller;
 
-import com.backend.entity.Cinema;
 import com.backend.entity.Seance;
 import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

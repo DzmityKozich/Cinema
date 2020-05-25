@@ -25,7 +25,6 @@
         <mat-card-content>
           <div class="seances">
             <div *ngFor="let seances of seances">
-              <!-- 	отображает пустые места в сеансах потому, цикл делает итерацию, хотя ничего и не выводит -->
               <ng-container *ngIf="seances.hall.cinema.name == cinema.name">
                 <div class="seance--info">
                   <p>{{ seances.time | time }}</p>

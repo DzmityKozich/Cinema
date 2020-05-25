@@ -30,7 +30,8 @@ export class AllMoviesComponent implements OnInit, OnDestroy {
     'Adventure',
     'Thriller',
     'Detective',
-    'Western'
+    'Western',
+    'Historical'
   ];
 
   constructor(private movieService: MovieService) { }

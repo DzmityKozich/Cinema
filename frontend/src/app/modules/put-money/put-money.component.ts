@@ -23,7 +23,6 @@ export class PutMoneyComponent implements OnInit {
   constructor(public dialog: MatDialogRef<PutMoneyComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private billingService: BillingService,
-              private storage: StorageService,
               private snackBar: MatSnackBar,
               private signInService: SignInService
   ) { }

@@ -1,7 +1,5 @@
 package com.backend.service.impl;
 
-import com.backend.entity.Cinema;
-import com.backend.entity.Movie;
 import com.backend.entity.Place;
 import com.backend.entity.Seance;
 import com.backend.repository.MovieRepository;
@@ -9,15 +7,11 @@ import com.backend.repository.PlaceRepository;
 import com.backend.repository.SeanceRepository;
 import com.backend.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,7 +38,16 @@ public class SeanceServiceImpl implements SeanceService {
 
     @Override
     public List<Seance> getAllSeancesByCinemaAndDate(Long id, LocalDate date) {
-        return seanceRepository.getAllSeancesByCinemaAndDate(id, date);
+        List<Seance> seances = new ArrayList<>();
+        for (Seance seance:
+                seanceRepository.getAllSeancesByCinemaAndDate(id, date)) {
+            if (date.compareTo(LocalDate.now()) == 0) {
+                if (seance.getTime().isAfter(LocalTime.now())) {
+                    seances.add(seance);
+                }
+            } else seances.add(seance);
+        }
+        return seances;
     }
 
     @Override

@@ -18,7 +18,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { PutMoneyComponent } from './put-money/put-money.component';
 
 @NgModule({
-  declarations: [FooterComponent,
+  declarations: [
+    FooterComponent,
     HeaderComponent,
     NavbarComponent,
     PalceComponent,

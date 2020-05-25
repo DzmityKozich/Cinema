@@ -40,7 +40,6 @@ h1{
 .seances{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* justify-content: space-evenly; */
 }
 
 .seance--info{

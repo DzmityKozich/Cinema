@@ -9,6 +9,9 @@ import com.backend.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,7 +48,16 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<Place> getAllPlacesByBilling(Long id) {
-        return placeRepository.findAllByBilling(billingRepository.findByIdBilling(id));
+        List<Place> places = new ArrayList<>();
+        LocalDate now = LocalDate.now();
+        for (Place place:
+                placeRepository.findAllByBilling(billingRepository.findByIdBilling(id))) {
+            if (place.getSeance().getDate().compareTo(now) == 0 && place.getSeance().getTime().isAfter(LocalTime.now()) ||
+            place.getSeance().getDate().compareTo(now) > 0) {
+                places.add(place);
+            }
+        }
+        return places;
     }
 
     @Override

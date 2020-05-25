@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CinemaModel } from 'src/app/classes/cinema-model';
 import { switchMap } from 'rxjs/operators';
 import { PalceComponent } from 'src/app/modules/palce/palce.component';
+import { format } from 'ts-date/esm/locale/en';
 
 @Component({
   selector: 'app-cinema',
@@ -23,9 +24,7 @@ export class CinemaComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
 
   private id: number;
-  private base64Data: any;
-  public convertedImg: any;
-  private receivedData: any;
+  private date: Date = new Date();
 
   constructor(private cinemaService: CinemaService,
               private route: ActivatedRoute,
@@ -36,7 +35,7 @@ export class CinemaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getIdFromPath();
     this.getCinemaModelById();
-    this.getSeanceModelsByCinemasAndDate('2020-05-14');
+    this.getSeanceModelsByCinemasAndDate(format(this.date, 'YYYY-MM-DD'));
   }
 
   private getCinemaModelById(): void {

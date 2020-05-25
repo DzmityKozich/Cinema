@@ -18,7 +18,6 @@ public class Login {
     @Column(name = "login_email")
     private String email;
 
-    @Size(min = 6, max = 45)
     @Column(name = "login_password")
     private String password;
 

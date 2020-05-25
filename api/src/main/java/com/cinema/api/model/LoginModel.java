@@ -1,9 +1,12 @@
 package com.cinema.api.model;
 
+import javax.validation.constraints.Size;
+
 public class LoginModel {
 
     private Long idLogin;
     private String email;
+    @Size(min = 6, max = 45)
     private String password;
     private UserModel loginUser;
 

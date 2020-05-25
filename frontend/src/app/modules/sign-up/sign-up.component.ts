@@ -1,5 +1,4 @@
 import { SignInService } from './../../services/sign-in.service';
-import { state } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { UserModel } from './../../classes/user-model';
@@ -20,7 +19,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private userModel: UserModel = new UserModel();
   private loginModel: LoginModel = new LoginModel();
   private subscription: Subscription[] = [];
-  private validate: boolean;
 
   // tslint:disable-next-line: no-inferrable-types
   public hide: boolean = true;
@@ -76,10 +74,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         }
       )
     );
-  }
-
-  private refreshUserModel(): void {
-    this.userModel = new UserModel();
   }
 
   private saveLoginModel(): void {

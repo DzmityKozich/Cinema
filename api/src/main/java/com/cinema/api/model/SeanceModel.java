@@ -1,6 +1,5 @@
 package com.cinema.api.model;
 
-import java.time.LocalTime;
 import java.util.Objects;
 
 public class SeanceModel {

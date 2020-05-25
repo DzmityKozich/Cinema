@@ -5,9 +5,9 @@ import com.cinema.api.model.UserModel;
 import com.cinema.api.service.LoginModelService;
 import com.cinema.api.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -46,7 +46,7 @@ public class LoginModelController {
     }
 
     @PostMapping("")
-    private LoginModel saveLoginModel(@RequestBody LoginModel login){
+    private LoginModel saveLoginModel(@Valid @RequestBody LoginModel login){
         return loginModelService.saveLoginModel(login);
     }
 }

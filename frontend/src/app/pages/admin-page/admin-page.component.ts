@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HallModel } from 'src/app/classes/hall-model';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Mail } from 'src/app/classes/mail';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-admin-page',
@@ -24,10 +23,6 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
   styleUrls: ['./admin-page.component.css']
 })
 export class AdminPageComponent implements OnInit, OnDestroy {
-
-  /**
-   * сделать ошибки при незаполенных полях для картинки, даты, времени и тп
-   */
 
   @ViewChild('panelMovie', { static: false })
   private panelMovie: MatExpansionPanel;
@@ -43,7 +38,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   public seanceModel: SeanceModel = new SeanceModel();
   public halls: HallModel[] = [];
   public logins: LoginModel[] = [];
-  private cinema: CinemaModel = new CinemaModel();
   private mail: Mail = new Mail();
   private subscription: Subscription[] = [];
   private currentUser: UserModel = new UserModel();
@@ -62,7 +56,8 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     'Adventure',
     'Thriller',
     'Detective',
-    'Western'
+    'Western',
+    'Historical'
   ];
 
   constructor(private movieService: MovieService,
@@ -77,7 +72,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   formMovie: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
     genre: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9]{1,999}')]),
+    description: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,999}')]),
     poster: new FormControl('', [Validators.required])
   });
 
@@ -160,7 +155,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   public saveMovieModel(): void {
     this.subscription.push(this.movieService.saveMovieModel(this.movieModel).subscribe(
-      () => this.refrechMovieModel(),
+      () => {
+        this.refrechMovieModel();
+        this.getAllMovieModels();
+      },
       err => console.log(err),
       () => this.openSnackBar('Movie add', 'Ok', 1500)
     ));
