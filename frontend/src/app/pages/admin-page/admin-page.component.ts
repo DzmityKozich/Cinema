@@ -35,9 +35,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   @ViewChild('panelSeance', { static: false })
   private panelSeance: MatExpansionPanel;
 
-  @ViewChild('panelCinema', { static: false })
-  private panelCinema: MatExpansionPanel;
-
   @ViewChild('panelMail', { static: false })
   private panelMail: MatExpansionPanel;
 
@@ -54,6 +51,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: no-inferrable-types
   public isAll: boolean = false;
   private dataUrl: any;
+  private isImg: boolean;
   d: Date = new Date();
 
   public genres: string[] = [
@@ -77,7 +75,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   ) { }
 
   formMovie: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9]{1,45}')]),
+    name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
     genre: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9]{1,999}')]),
     poster: new FormControl('', [Validators.required])
@@ -91,16 +89,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     hall: new FormControl('', [Validators.required])
   });
 
-  formCinema: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9]{1,45}')]),
-    address: new FormControl('', [Validators.required]), // ^\d+\s[A-Za-z]+\s[A-Za-z]+
-    img: new FormControl('', [Validators.required])
-  });
-
   formMail: FormGroup = new FormGroup({
     to: new FormControl('', [Validators.required]),
-    subject: new FormControl('', [Validators.required]),
-    text: new FormControl('', [Validators.required])
+    subject: new FormControl('', [Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
+    text: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,999}')])
   });
 
   ngOnInit() {
@@ -111,7 +103,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   }
 
   public addMovie(): void {
-    if (this.formMovie.valid) {
+    if (this.formMovie.valid && this.isImg) {
       this.movieModel = this.formMovie.value;
       this.movieModel.poster = this.dataUrl;
       this.saveMovieModel();
@@ -134,12 +126,32 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  public addCinema(): void {
-    if (this.formCinema.valid) {
-      this.cinema = this.formCinema.value;
-      this.cinema.img = this.dataUrl;
-      console.log(this.cinema);
-    }
+  private sendMail(mail: Mail): void {
+    this.subscription.push(this.mailService.sendMail(mail)
+      .subscribe(() => {
+        this.refreshMail();
+      },
+        (err) => { },
+        () => {
+          this.clearForm(this.formMail);
+          this.panelMail.close();
+        }
+      )
+    );
+  }
+
+  private sendMailForAllUsers(mail: Mail): void {
+    this.subscription.push(this.mailService.sendMailForAllUsers(mail)
+      .subscribe(() => {
+        this.refreshMail();
+      },
+        (err) => { },
+        () => {
+          this.clearForm(this.formMail);
+          this.panelMail.close();
+        }
+      )
+    );
   }
 
   public setDate(event): void {
@@ -174,10 +186,16 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   public onFileChange(event) {
     const fileReader: FileReader = new FileReader();
-    fileReader.readAsDataURL(event.target.files[0]);
-    fileReader.onload = () => {
-      this.dataUrl = fileReader.result;
-    };
+    const file = event.target.files[0];
+    if (file.type.match('image.*')) {
+      this.isImg = true;
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        this.dataUrl = fileReader.result;
+      };
+    } else {
+      this.isImg = false;
+    }
   }
 
   public createMail(): void {
@@ -190,36 +208,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     } else {
       this.openSnackBar('Check your data', 'Ok', 2500);
     }
-  }
-
-  private sendMail(mail: Mail): void {
-    this.subscription.push(this.mailService.sendMail(mail)
-      .subscribe(() => {
-        this.refreshMail();
-      },
-        (err) => { },
-        () => {
-          this.openSnackBar('Success', 'Ok', 1500);
-          this.clearForm(this.formMail);
-          this.panelMail.close();
-        }
-      )
-    );
-  }
-
-  private sendMailForAllUsers(mail: Mail): void {
-    this.subscription.push(this.mailService.sendMailForAllUsers(mail)
-      .subscribe(() => {
-        this.refreshMail();
-      },
-        (err) => { },
-        () => {
-          this.openSnackBar('Success', 'Ok', 1500);
-          this.clearForm(this.formMail);
-          this.panelMail.close();
-        }
-      )
-    );
   }
 
   private refreshMail(): void {

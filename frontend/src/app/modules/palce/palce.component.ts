@@ -75,12 +75,13 @@ export class PalceComponent implements OnInit, OnDestroy {
   private clearSelectedPlaceModels(places: PlaceModel[]): void {
     this.subscription.push(this.placeService.clearSelectedPlaceModels(places)
       .subscribe(
-        () => { console.log('clear');
-         },
-      (err) => { },
-      () => {
-        this.dialog.close();
-      }
+        () => {
+          console.log('clear');
+        },
+        (err) => { },
+        () => {
+          this.dialog.close();
+        }
       )
     );
   }
@@ -122,11 +123,15 @@ export class PalceComponent implements OnInit, OnDestroy {
   }
 
   public buyTicket(): void {
-    if (this.billingModel.balance >= this.sum) {
-      this.selectedPlaceModels.forEach(place => place.billing = this.billingModel);
-      this.takePlaces(this.selectedPlaceModels);
+    if (this.selectedPlaceModels.length > 0) {
+      if (this.billingModel.balance >= this.sum) {
+        this.selectedPlaceModels.forEach(place => place.billing = this.billingModel);
+        this.takePlaces(this.selectedPlaceModels);
+      } else {
+        this.openSnackBar('You do not have enough money', 'Ok', 2500);
+      }
     } else {
-      this.openSnackBar('You do not have enough money', 'Ok', 2500);
+      this.dialog.close();
     }
   }
 
@@ -159,15 +164,15 @@ export class PalceComponent implements OnInit, OnDestroy {
   }
 
   public isPlaceSelectedByOther(place: PlaceModel): boolean {
-   if (place.state === 'Selected') {
-     if (place.billing.idBilling !== this.billingModel.idBilling) {
-       return true;
-     } else {
-       return false;
-     }
-   } else {
-     return false;
-   }
+    if (place.state === 'Selected') {
+      if (place.billing.idBilling !== this.billingModel.idBilling) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   public closeDialog(): void {

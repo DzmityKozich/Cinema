@@ -6,6 +6,7 @@ import com.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class LoginController {
     }
 
     @PostMapping("")
-    private Login saveLogin(@RequestBody Login login){
+    private Login saveLogin(@Valid @RequestBody Login login){
         return loginService.saveLogin(login);
     }
 

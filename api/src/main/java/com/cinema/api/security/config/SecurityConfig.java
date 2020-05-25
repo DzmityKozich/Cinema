@@ -44,12 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/login/**").permitAll()
-                .antMatchers("/login/relogin").permitAll()
-                .antMatchers(HttpMethod.GET, "/login/**").permitAll()
-                .antMatchers("/api/movies/**").permitAll()
-                .antMatchers("/api/cinemas/**", "/api/logins/**").permitAll()
-//                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST,"/api/login/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/movies/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/cinemas/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/seances/**").hasRole("ADMIN")
+                .antMatchers("/api/mail").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/place").hasRole("ADMIN")
+                .antMatchers("/api/places/**").authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

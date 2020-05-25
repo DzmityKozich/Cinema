@@ -1,6 +1,7 @@
 package com.backend.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +14,14 @@ public class Movie {
     @Column(name = "movie_id")
     private Long idMovie;
 
+    @Size(min = 1, max = 45)
     @Column(name = "movie_name")
     private String name;
 
     @Column(name = "movie_genre")
     private String genre;
 
+    @Size(min = 1, max = 1000)
     @Column(name = "movie_description")
     private String description;
 

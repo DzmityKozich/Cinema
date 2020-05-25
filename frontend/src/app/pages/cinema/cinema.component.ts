@@ -43,9 +43,6 @@ export class CinemaComponent implements OnInit, OnDestroy {
     this.subscription.push(this.cinemaService.getCinemaModelById(this.id)
       .subscribe(arg => {
           this.cinema = arg;
-          this.receivedData = this.cinema.img;
-          this.base64Data = this.receivedData.pic;
-          this.convertedImg = this.base64Data;
         }
       )
     );

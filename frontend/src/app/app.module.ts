@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
       deps: [SignInService],
       multi: true
     }
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

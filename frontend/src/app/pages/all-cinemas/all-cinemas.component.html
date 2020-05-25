@@ -3,9 +3,9 @@
 <div class="container">
   <p class="rubric">Cinemas</p>
   <div class="all-cinemas">
-    <div *ngFor="let c of paginationPage.listElements">
-      <img src="http://placehold.it/300x200" class="all-cinemas__img" [routerLink]="['/cinemas', c.idCinema]">
-      <div class="all-cinemas__name"  [routerLink]="['/cinemas', c.idCinema]">{{ c.name }}</div>
+    <div *ngFor="let cinema of paginationPage.listElements">
+      <img [src]="cinema.img" class="all-cinemas__img" [routerLink]="['/cinemas', cinema.idCinema]">
+      <div class="all-cinemas__name"  [routerLink]="['/cinemas', cinema.idCinema]">{{ cinema.name }}</div>
     </div>
   </div>
   <mat-paginator [length]="paginationPage.totalElements"

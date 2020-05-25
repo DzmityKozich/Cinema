@@ -1,3 +1,4 @@
+import { StorageService } from './storage.service';
 import { Observable } from 'rxjs';
 import { LoginModel } from './../classes/login-model';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +11,8 @@ export class LoginService {
 
   private readonly path = '/api/logins';
 
-  constructor(private http: HttpClient
+  constructor(private http: HttpClient,
+              private storage: StorageService
   ) { }
 
   public saveLoginModel(login: LoginModel): Observable<LoginModel> {

@@ -12,24 +12,25 @@
     <div class="movie__des">{{ movieModel.description }}</div>
   </div>
   <div *ngIf="seances.length !== 0">
-    <div *ngFor="let c of cinemas">
+    <div *ngFor="let cinema of cinemas">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
-            Cinema: {{ c.name }}
+            Cinema: {{ cinema.name }}
           </mat-card-title>
           <mat-card-subtitle>
-            <h6>Address: {{ c.address }}</h6>
+            <h6>Address: {{ cinema.address }}</h6>
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div class="seances">
-            <div *ngFor="let s of seances">
-              <ng-container *ngIf="s.hall.cinema.name == c.name">
+            <div *ngFor="let seances of seances">
+              <!-- 	отображает пустые места в сеансах потому, цикл делает итерацию, хотя ничего и не выводит -->
+              <ng-container *ngIf="seances.hall.cinema.name == cinema.name">
                 <div class="seance--info">
-                  <p>{{ s.time }}</p>
-                  <p>{{ s.price | number }}$</p>
-                  <app-button *ngIf="isAuthorized" btnName="Buy ticket" (click)="openPlaceDialog(s)"></app-button>
+                  <p>{{ seances.time | time }}</p>
+                  <p>{{ seances.price | number }}$</p>
+                  <app-button *ngIf="isAuthorized" btnName="Buy ticket" (click)="openPlaceDialog(seances)"></app-button>
                 </div>
               </ng-container>
             </div>

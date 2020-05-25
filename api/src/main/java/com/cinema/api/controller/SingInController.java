@@ -32,13 +32,6 @@ public class SingInController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("")
-    private ResponseEntity hiFunction() {
-        Map<String, String> res = new HashMap<>();
-        res.put("hi", "Hi");
-        return ResponseEntity.ok(res);
-    }
-
     @PostMapping("")
     private ResponseEntity login(@RequestBody LoginModel loginModel) {
         try {

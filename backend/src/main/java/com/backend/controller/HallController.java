@@ -5,6 +5,7 @@ import com.backend.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class HallController {
     }
 
     @PostMapping("")
-    private Hall saveHall(@RequestBody Hall hall){
+    private Hall saveHall(@Valid @RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
 

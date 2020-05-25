@@ -1,6 +1,8 @@
 package com.backend.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -12,9 +14,11 @@ public class Login {
     @Column(name = "login_id")
     private Long idLogin;
 
+    @Email
     @Column(name = "login_email")
     private String email;
 
+    @Size(min = 6, max = 45)
     @Column(name = "login_password")
     private String password;
 

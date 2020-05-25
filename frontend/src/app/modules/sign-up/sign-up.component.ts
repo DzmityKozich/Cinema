@@ -1,3 +1,4 @@
+import { SignInService } from './../../services/sign-in.service';
 import { state } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -27,7 +28,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialogRef<SignUpComponent>,
               private userService: UserService,
               private loginService: LoginService,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
+              private signInService: SignInService
   ) { }
 
   formUser: FormGroup = new FormGroup({
@@ -84,9 +86,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.subscription.push(this.loginService.saveLoginModel(this.loginModel)
       .subscribe(
         () => {
-          this.refreshUserModel();
-          this.refreshLoginModel();
-          this.openSnackBar('Success', 'Ok', 1500);
+          this.signInService.generateToken(this.loginModel);
         },
         (err) => {},
         () => {

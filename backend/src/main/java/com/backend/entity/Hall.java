@@ -1,6 +1,7 @@
 package com.backend.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ public class Hall {
     @Column(name = "hall_id")
     private Long idHall;
 
+    @Size(min = 1, max = 45)
     @Column(name = "hall_name")
     private String name;
 

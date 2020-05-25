@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MovieModel } from 'src/app/classes/movie-model';
 import { MatDialog } from '@angular/material/dialog';
+import { format } from 'ts-date/esm/locale/en';
 
 @Component({
   selector: 'app-movie',
@@ -26,9 +27,7 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   public id: number;
   public isSeance: boolean;
-  private receivedData: any;
-  private base64Data: any;
-  public convertedImg: any;
+  private date: Date = new Date();
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -40,7 +39,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getIdFromPath();
     this.getMovieModelById();
-    this.getAllSeanceModelsByDateAndMovie('2020-05-14', this.id);
+    this.getAllSeanceModelsByDateAndMovie(format(this.date, 'YYYY-MM-DD'), this.id);
     this.isAuthorized = this.roleService.isAuthorized();
   }
 
@@ -48,9 +47,6 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.subscription.push(this.movieService.getMovieModelById(this.id)
       .subscribe(arg => {
         this.movieModel = arg;
-        this.receivedData = this.movieModel.poster;
-        this.base64Data = this.receivedData.pic;
-        this.convertedImg = /*'data:image/jpeg;base64,' + */this.base64Data;
       })
     );
   }

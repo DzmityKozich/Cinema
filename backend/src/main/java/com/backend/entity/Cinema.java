@@ -1,6 +1,7 @@
 package com.backend.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +14,11 @@ public class Cinema {
     @Column(name = "cinema_id")
     private Long idCinema;
 
+    @Size(min = 1, max = 45)
     @Column(name = "cinema_name")
     private String name;
 
+    @Size(min = 1, max = 45)
     @Column(name = "cinema_address")
     protected String address;
 

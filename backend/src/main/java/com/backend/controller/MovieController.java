@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class MovieController {
     }
 
     @PostMapping("")
-    private Movie saveMovie(@RequestBody Movie movie){
+    private Movie saveMovie(@Valid @RequestBody Movie movie){
         return movieService.saveMovie(movie);
     }
 

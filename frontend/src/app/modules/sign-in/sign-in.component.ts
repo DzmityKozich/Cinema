@@ -38,24 +38,7 @@ export class SignInComponent implements OnInit {
   }
 
   public generateToken(loginUser: LoginModel): void {
-    this.subscription.push(this.signInService.login(loginUser)
-      .subscribe(
-        arg => {
-          this.token = arg;
-          this.storage.setToken(this.token);
-        },
-        (err) => {
-            this.openSnackBar('Check your email and password!', 'Ok', 2500);
-            console.log(err);
-        },
-        () => {
-          this.openSnackBar('Complited successfully!', 'Ok', 2000);
-          this.close();
-          // this.router.navigate(['']);
-          window.location.reload();
-        }
-      )
-    );
+    this.subscription.push(this.signInService.generateToken(loginUser));
   }
 
   public onSubmit(): void {
