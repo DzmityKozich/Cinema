@@ -1,7 +1,6 @@
 package com.cinema.api.service.impl;
 
 import com.cinema.api.model.BillingModel;
-import com.cinema.api.model.UserModel;
 import com.cinema.api.service.BillingModelService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

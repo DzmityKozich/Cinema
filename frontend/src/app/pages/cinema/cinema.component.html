@@ -23,7 +23,7 @@
           <div *ngFor="let seance of seances">
             <ng-container *ngIf="seance.movie.idMovie == movie.idMovie">
               <div class="seance--info">
-                <p>{{ seance.time }}</p>
+                <p>{{ seance.time | time }}</p>
                 <p>{{ seance.price | number }}$</p>
                 <app-button btnName="Buy ticket" (click)="openPlaceDialog(seance)"></app-button>
               </div>

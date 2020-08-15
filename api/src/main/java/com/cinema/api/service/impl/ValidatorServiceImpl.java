@@ -13,7 +13,7 @@ public class ValidatorServiceImpl implements ValidatorService {
     public boolean validator(String login, List<LoginModel> loginModelList) {
         for(LoginModel loginModel : loginModelList){
             if(login.equals(loginModel.getEmail())){
-                return  false;
+                return false;
             }
         }
         return true;

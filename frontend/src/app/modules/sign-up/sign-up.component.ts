@@ -51,14 +51,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
   }
 
-  public addUserModel(): void {
-    console.log(this.formUser.value);
-  }
-
-  public addLoginModel(): void {
-    console.log(this.formLogin.value);
-  }
-
   private saveUserModel(): void {
     this.userModel.role = 'ROLE_USER';
     this.subscription.push(this.userService.saveUserModel(this.userModel)
