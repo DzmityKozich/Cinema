@@ -5,7 +5,9 @@ header{
   justify-content: center;
   width: 100%;
   height: 690px;
-  background: url(C:/Projects/courses/cinema_img_5.jpg) no-repeat;
+  background: url(C:\Projects\Cinema\img\header1.jpg) no-repeat; 
+  /* background: url(C:/Projects/courses/cinema_img_5.jpg) no-repeat; */
+  /* background-color: #2e2e2e; */
 }
 
 /* title */
