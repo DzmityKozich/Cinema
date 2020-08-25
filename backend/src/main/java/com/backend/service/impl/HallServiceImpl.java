@@ -39,6 +39,11 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
+    public List<Hall> saveHalls(List<Hall> halls) {
+        return hallRepository.saveAll(halls);
+    }
+
+    @Override
     public void deleteHallById(Long id) {
         hallRepository.deleteById(id);
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,14 @@ public class HallController {
         return hallService.getAllByCinema(id);
     }
 
+//    @PostMapping("")
+//    private Hall saveHall(@Valid @RequestBody Hall hall){
+//        return hallService.saveHall(hall);
+//    }
+
     @PostMapping("")
-    private Hall saveHall(@Valid @RequestBody Hall hall){
-        return hallService.saveHall(hall);
+    private List<Hall> saveHalls(@RequestBody Hall[] halls) {
+        return hallService.saveHalls(Arrays.asList(halls));
     }
 
     @DeleteMapping("/{id}")

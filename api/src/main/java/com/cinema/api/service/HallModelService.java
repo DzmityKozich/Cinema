@@ -7,4 +7,5 @@ import java.util.List;
 public interface HallModelService {
 
     List<HallModel> getAllHallModels();
+    HallModel[] saveHallModels(HallModel[] hallModels);
 }

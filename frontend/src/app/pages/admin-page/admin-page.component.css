@@ -43,3 +43,9 @@ input{
   margin-bottom: 15px;
 }
 
+/* Hall */
+.hall_border{
+  border-top: 2px #9e174d solid;
+  padding-top: 1rem;
+}
+

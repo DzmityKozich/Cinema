@@ -24,4 +24,12 @@ public class HallModelServiceImpl implements HallModelService {
         HallModel[] hallModels = restTemplate.getForObject(backend + path, HallModel[].class);
         return hallModels == null ? Collections.emptyList() : Arrays.asList(hallModels);
     }
+
+    @Override
+    public HallModel[] saveHallModels(HallModel[] hallModels) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path, hallModels, HallModel[].class).getBody();
+    }
+
+
 }

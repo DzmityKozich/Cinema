@@ -9,5 +9,6 @@ public interface HallService {
     List<Hall> getAllHalls();
     List<Hall> getAllByCinema(Long id);
     Hall saveHall(Hall hall);
+    List<Hall> saveHalls(List<Hall> halls);
     void deleteHallById(Long id);
 }

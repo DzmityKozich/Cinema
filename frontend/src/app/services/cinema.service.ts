@@ -21,4 +21,8 @@ export class CinemaService {
     return this.http.get<CinemaModel>(this.path + '/' + id);
   }
 
+  public saveCinemaModel(cinema: CinemaModel): Observable<CinemaModel> {
+    return this.http.post<CinemaModel>(this.path, cinema);
+  }
+
 }

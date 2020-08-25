@@ -9,6 +9,7 @@ import java.util.List;
 public interface CinemaService {
     Cinema getById(Long id);
     PaginatorPage<Cinema> getAllCinemasByPage(int pageNumber, int pageSize);
+    List<Cinema> getAllCinemas();
     Cinema saveCinema(Cinema cinema);
     void deleteCinemaById(Long id);
 }

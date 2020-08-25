@@ -15,4 +15,8 @@ export class HallService {
   public getAllHallModels(): Observable<HallModel[]> {
     return this.http.get<HallModel[]>(this.path);
   }
+
+  public saveHallModels(hallModels: HallModel[]): Observable<HallModel[]> {
+    return this.http.post<HallModel[]>(this.path, hallModels);
+  }
 }

@@ -11,11 +11,12 @@ import { Subscription } from 'rxjs';
 import { MovieService } from './../../services/movie.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MovieModel } from 'src/app/classes/movie-model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HallModel } from 'src/app/classes/hall-model';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Mail } from 'src/app/classes/mail';
+import { CinemaService } from 'src/app/services/cinema.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -33,14 +34,19 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   @ViewChild('panelMail', { static: false })
   private panelMail: MatExpansionPanel;
 
+  @ViewChild('panelCinema', { static: false })
+  private panelCinema: MatExpansionPanel;
+
   public movieModel: MovieModel = new MovieModel();
   public movies: MovieModel[] = [];
   public seanceModel: SeanceModel = new SeanceModel();
   public halls: HallModel[] = [];
+  public hallsModels: HallModel[] = [];
   public logins: LoginModel[] = [];
   private mail: Mail = new Mail();
   private subscription: Subscription[] = [];
   private currentUser: UserModel = new UserModel();
+  private cinemaModel = new CinemaModel();
 
   // tslint:disable-next-line: no-inferrable-types
   public isAll: boolean = false;
@@ -60,9 +66,13 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     'Historical'
   ];
 
+  // tslint:disable-next-line: variable-name
+  public _places: number[] = [3, 4, 5, 6, 7];
+
   constructor(private movieService: MovieService,
               private seanceService: SeanceService,
               private hallService: HallService,
+              private cinemaService: CinemaService,
               private snackBar: MatSnackBar,
               private mailService: MailService,
               private loginService: LoginService,
@@ -89,6 +99,20 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     subject: new FormControl('', [Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
     text: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,999}')])
   });
+
+  formCinema: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
+    address: new FormControl('', [Validators.required]),
+    img: new FormControl('', [Validators.required])
+  });
+
+  formHalls = new FormArray([
+    new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
+      rows: new FormControl('', [Validators.required]),
+      placesInRow: new FormControl('', [Validators.required])
+    })
+  ]);
 
   ngOnInit() {
     this.currentUser = this.signInService.getCurrentUser();
@@ -149,6 +173,26 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  public addCinema() {
+    if (this.formCinema.valid && this.isImg && this.formHalls.valid) {
+      this.cinemaModel = this.formCinema.value;
+      this.cinemaModel.img = this.dataUrl;
+      this.saveCinemaModel();
+    } else {
+      this.openSnackBar('Check your data', 'Ok', 2500);
+    }
+  }
+
+  public addHall(cinemaModel: CinemaModel) {
+    if (this.formHalls.valid) {
+      this.hallsModels = this.formHalls.value;
+      this.hallsModels.forEach(arg => arg.cinema = cinemaModel);
+      this.saveHallModels(this.hallsModels);
+    } else {
+      this.openSnackBar('Check your data', 'Ok', 2500);
+    }
+  }
+
   public setDate(event): void {
     this.formSeance.controls.date.setValue(event);
   }
@@ -182,6 +226,39 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     this.seanceModel = new SeanceModel();
   }
 
+  private saveCinemaModel(): void {
+    this.subscription.push(this.cinemaService.saveCinemaModel(this.cinemaModel)
+      .subscribe(arg => {
+        this.addHall(arg);
+        this.refreshCinemaModel();
+      })
+    );
+  }
+
+  private refreshCinemaModel(): void {
+    this.cinemaModel = new CinemaModel();
+  }
+
+  private saveHallModels(halls: HallModel[]): void {
+    this.subscription.push(this.hallService.saveHallModels(halls)
+      .subscribe(() => {
+        this.refreshHallModels();
+      },
+      (err) => { },
+      () => {
+        this.openSnackBar('Cinema add', 'Ok', 1500);
+        this.clearForm(this.formCinema);
+        this.clearForm(this.formHalls);
+        this.clearFormHall();
+        this.panelCinema.close();
+      })
+    );
+  }
+
+  private refreshHallModels(): void {
+    this.hallsModels = [];
+  }
+
   public onFileChange(event) {
     const fileReader: FileReader = new FileReader();
     const file = event.target.files[0];
@@ -212,7 +289,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     this.mail = new Mail();
   }
 
-  private clearForm(form: FormGroup): void {
+  private clearForm(form: any): void {
     form.reset();
   }
 
@@ -240,7 +317,24 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   public toggle(): void {
     this.isAll = !this.isAll;
+  }
 
+  public createNewHall() {
+
+    const group = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.pattern('[^ ][ A-Za-z0-9,\!\?\.]{1,45}')]),
+      rows: new FormControl('', [Validators.required]),
+      placesInRow: new FormControl('', [Validators.required])
+    });
+
+    if (this.formHalls.length < 10) {
+      this.formHalls.push(group);
+    }
+  }
+
+  public clearFormHall(): void {
+    this.formHalls.clear();
+    this.createNewHall();
   }
 
   ngOnDestroy() {

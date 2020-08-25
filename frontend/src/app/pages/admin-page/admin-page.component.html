@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<!-- MOVIE -->
 <div class="container">
   <mat-expansion-panel #panelMovie>
     <mat-expansion-panel-header>
@@ -36,7 +37,8 @@
         <mat-error *ngIf="formMovie.controls['description'].hasError('required')">
           Enter description!
         </mat-error>
-        <mat-error *ngIf="formMovie.controls['description'].invalid && !formMovie.controls['description'].hasError('required')">
+        <mat-error
+          *ngIf="formMovie.controls['description'].invalid && !formMovie.controls['description'].hasError('required')">
           Enter valid description
         </mat-error>
       </mat-form-field>
@@ -50,6 +52,7 @@
     </form>
   </mat-expansion-panel>
 
+  <!-- SEANCE -->
   <mat-expansion-panel #panelSeance>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -70,14 +73,14 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formSeance.controls['movie'].hasError('required')">
-            Select genre!
+          Select genre!
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Price</mat-label>
         <input matInput type="text" formControlName="price">
         <mat-error *ngIf="formSeance.controls['price'].invalid && !formSeance.controls['price'].hasError('required')">
-            Set valid price!
+          Set valid price!
         </mat-error>
         <mat-error *ngIf="formSeance.controls['price'].hasError('required')">
           Set price!
@@ -100,6 +103,7 @@
     </form>
   </mat-expansion-panel>
 
+  <!-- MAIL -->
   <mat-expansion-panel #panelMail>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -118,12 +122,12 @@
         <mat-label>Text</mat-label>
         <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
           cdkAutosizeMaxRows="7" formControlName="text"></textarea>
-          <mat-error *ngIf="formMail.controls['text'].hasError('required')">
-            Enter text!
-          </mat-error>
-          <mat-error *ngIf="formMail.controls['text'].invalid && !formMail.controls['text'].hasError('required')">
-            Enter valid text!
-          </mat-error>
+        <mat-error *ngIf="formMail.controls['text'].hasError('required')">
+          Enter text!
+        </mat-error>
+        <mat-error *ngIf="formMail.controls['text'].invalid && !formMail.controls['text'].hasError('required')">
+          Enter valid text!
+        </mat-error>
       </mat-form-field>
       <mat-slide-toggle [color]="'primary'" (change)="toggle()">All</mat-slide-toggle>
       <mat-form-field>
@@ -135,6 +139,85 @@
       </mat-form-field>
       <mat-action-row>
         <app-button btnType="submit" btnName="Send!"></app-button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+
+  <!-- CINEMA -->
+  <mat-expansion-panel #panelCinema>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add Cinema
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formCinema" (ngSubmit)="addCinema()" novalidate>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error *ngIf="formCinema.controls['name'].hasError('required')">
+          Enter name!
+        </mat-error>
+        <mat-error *ngIf="formCinema.controls['name'].invalid && !formCinema.controls['name'].hasError('required')">
+          Enter valid name!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput type="text" formControlName="address">
+        <mat-error *ngIf="formCinema.controls['address'].hasError('required')">
+          Enter address!
+        </mat-error>
+        <mat-error
+          *ngIf="formCinema.controls['address'].invalid && !formCinema.controls['address'].hasError('required')">
+          Enter valid address!
+        </mat-error>
+      </mat-form-field>
+      <label>Img</label>
+      <div class="img-input">
+        <input type="file" accept="image/*" (change)="onFileChange($event)" formControlName="img">
+      </div>
+      <!-- HALL -->
+      <div *ngFor="let formHall of formHalls.controls; let i = index" class="hall_border">
+        <ng-container [formGroup]="formHall">
+          <label>Hall № {{ i + 1 }}</label>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name">
+            <mat-error *ngIf="formHall.get('name').hasError('required')">
+              Enter name!
+            </mat-error>
+            <mat-error *ngIf="formHall.get('name').invalid && !formHall.get('name').hasError('required')">
+              Enter valid name!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Rows</mat-label>
+            <mat-select formControlName="rows">
+              <mat-option *ngFor="let place of _places" [value]="place">
+                {{ place }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formHall.get('rows').hasError('required')">
+              Select rows!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Places in Row</mat-label>
+            <mat-select formControlName="placesInRow">
+              <mat-option *ngFor="let place of _places" [value]="place">
+                {{ place }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formHall.get('placesInRow').hasError('required')">
+              Select places!
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <app-button btnName="Create Hall" (click)="createNewHall()"></app-button>
+      <app-button btnName="Clear Hall" (click)="clearFormHall()"></app-button>
+      <mat-action-row>
+        <app-button btnType="submit" btnName="Save!"></app-button>
       </mat-action-row>
     </form>
   </mat-expansion-panel>
