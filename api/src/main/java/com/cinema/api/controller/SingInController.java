@@ -2,8 +2,10 @@ package com.cinema.api.controller;
 
 import com.cinema.api.model.LoginModel;
 import com.cinema.api.model.UserModel;
+import com.cinema.api.security.jwt.JwtRefreshToken;
 import com.cinema.api.security.jwt.JwtTokenProvider;
 import com.cinema.api.service.LoginModelService;
+import com.cinema.api.service.RefreshTokenModelService;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,9 @@ public class SingInController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private RefreshTokenModelService refreshTokenModelService;
+
     @PostMapping("")
     private ResponseEntity login(@RequestBody LoginModel loginModel) {
         try {
@@ -53,6 +58,7 @@ public class SingInController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("currentUser", userModel);
+            response.put("refreshToken", refreshTokenModelService.generateRefreshToken());
             return ResponseEntity.ok(response);
 
         } catch (AuthenticationException e) {
@@ -70,5 +76,17 @@ public class SingInController {
             return ResponseEntity.ok(currentUser);
         } else return ResponseEntity.badRequest().body("Token is null");
 
+    }
+
+    @PostMapping("/refresh-token")
+    private ResponseEntity refreshToken(@RequestBody JwtRefreshToken token) {
+        if (refreshTokenModelService.getRefreshTokenByToken(token.getRefreshToken()) != null) {
+            String jwtToken = jwt.createToken(token.getUserModel().getFirstName(), token.getUserModel().getRole());
+            String refreshToken = refreshTokenModelService.generateRefreshToken().getToken();
+            Map<String, Object> response = new HashMap<>();
+            response.put("jwtToken", jwtToken);
+            response.put("refreshToken", refreshToken);
+            return ResponseEntity.ok(response);
+        } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }
 }
