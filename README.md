@@ -20,7 +20,39 @@ There is interceptor, which add jwt to header, in frontend.
 ## Usage
 * Angular
 * Angular Material
-* Spring
+* Spring Boot
+* Spring Data
+* Spring Security
 * Maven
 * JWT 
 * MySql
+
+## What's included
+* Interceptor,
+* Proxy server
+* Pagination
+* Security
+* JWT
+* Mail sendler
+* APP_INITIALIZER token
+* Custom Angular Pipe
+* Promises and Observables
+* End-to-end conection
+
+## Start
+### For start Frontend
+```bash
+npm install
+```
+after
+```bash
+ng serve
+```
+or
+```
+npm run start
+```
+### For Backend and Api
+```
+mvn clear install
+```
