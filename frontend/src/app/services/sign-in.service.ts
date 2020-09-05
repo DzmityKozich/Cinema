@@ -59,6 +59,10 @@ export class SignInService {
     }
   }
 
+  public deleteRefreshToken(): Observable<void> {
+    return this.http.delete<void>('/api/refresh-token/' + this.storage.getRefreshToken());
+  }
+
   public getCurrentUser(): any {
     return this.currentUser;
   }

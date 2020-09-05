@@ -41,6 +41,11 @@ public class LoginController {
         return loginService.getUserByEmail(email);
     }
 
+    @PostMapping("/users")
+    private String getEmailByUser(@RequestBody User user) {
+        return loginService.getEmailByUser(user);
+    }
+
     @DeleteMapping("/{id}")
     private void deleteLoginById(@PathVariable Long id){
         loginService.deleteLoginById(id);

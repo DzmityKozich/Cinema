@@ -41,6 +41,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String getEmailByUser(User user) {
+        return loginRepository.findByLoginUser(user).getEmail();
+    }
+
+    @Override
     public void deleteLoginById(Long id) {
         loginRepository.deleteById(id);
     }

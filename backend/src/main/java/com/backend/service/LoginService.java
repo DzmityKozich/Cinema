@@ -11,5 +11,6 @@ public interface LoginService {
     Login saveLogin(Login login);
     Login getLoginByEmail(String email);
     User getUserByEmail(String email);
+    String getEmailByUser(User user);
     void deleteLoginById(Long id);
 }

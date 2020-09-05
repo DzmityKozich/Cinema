@@ -49,4 +49,9 @@ public class LoginModelController {
     private LoginModel saveLoginModel(@Valid @RequestBody LoginModel login){
         return loginModelService.saveLoginModel(login);
     }
+
+    @PostMapping("users")
+    private String getEmailByUserModel(@RequestBody UserModel userModel) {
+        return loginModelService.getEmailByUser(userModel);
+    }
 }

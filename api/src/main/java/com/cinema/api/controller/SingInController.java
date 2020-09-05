@@ -16,7 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +61,7 @@ public class SingInController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("currentUser", userModel);
-            response.put("refreshToken", refreshTokenModelService.generateRefreshToken());
+            response.put("refreshToken", refreshTokenModelService.generateRefreshToken().getToken());
             return ResponseEntity.ok(response);
 
         } catch (AuthenticationException e) {
@@ -78,14 +81,16 @@ public class SingInController {
 
     }
 
-    @PostMapping("/refresh-token")
+//    @Transactional
+    @PostMapping("/refresh-token") // "/refresh/token"
     private ResponseEntity refreshToken(@RequestBody JwtRefreshToken token) {
         if (refreshTokenModelService.getRefreshTokenByToken(token.getRefreshToken()) != null) {
-            String jwtToken = jwt.createToken(token.getUserModel().getFirstName(), token.getUserModel().getRole());
+            String jwtToken = jwt.createToken(loginModelService.getEmailByUser(token.getUserModel()), token.getUserModel().getRole());
             String refreshToken = refreshTokenModelService.generateRefreshToken().getToken();
             Map<String, Object> response = new HashMap<>();
             response.put("jwtToken", jwtToken);
             response.put("refreshToken", refreshToken);
+            refreshTokenModelService.deleteRefreshTokenByToken(token.getRefreshToken());
             return ResponseEntity.ok(response);
         } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }
