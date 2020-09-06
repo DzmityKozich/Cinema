@@ -6,6 +6,7 @@ import { Token } from './../classes/token';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,19 @@ export class SignInService {
     } else {
       return null;
     }
+  }
+
+  public refreshToken(): any {
+    const jwtRefreshToken = {
+      refreshToken: this.storage.getRefreshToken(),
+      UserModel: this.currentUser
+    };
+    return this.http.post(this.path + '/refresh-token/', jwtRefreshToken).pipe(
+      tap((arg: Token) => {
+        this.storage.clearStorage();
+        this.storage.setToken(arg);
+      })
+    );
   }
 
   public deleteRefreshToken(): Observable<void> {
