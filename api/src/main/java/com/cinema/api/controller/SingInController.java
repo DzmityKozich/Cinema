@@ -85,12 +85,14 @@ public class SingInController {
     @PostMapping("/refresh-token") // "/refresh/token"
     private ResponseEntity refreshToken(@RequestBody JwtRefreshToken token) {
         if (refreshTokenModelService.getRefreshTokenByToken(token.getRefreshToken()) != null) {
-            String jwtToken = jwt.createToken(loginModelService.getEmailByUser(token.getUserModel()), token.getUserModel().getRole());
+            String username = loginModelService.getEmailByUser(token.getUserModel());
+            String jwtToken = jwt.createToken(username, token.getUserModel().getRole());
             String refreshToken = refreshTokenModelService.generateRefreshToken().getToken();
             Map<String, Object> response = new HashMap<>();
-            response.put("jwtToken", jwtToken);
+            response.put("token", jwtToken);
             response.put("refreshToken", refreshToken);
             refreshTokenModelService.deleteRefreshTokenByToken(token.getRefreshToken());
+            System.out.println("User " +  username + " got a new token!");
             return ResponseEntity.ok(response);
         } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }

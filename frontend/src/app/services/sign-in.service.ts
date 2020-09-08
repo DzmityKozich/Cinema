@@ -63,7 +63,7 @@ export class SignInService {
   public refreshToken(): any {
     const jwtRefreshToken = {
       refreshToken: this.storage.getRefreshToken(),
-      UserModel: this.currentUser
+      userModel: this.currentUser
     };
     return this.http.post(this.path + '/refresh-token/', jwtRefreshToken).pipe(
       tap((arg: Token) => {

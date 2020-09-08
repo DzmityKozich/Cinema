@@ -43,11 +43,18 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  public refreshToken(): void {
+    this.signInService.refreshToken()
+      .subscribe();
+  }
+
   public logout(): void {
     this.signInService.deleteRefreshToken().subscribe(
-      () => this.storage.clearStorage()
+      () => {
+        this.storage.clearStorage();
+        window.location.reload();
+      }
     );
-    window.location.reload();
   }
 
 }
