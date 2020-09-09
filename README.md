@@ -26,6 +26,7 @@ There is interceptor, which add jwt to header, in frontend.
 * Maven
 * JWT 
 * MySql
+* RxJS
 
 ## What's included
 * Interceptor,
@@ -56,3 +57,10 @@ npm run start
 ```
 mvn clear install
 ```
+## Some Screenshots (For more see 'img' folder)
+### Ticket Purchase Page
+![](img/screenshot_places.png)
+### Home Page
+![](img/screenshot_home.png)
+### All Movies Page
+![](img/screenshot_movies.png)
