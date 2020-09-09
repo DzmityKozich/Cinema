@@ -3,7 +3,6 @@ package com.cinema.api.controller;
 import com.cinema.api.model.LoginModel;
 import com.cinema.api.model.RefreshTokenModel;
 import com.cinema.api.model.UserModel;
-import com.cinema.api.security.jwt.JwtRefreshToken;
 import com.cinema.api.security.jwt.JwtTokenProvider;
 import com.cinema.api.service.LoginModelService;
 import com.cinema.api.service.RefreshTokenModelService;

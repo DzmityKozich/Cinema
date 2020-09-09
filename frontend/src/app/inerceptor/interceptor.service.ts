@@ -23,33 +23,28 @@ export class InterceptorService implements HttpInterceptor {
       return next.handle(req);
     }
 
-    // if (token) {
-      // tslint:disable-next-line: align
-      return next.handle(this.setHeader(req, token)).pipe(
-        catchError(err => {
-          if (err instanceof HttpErrorResponse
-            && err.status === 500) {
-            return this.handelError(req, next);
-          } else {
-            return throwError(err);
-          }
-        })
-      );
-    // }
-
-    // return next.handle(this.setHeader(req, token));
+    return next.handle(this.setHeader(req, token)).pipe(
+      catchError(err => {
+        if (err instanceof HttpErrorResponse
+          && err.status === 500) {
+          return this.handelError(req, next);
+        } else {
+          return throwError(err);
+        }
+      })
+    );
 
   }
 
   private handelError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isTokenRefreshing) {
       this.isTokenRefreshing = true;
-      this.refreshTokenSubject.next(null);
+      // this.refreshTokenSubject.next(null);
 
       return this.signInService.refreshToken().pipe(
         switchMap((jwtRefreshToken: Token) => {
           this.isTokenRefreshing = false;
-          this.refreshTokenSubject.next(jwtRefreshToken.token);
+          // this.refreshTokenSubject.next(jwtRefreshToken.token);
           return next.handle(this.setHeader(req, jwtRefreshToken.token));
         })
       );
