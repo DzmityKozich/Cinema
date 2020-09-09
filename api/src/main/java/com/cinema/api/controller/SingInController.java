@@ -1,6 +1,7 @@
 package com.cinema.api.controller;
 
 import com.cinema.api.model.LoginModel;
+import com.cinema.api.model.RefreshTokenModel;
 import com.cinema.api.model.UserModel;
 import com.cinema.api.security.jwt.JwtRefreshToken;
 import com.cinema.api.security.jwt.JwtTokenProvider;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,11 +59,20 @@ public class SingInController {
             authenticationManager.authenticate(authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
+//            -----------------------------------------
+
+            RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByUserModel(userModel);
+            if (refreshTokenModel != null) {
+                refreshTokenModelService.deleteRefreshTokenByToken(refreshTokenModel.getToken());
+            }
+
+//            -----------------------------------------
+
             String token = jwt.createToken(username, userModel.getRole());
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("currentUser", userModel);
-            response.put("refreshToken", refreshTokenModelService.generateRefreshToken().getToken());
+            response.put("refreshToken", refreshTokenModelService.generateRefreshToken(userModel).getToken());
             return ResponseEntity.ok(response);
 
         } catch (AuthenticationException e) {
@@ -83,16 +94,17 @@ public class SingInController {
 
 //    @Transactional
     @PostMapping("/refresh-token") // "/refresh/token"
-    private ResponseEntity refreshToken(@RequestBody JwtRefreshToken token) {
-        if (refreshTokenModelService.getRefreshTokenByToken(token.getRefreshToken()) != null) {
-            String username = loginModelService.getEmailByUser(token.getUserModel());
-            String jwtToken = jwt.createToken(username, token.getUserModel().getRole());
-            String refreshToken = refreshTokenModelService.generateRefreshToken().getToken();
+    private ResponseEntity refreshToken(@RequestBody String token) {
+        if (refreshTokenModelService.getRefreshTokenByToken(token) != null) {
+            RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByToken(token);
+            String username = loginModelService.getEmailByUser(refreshTokenModel.getUser());
+            String jwtToken = jwt.createToken(username, refreshTokenModel.getUser().getRole());
+            String refreshToken = refreshTokenModelService.generateRefreshToken(refreshTokenModel.getUser()).getToken();
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwtToken);
             response.put("refreshToken", refreshToken);
-            refreshTokenModelService.deleteRefreshTokenByToken(token.getRefreshToken());
-            System.out.println("User " +  username + " got a new token!");
+            refreshTokenModelService.deleteRefreshTokenByToken(token);
+            System.out.println("User " +  username + " got a new token at " + new Date().toString() +"!");
             return ResponseEntity.ok(response);
         } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }

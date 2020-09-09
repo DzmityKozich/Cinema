@@ -1,6 +1,7 @@
 package com.cinema.api.service.impl;
 
 import com.cinema.api.model.RefreshTokenModel;
+import com.cinema.api.model.UserModel;
 import com.cinema.api.service.RefreshTokenModelService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,15 @@ public class RefreshTokenModelServiceImpl implements RefreshTokenModelService {
     }
 
     @Override
-    public RefreshTokenModel generateRefreshToken() {
+    public RefreshTokenModel getRefreshTokenByUserModel(UserModel userModel) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backend + path + "/generate", RefreshTokenModel.class);
+        return restTemplate.postForEntity(backend + path + "/users", userModel, RefreshTokenModel.class).getBody();
+    }
+
+    @Override
+    public RefreshTokenModel generateRefreshToken(UserModel userModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backend + path + "/generate", userModel, RefreshTokenModel.class).getBody();
     }
 
     @Override

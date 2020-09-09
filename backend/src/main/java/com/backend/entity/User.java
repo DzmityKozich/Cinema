@@ -28,6 +28,9 @@ public class User {
     @OneToMany(mappedBy = "billingUser")
     private List<Billing> billings;
 
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
+
     public User() {
     }
 

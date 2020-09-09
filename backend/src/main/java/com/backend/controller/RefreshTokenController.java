@@ -1,6 +1,7 @@
 package com.backend.controller;
 
 import com.backend.entity.RefreshToken;
+import com.backend.entity.User;
 import com.backend.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,14 @@ public class RefreshTokenController {
         return refreshTokenService.getRefreshTokenByToken(token);
     }
 
-    @GetMapping("/generate")
-    private RefreshToken generateRefreshToken() {
-        return refreshTokenService.generateRefreshToken();
+    @PostMapping("/users")
+    private RefreshToken getByUser(@RequestBody User user) {
+        return refreshTokenService.getByUser(user);
+    }
+
+    @PostMapping("/generate")
+    private RefreshToken generateRefreshToken(@RequestBody User user) {
+        return refreshTokenService.generateRefreshToken(user);
     }
 
     @DeleteMapping("/{token}")

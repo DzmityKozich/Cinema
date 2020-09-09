@@ -1,6 +1,7 @@
 package com.cinema.api.controller;
 
 import com.cinema.api.model.RefreshTokenModel;
+import com.cinema.api.model.UserModel;
 import com.cinema.api.service.impl.RefreshTokenModelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,14 @@ public class RefreshTokenModelController {
         return refreshTokenModelService.getRefreshTokenByToken(token);
     }
 
-    @GetMapping("/generate")
-    private RefreshTokenModel generateRefreshToken() {
-        return refreshTokenModelService.generateRefreshToken();
+    @PostMapping("/generate")
+    private RefreshTokenModel generateRefreshToken(@RequestBody UserModel userModel) {
+        return refreshTokenModelService.generateRefreshToken(userModel);
+    }
+
+    @PostMapping("/users")
+    private RefreshTokenModel getRefreshTokenModelByUserModel(@RequestBody UserModel userModel) {
+        return refreshTokenModelService.getRefreshTokenByUserModel(userModel);
     }
 
     @DeleteMapping("/{token}")

@@ -19,11 +19,12 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem(this.TOKEN);
 
-    if (req.url.indexOf('refresh-token') !== -1) {
+    if (req.url.indexOf('refresh-token') !== -1 /*|| req.url.indexOf('relogin') !== -1*/) {
       return next.handle(req);
     }
 
-    if (token) {
+    // if (token) {
+      // tslint:disable-next-line: align
       return next.handle(this.setHeader(req, token)).pipe(
         catchError(err => {
           if (err instanceof HttpErrorResponse
@@ -34,9 +35,9 @@ export class InterceptorService implements HttpInterceptor {
           }
         })
       );
-    }
+    // }
 
-    return next.handle(this.setHeader(req, token));
+    // return next.handle(this.setHeader(req, token));
 
   }
 

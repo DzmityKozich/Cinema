@@ -15,12 +15,25 @@ public class RefreshToken {
     @Column(name = "token")
     private String token;
 
+    @OneToOne
+    @JoinColumn(name = "usr_id")
+    private User user;
+
     public RefreshToken() {
     }
 
-    public RefreshToken(Long id, String token) {
+    public RefreshToken(Long id, String token, User user) {
         this.id = id;
         this.token = token;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -45,19 +58,12 @@ public class RefreshToken {
         if (o == null || getClass() != o.getClass()) return false;
         RefreshToken that = (RefreshToken) o;
         return id.equals(that.id) &&
-                token.equals(that.token);
+                token.equals(that.token) &&
+                user.equals(that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, token);
-    }
-
-    @Override
-    public String toString() {
-        return "RefreshToken{" +
-                "id=" + id +
-                ", token='" + token + '\'' +
-                '}';
+        return Objects.hash(id, token, user);
     }
 }
