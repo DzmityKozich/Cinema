@@ -16,7 +16,7 @@
   <div class="tickets">
     <ng-container *ngFor="let ticket of places">
       <mat-card>
-        <mat-card-title>{{ ticket.seance.date | date}}; {{ ticket.seance.time }}</mat-card-title>
+        <mat-card-title>{{ ticket.seance.date | date}}; {{ ticket.seance.time | time }}</mat-card-title>
         <mat-card-subtitle>cinema: {{ ticket.seance.hall.cinema.name }}, hall: {{ ticket.seance.hall.name }}
         </mat-card-subtitle>
         <mat-card-content>

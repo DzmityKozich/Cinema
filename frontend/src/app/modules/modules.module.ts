@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { PutMoneyComponent } from './put-money/put-money.component';
+import { PipeModule } from '../pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { PutMoneyComponent } from './put-money/put-money.component';
     ShareModule,
     FormsModule,
     ReactiveFormsModule,
+    PipeModule,
 
     MatToolbarModule,
     MatDialogModule,
