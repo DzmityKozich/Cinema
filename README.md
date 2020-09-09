@@ -1,4 +1,11 @@
 # Cinema
+## Table of Contents
+- [Description](#description)
+- [Structure](#structure)
+- [Usage](#usage)
+- [What is included](#what-is-included)
+- [Start](#start)
+- [Some Screenshots](#some-screenshots)
 ## Description
 This app imitate buying of tickets on movies in cinemas.
 User can: create an account, brows pages of movies or cinemas, buy tickets on seances, put money on the account also there is list of all cinemas and movies.
@@ -28,7 +35,7 @@ There is interceptor, which add jwt to header, in frontend.
 * MySql
 * RxJS
 
-## What's included
+## What is included
 * Interceptor,
 * Proxy server
 * Pagination
@@ -57,7 +64,8 @@ npm run start
 ```
 mvn clear install
 ```
-## Some Screenshots (For more see 'img' folder)
+## Some Screenshots
+> For more see 'img' folder
 ### Ticket Purchase Page
 ![](img/screenshot_places.png)
 ### Home Page
