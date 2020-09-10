@@ -1,6 +1,7 @@
 package com.cinema.api.controller;
 
 import com.cinema.api.model.LoginModel;
+import com.cinema.api.model.RefreshTokenModel;
 import com.cinema.api.model.UserModel;
 import com.cinema.api.security.jwt.JwtRefreshToken;
 import com.cinema.api.security.jwt.JwtTokenProvider;
@@ -16,8 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,11 +59,16 @@ public class SingInController {
             authenticationManager.authenticate(authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByUserModel(userModel);
+            if (refreshTokenModel != null) {
+                refreshTokenModelService.deleteRefreshTokenByToken(refreshTokenModel.getToken());
+            }
+
             String token = jwt.createToken(username, userModel.getRole());
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("currentUser", userModel);
-            response.put("refreshToken", refreshTokenModelService.generateRefreshToken());
+            response.put("refreshToken", refreshTokenModelService.generateRefreshToken(userModel).getToken());
             return ResponseEntity.ok(response);
 
         } catch (AuthenticationException e) {
@@ -79,13 +89,16 @@ public class SingInController {
     }
 
     @PostMapping("/refresh-token")
-    private ResponseEntity refreshToken(@RequestBody JwtRefreshToken token) {
-        if (refreshTokenModelService.getRefreshTokenByToken(token.getRefreshToken()) != null) {
-            String jwtToken = jwt.createToken(token.getUserModel().getFirstName(), token.getUserModel().getRole());
-            String refreshToken = refreshTokenModelService.generateRefreshToken().getToken();
+    private ResponseEntity refreshToken(@RequestBody String token) {
+        RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByToken(token);
+        if (refreshTokenModel != null) {
+
+            JwtRefreshToken jwtRefreshToken = jwt.createJwtRefreshToken(token, refreshTokenModel);
+
             Map<String, Object> response = new HashMap<>();
-            response.put("jwtToken", jwtToken);
-            response.put("refreshToken", refreshToken);
+            response.put("token", jwtRefreshToken.getJwtToken());
+            response.put("refreshToken", jwtRefreshToken.getRefreshToken());
+
             return ResponseEntity.ok(response);
         } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }

@@ -4,6 +4,7 @@ import { SignInComponent } from './../sign-in/sign-in.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { SignInService } from 'src/app/services/sign-in.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(public matDialog: MatDialog,
               private storage: StorageService,
-              private roleService: RoleService
+              private roleService: RoleService,
+              private signInService: SignInService
   ) { }
 
   ngOnInit() {
@@ -42,8 +44,12 @@ export class NavbarComponent implements OnInit {
   }
 
   public logout(): void {
-    this.storage.clearStorage();
-    window.location.reload();
+    this.signInService.deleteRefreshToken().subscribe(
+      () => {
+        this.storage.clearStorage();
+        window.location.reload();
+      }
+    );
   }
 
 }

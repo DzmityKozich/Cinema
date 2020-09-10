@@ -6,6 +6,7 @@ import { Token } from './../classes/token';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,11 @@ export class SignInService {
         this.storage.setToken(this.token);
       },
       (err) => {
-          this.snackBar.open('Check your email and password!', 'Ok', {duration: 1500});
-          console.log(err);
+        this.snackBar.open('Check your email and password!', 'Ok', { duration: 1500 });
+        console.log(err);
       },
       () => {
-        this.snackBar.open('Complited successfully!', 'Ok', {duration: 2000});
+        this.snackBar.open('Complited successfully!', 'Ok', { duration: 2000 });
         window.location.reload();
       }
     );
@@ -49,14 +50,32 @@ export class SignInService {
       const promise = this.http.post<any>(this.path + '/relogin', token).toPromise();
       promise.then(data => this.currentUser = data)
         .catch((err: any) => {
+          if (err.status === 500) {
+            this.refreshToken();
+          } else {
             this.storage.clearStorage();
-            window.location.reload();
           }
+          window.location.reload();
+        }
         );
       return promise;
     } else {
       return null;
     }
+  }
+
+  public refreshToken(): any {
+    const jwtRefreshToken = this.storage.getRefreshToken();
+    return this.http.post(this.path + '/refresh-token/', jwtRefreshToken).pipe(
+      tap((arg: Token) => {
+        this.storage.clearStorage();
+        this.storage.setToken(arg);
+      })
+    );
+  }
+
+  public deleteRefreshToken(): Observable<void> {
+    return this.http.delete<void>('/api/refresh-token/' + this.storage.getRefreshToken());
   }
 
   public getCurrentUser(): any {

@@ -28,6 +28,9 @@ public class User {
     @OneToMany(mappedBy = "billingUser")
     private List<Billing> billings;
 
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
+
     public User() {
     }
 
@@ -71,14 +74,12 @@ public class User {
         return idUser.equals(user.idUser) &&
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
-                role.equals(user.role) &&
-                login.equals(user.login) &&
-                billings.equals(user.billings);
+                role.equals(user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser, firstName, lastName, role, login, billings);
+        return Objects.hash(idUser, firstName, lastName, role);
     }
 
     @Override
@@ -88,8 +89,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role='" + role + '\'' +
-                ", login=" + login +
-                ", billings=" + billings +
                 '}';
     }
 }

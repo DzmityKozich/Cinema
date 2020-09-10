@@ -1,20 +1,18 @@
 package com.cinema.api.security.jwt;
 
-import com.cinema.api.model.UserModel;
-
-import java.util.Objects;
+import com.cinema.api.model.RefreshTokenModel;
 
 public class JwtRefreshToken {
 
     private String refreshToken;
-    private UserModel userModel;
+    private String jwtToken;
 
     public JwtRefreshToken() {
     }
 
-    public JwtRefreshToken(String refreshToken, UserModel userModel) {
+    public JwtRefreshToken(String refreshToken, String jwtToken) {
         this.refreshToken = refreshToken;
-        this.userModel = userModel;
+        this.jwtToken = jwtToken;
     }
 
     public String getRefreshToken() {
@@ -25,25 +23,11 @@ public class JwtRefreshToken {
         this.refreshToken = refreshToken;
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+    public String getJwtToken() {
+        return jwtToken;
     }
 
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JwtRefreshToken that = (JwtRefreshToken) o;
-        return refreshToken.equals(that.refreshToken) &&
-                userModel.equals(that.userModel);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(refreshToken, userModel);
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
     }
 }
