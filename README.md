@@ -9,6 +9,7 @@
 ## Description
 This app imitate buying of tickets on movies in cinemas.
 User can: create an account, brows pages of movies or cinemas, buy tickets on seances, top up the account also there is list of all cinemas and movies.
+On ticket purchase page user can see which places are taken or selected by other users.
 There is filtering movies by genre and pagination of pages. 
 Admin can: add new films, add new cinemas, add seances also there is possibility of sending emails for all users or for one. 
 
@@ -31,16 +32,17 @@ There is interceptor, which add jwt to header, in frontend.
 * Spring Data
 * Spring Security
 * Maven
-* JWT 
+* JWT with Refresh token
 * MySql
 * RxJS
+* Ngx-Bootstrap
 
 ## What is included
 * Interceptor,
 * Proxy server
 * Pagination
 * Security
-* JWT
+* JWT with Refresh token
 * Mail sendler
 * APP_INITIALIZER token
 * Custom Angular Pipe
