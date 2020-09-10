@@ -3,6 +3,7 @@ package com.cinema.api.controller;
 import com.cinema.api.model.LoginModel;
 import com.cinema.api.model.RefreshTokenModel;
 import com.cinema.api.model.UserModel;
+import com.cinema.api.security.jwt.JwtRefreshToken;
 import com.cinema.api.security.jwt.JwtTokenProvider;
 import com.cinema.api.service.LoginModelService;
 import com.cinema.api.service.RefreshTokenModelService;
@@ -58,14 +59,10 @@ public class SingInController {
             authenticationManager.authenticate(authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//            -----------------------------------------
-
             RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByUserModel(userModel);
             if (refreshTokenModel != null) {
                 refreshTokenModelService.deleteRefreshTokenByToken(refreshTokenModel.getToken());
             }
-
-//            -----------------------------------------
 
             String token = jwt.createToken(username, userModel.getRole());
             Map<String, Object> response = new HashMap<>();
@@ -91,19 +88,17 @@ public class SingInController {
 
     }
 
-//    @Transactional
-    @PostMapping("/refresh-token") // "/refresh/token"
+    @PostMapping("/refresh-token")
     private ResponseEntity refreshToken(@RequestBody String token) {
-        if (refreshTokenModelService.getRefreshTokenByToken(token) != null) {
-            RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByToken(token);
-            String username = loginModelService.getEmailByUser(refreshTokenModel.getUser());
-            String jwtToken = jwt.createToken(username, refreshTokenModel.getUser().getRole());
-            String refreshToken = refreshTokenModelService.generateRefreshToken(refreshTokenModel.getUser()).getToken();
+        RefreshTokenModel refreshTokenModel = refreshTokenModelService.getRefreshTokenByToken(token);
+        if (refreshTokenModel != null) {
+
+            JwtRefreshToken jwtRefreshToken = jwt.createJwtRefreshToken(token, refreshTokenModel);
+
             Map<String, Object> response = new HashMap<>();
-            response.put("token", jwtToken);
-            response.put("refreshToken", refreshToken);
-            refreshTokenModelService.deleteRefreshTokenByToken(token);
-            System.out.println("User " +  username + " got a new token at " + new Date().toString() +"!");
+            response.put("token", jwtRefreshToken.getJwtToken());
+            response.put("refreshToken", jwtRefreshToken.getRefreshToken());
+
             return ResponseEntity.ok(response);
         } else return ResponseEntity.badRequest().body("Invalid Refresh Token!");
     }

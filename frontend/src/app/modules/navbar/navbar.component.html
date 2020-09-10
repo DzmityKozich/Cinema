@@ -7,6 +7,5 @@
   <span><a [routerLink]="'/movies'">Movies</a></span>
   <span><a [routerLink]="'/cinemas'">Cinemas</a></span>
   <span *ngIf="isAuthorized"><a [routerLink]="'/user'">My Account</a></span>
-  <span><a (click)="refreshToken()">Refresh Token</a></span>
   <span *ngIf="isAuthorized"><a (click)="logout()">Logout</a></span>
 </mat-toolbar>

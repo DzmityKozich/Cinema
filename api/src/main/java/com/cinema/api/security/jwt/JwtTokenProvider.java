@@ -1,6 +1,8 @@
 package com.cinema.api.security.jwt;
 
+import com.cinema.api.model.RefreshTokenModel;
 import com.cinema.api.service.impl.LoginModelServiceImpl;
+import com.cinema.api.service.impl.RefreshTokenModelServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -29,6 +31,9 @@ public class JwtTokenProvider {
 
     @Autowired
     private LoginModelServiceImpl loginModelServiceImpl;
+
+    @Autowired
+    private RefreshTokenModelServiceImpl refreshTokenModelService;
 
     public static final String BEARER_ = "Bearer_";
     public static final String AUTHORIZATION = "Authorization";
@@ -63,5 +68,15 @@ public class JwtTokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+    }
+
+    public JwtRefreshToken createJwtRefreshToken(String token, RefreshTokenModel refreshToken) {
+        JwtRefreshToken jwtRefreshToken = new JwtRefreshToken();
+        String username = loginModelServiceImpl.getEmailByUser(refreshToken.getUser());
+        jwtRefreshToken.setJwtToken(createToken(username, refreshToken.getUser().getRole()));
+        jwtRefreshToken.setRefreshToken(refreshTokenModelService.generateRefreshToken(refreshToken.getUser()).getToken());
+        refreshTokenModelService.deleteRefreshTokenByToken(token);
+        System.out.println("User " +  username + " got a new token at " + new Date().toString() +"!");
+        return jwtRefreshToken;
     }
 }

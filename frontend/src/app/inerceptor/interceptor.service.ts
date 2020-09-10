@@ -12,14 +12,13 @@ export class InterceptorService implements HttpInterceptor {
 
   private readonly TOKEN = 'token';
   isTokenRefreshing = false;
-  refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private signInService: SignInService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem(this.TOKEN);
 
-    if (req.url.indexOf('refresh-token') !== -1 /*|| req.url.indexOf('relogin') !== -1*/) {
+    if (req.url.indexOf('refresh-token') !== -1) {
       return next.handle(req);
     }
 
@@ -39,12 +38,10 @@ export class InterceptorService implements HttpInterceptor {
   private handelError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isTokenRefreshing) {
       this.isTokenRefreshing = true;
-      // this.refreshTokenSubject.next(null);
 
       return this.signInService.refreshToken().pipe(
         switchMap((jwtRefreshToken: Token) => {
           this.isTokenRefreshing = false;
-          // this.refreshTokenSubject.next(jwtRefreshToken.token);
           return next.handle(this.setHeader(req, jwtRefreshToken.token));
         })
       );
