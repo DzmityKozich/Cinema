@@ -6,7 +6,7 @@ import { Token } from './../classes/token';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +70,15 @@ export class SignInService {
       tap((arg: Token) => {
         this.storage.clearStorage();
         this.storage.setToken(arg);
+      }),
+      catchError(err => {
+        if (err.status === 400) {
+          this.storage.clearStorage();
+          this.snackBar.open('Sorry, something went wrong', '');
+          return window.location.reload();
+        } else {
+          return err;
+        }
       })
     );
   }
